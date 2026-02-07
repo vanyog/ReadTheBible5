@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>preferencesDialog</class>
+ <widget class="QDialog" name="preferencesDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>477</width>
+    <height>323</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>View</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Interface language </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QComboBox" name="comboBox_4">
+           <item>
+            <property name="text">
+             <string>System Defaoult</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Български</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Македонски</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>English</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Footnotes</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QComboBox" name="comboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <item>
+            <property name="text">
+             <string>at the chapter end</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>in the chapter text</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Crossreferences</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QComboBox" name="comboBox_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <item>
+            <property name="text">
+             <string>at the chapter end</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>in the chapter text</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Max Visible Items</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QSpinBox" name="spinBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimum">
+            <number>2</number>
+           </property>
+           <property name="value">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Colors</string>
+           </property>
+           <property name="autoDefault">
+            <bool>true</bool>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="3">
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinimumSize</enum>
+           </property>
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Font:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Lucida Grande, 13</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Change</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="text">
+              <string>Qt dialog</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Other</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Proxy</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="margin">
+           <number>5</number>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout">
+            <property name="horizontalSpacing">
+             <number>6</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>6</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Proxy type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_3">
+              <item>
+               <property name="text">
+                <string>NoProxy</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>DefaultProxy</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Socks5Proxy</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>HttpProxy</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>HttpCachingProxy</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FtpCachingProxy</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Host name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lineEdit_2"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Port</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="lineEdit_3">
+              <property name="text">
+               <string>1080</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>User name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="lineEdit_4">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="lineEdit_5">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="echoMode">
+               <enum>QLineEdit::Password</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>CrossBgBible's path</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="focusPolicy">
+             <enum>Qt::ClickFocus</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>checkBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>preferencesDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>preferencesDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

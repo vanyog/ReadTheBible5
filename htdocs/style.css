@@ -1,0 +1,20 @@
+body { font-size:13pt; }
+
+#main_content{ position:absolute; top:0; left:210px;
+  padding-left:10px; padding-right:130px; 
+}
+
+#right_content{ float:right;
+  width:120px; height:600px;
+  border-style:solid; border-color:#ccc; 
+  border-top-width:0px;  border-left-width:1px; border-bottom-width:0px; border-right-width:0px;
+}
+
+hr {height:1px; background-color:#CCC; border:0px; margin-right:10px;}
+
+.left_menu {position:fixed; top:20px; left:10px; width:200px;
+  border-style:solid; border-color:#CCC; 
+  border-top-width:0px;  border-left-width:0px; border-bottom-width:0px; border-right-width:1px;
+}
+
+.toc { margin-left:40px; }

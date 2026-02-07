@@ -1,0 +1,221 @@
+
+                   PUBLIC DOMAIN GREEK NEW TESTAMENT
+
+          With variants identified and tagged for reference to
+            source of transmission and schools of emphasis.
+
+
+
+   - Textus Receptus
+     - Stephens 1550 Textus Receptus
+     - Scrivener 1894 Textus Receptus
+   - Byzantine Majority
+     - as identified by Von Soden and Hoskier, and utilized by Hodges &
+       Farstad, Robinson & Pierpont. [these editions agree on 99.75
+       percent of the Byzantine texts, and greater than 98 percent with
+       the TR.]
+   - Alexandrian
+     - as identified by United Bible Society, 3rd ed., and utilized by
+       modern translations such as the NIV and NASB.
+
+
+
+                       PUBLIC DOMAIN DECLARATION
+
+Jesus commanded in John 2:16,  "Do not make my Father's house a house of
+merchandise" (Greek: "mˆ poieite ton oikon tou patros mou oikon
+emporiou").  This Greek New Testament, with variant words identified and
+tagged, is Public Domain and may be used freely and for any purpose. The
+format of the files, as detailed later, is designed to provide readers
+with the ability to view significant various readings at a glance and
+determine the transmissional source of those variants, as well as the
+emphasis applied by various scholars.  This format is ideally suited to
+programmatic look-up and display.
+
+
+                         TRANSLITERATION METHOD
+
+The transliteration of the Greek is simple and follows that documented
+in Strong's Dictionary.  It is as follows:
+
+            Alpha    = a                 Nu       = n
+            Beta     = b                 Xi       = x
+            Gamma    = g                 Omicron  = o
+            Delta    = d                 Pi       = p
+            Epsilon  = e                 Rho      = r
+            Zeta     = z                 Sigma    = s  (final included)
+            Eta      = ˆ (ascii 136)     Tau      = t
+            Theta    = th                Upsilon  = u
+            Iota     = i                 Phi      = pf
+            Kappa    = k                 Chi      = ch
+            Lambda   = l                 Psi      = ps
+            Mu       = m                 Omega    = “ (ascii 147)
+
+
+If it is desirable to change this transliteration to something more
+in keeping with a Greek typewriter, simply use any text editor and
+perform the following global changes.
+
+  Psi:   'ps' to 'q'
+  Chi:   'ch' to 'c'
+  Phi:   'ph' to 'f'
+  Theta: 'th' to 'y'
+  Omega: '“'  to 'w'
+  Eta:   'ˆ'  to 'h'
+
+Be sure to perform these changes in the *exact* order listed, otherwise
+the wrong characters will be changed.  For instance, changing eta to 'h'
+before theta to 'y', would cause tau eta to appear as theta, and this
+would be erroneously changed to 'y'.  The above order has been tested
+and works.
+
+
+If representation of final sigma is desired, change the following.
+
+         's '    to 'v '
+         's[Hrt] to 'v[Hrt]'
+         's]'    to 'v]'
+         's>'    to 'v>'
+
+The [Hrt] is for Word Perfect, and may be different depending on your
+editor.  The idea is to get final sigma on blank delimted words, as well
+as words at end of line.  Hence, the [Hrt].
+
+
+                      ORTHOGRAPHIC CONSIDERATIONS
+
+The orthographic methods utilized are those established by George Ricker
+Berry in his edition of "The Interlinear Literal Translation of the
+Greek New Testament" (New York: Hinds & Noble, 1897).  This method
+follows Berry as stated in his "Introduction," p.ii [Greek modified to
+current transliteration format]:
+
+        we have...added the final -n to the third person
+        singular and plural in -si; third singular in -e; in
+        datives plural in -si &c.  For "out“" we have given
+        "out“s."
+
+This method is utilized solely for ease of pronunciation, and does not
+change the meaning of the Greek text. Note also that Berry's method is
+more in accord with the practice of the earliest Greek manuscripts than
+modern structured grammars would suggest.
+
+In the Majority book of the Revelation (alone) this method does not
+consistently apply, due to specific data collation requirements.
+
+
+                             VERSE NUMBERS
+
+For ease of reference, the verse numbering scheme has been made to
+conform closely to that found in most standard English versions of the
+New Testament, following the Authorized (King James) Version of 1611.
+Where considerate verse numbering differences occur, they are added to
+the text in brackets.
+
+
+             BREATHINGS, ACCENTS, AND DIACRITICAL MARKINGS
+
+All breathings, accents, capitalization, punctuation, and diacritical
+markings have been omitted.  These are primarily a product of modern
+editorship and are lacking in ancient mss.
+
+
+                      BOOK TITLES AND COLOPHONS
+
+Book titles do not appear within the present files. The Greek closing
+colophons to the epistles which appear in the English of the Authorized
+Version have been placed in brackets [] wherever they occur in the
+Stephens 1550 edition (only).
+
+
+
+                         VARIANT TAGGING METHOD
+
+The following tags have been applied to those words peculiar to one
+stream of transmission, or scholarly group which emphasizes a particular
+variant word.  Those words with no tag are do not differ in the various
+printings of the Greek.
+
+  t= Stephens 1550 Textus Receptus.
+
+      The text used is George Ricker Berry's edition of "The Interlinear
+      Literal Translation of the Greek New Testament."  This text is
+      virtually identical to Erasmus 1516, Beza 1598, and the actual
+      Textus Receptus: Elzevir 1633.  Berry states that "In the main
+      they are one and the same; and [any] of them may be referred to as
+      the Textus Receptus" (Berry, p.ii).
+
+      These early printed Greek New Testaments closely parallel the text
+      of the English King James Authorized Version of 1611, since that
+      version was based closely upon Beza 1598, which differed little
+      from its "Textus Receptus" predecessors. These Textus Receptus
+      editions follow the Byzantine Majority mss., which was predominant
+      during the period of manual copying of Greek New Testament
+      manuscripts.
+
+  s= Scrivener 1894 Textus Receptus
+
+      The text used is "ˆ Kainˆ Diathˆkˆ: The New Testament.  The Greek
+      Text underlying the English Authorised Version of 1611" (London:
+      Trinitarian Bible Society, 1977).  This is an unchanged reprint of
+      Scrivener's "The New Testament in the Original Greek according to
+      the Text followed in the Authorised Version" (Cambridge:
+      University Press, 1894, 1902).
+
+      Scrivner attempted to reconstruct the Greek text underlying the
+      English 1611 KJV for comparison to the 1881 English R.V. In those
+      places where the KJV followed the Latin Vulgate (Joh 10:16),
+      Scrivener inserted the greek reading, as opposed to
+      back-translating the Latin to Greek--which would have produced a
+      Greek word with no Greek mss. evidence.  Scrivner's work follows
+      the Byzantine Majority texts, and in many places matches the
+      modern Alexandrian based editions.
+
+  b= Byzantine Majority
+
+      The text is that identified by Freiherr Von Soden, "Die Schriften
+      des Neuen Testaments in ihrer altesten erreichbaren Textgestalt"
+      (Gottingen: Vandenhoeck und Ruprecht, 1911) and Herman C. Hoskier,
+      "Concerning the Text of the Apocalypse" (London: Bernard Quaritch,
+      1929).  This technique of Byzantine identification and weighting,
+      was utilized by Hodges and Farsted in "The Greek New Testament
+      according to the Majority Text" (Nashville: Thomas Nelson, 1982;
+      1985). It was subsequently utilized by Robinson and Pierpont,
+      resulting in 99.75 percent agreement between the two texts.
+
+      The Byzantine Majority text is closely identified with the Textus
+      Receptus editions, and well it should with greater than 98%
+      agreement. As Maurice Robinson pointed out in his edition of the
+      Byzantine Majority: "George Ricker Berry correctly noted that 'in
+      the main they are one and the same; and [any] of them may be
+      referred to as the Textus Receptus' (George Ricker Berry, ed.,
+      _The Interlinear Literal Translation of the Greek New Testament_
+      [New York: Hinds & Noble, 1897], p.ii).
+
+  a= Alexandrian
+
+      The differences are those identified by United Bible Society 3rd
+      ed., and utilized by modern translations such as NIV and NASB.
+      While these variants come from mss. with less textual evidence
+      than the Byzantine Majority, many of the differences are exactly
+      the same as those identified by the Byzantine Majority and
+      Scrivner.  The percentage of variants are quite small and occur
+      mainly in word placement, and spelling.  Many of the variations
+      identified are omitted or bracketed words, which is not surprising
+      due to a significantly smaller base of text from this stream of
+      transmission.
+
+
+                        WHERE TO FIND THIS TEXT
+
+The latest, most up-to-date and maintained copy of these files can
+be found on:
+
+    The Bible Foundation web site, http://www.bf.org
+
+Or by contacting:
+
+    Mark Fuller
+    1129 East Loyola Drive
+    Tempe, Arizona, 85282
+    602-829-8542

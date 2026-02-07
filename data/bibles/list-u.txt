@@ -1,0 +1,19 @@
+Ort=Православна Библия 1991 г.=cp1251=bg
+bd13=Българско библейско дружество 2013 ©=UTF-8=bg
+bd14=Българско библейско дружество 2014 ©=UTF-8=bg
+Veren=Издателство "Верен"=cp1251=bg
+#Veren-=Издателство "Верен" +=cp1251=bg
+bgnew=Новият завет - съвременен превод=cp1251=bg
+38=Издание 1940=cp1251=bg
+Tzrg-f="Цариградска" Библия=cp1251=bg
+Tzrg="Цариградски" Нов завет=cp1251=bg
+Mac2=Македонска Библија=UTF-8=mk
+Srb=Српска Библија=cp1251=sr
+Ru=Русская библия=cp1251=ru
+Rom=Biblia în limba română (Cornilescu)=cp1250=ro
+KJV=King James Version=cp1250=en
+KjvSn=King James Version with Strong's numbers=cp1250=en
+Asv=American Standard Version=cp1250=en
+#BBE=Bible in Basic English=cp1250=en
+GR=Ελληνική Καινή Διαθήκη=cp1253=gr
+Vul=Latin Vulgate=cp1251=la

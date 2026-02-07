@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="77703282-D590-44F2-B748-592E8DCFB660" Language="1026" Manufacturer="vanyog.com" Name="Компютърна Библия - версия 5" Version="5.0.17" UpgradeCode="DD1495A9-938E-4D02-ABBD-2EECD663E114" Codepage="1251">
+        <Package Languages="1026" SummaryCodepage="1251" Compressed="yes" InstallerVersion="150" Comments="Многоплатфорем софтуер за четене и изучаване на Библията." Manufacturer="Ваньо Георгиев" />
+        <UI />
+        <Media Id="1" Cabinet="Bible5.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="Program Files">
+                <Directory Id="VanyoG" Name="VanyoG">
+                    <Directory Id="Bible5" Name="Bible5">
+                        <Component Id="MainExeAndDlls" Guid="5F8897D2-5CD2-43AF-8DD6-3A578886A885">
+                            <File Id="Bible.exe" Name="Bible.exe" Source="..\release\Bible.exe" DiskId="1">
+                                <Shortcut Id="DesctopShortcut" Name="Компютърна Библия - версия 5" Directory="DesktopFolder" WorkingDirectory="Bible5" Icon="Bible.exe" Advertise="yes" Description="Програма за изучаване на Библията" />
+                            </File>
+                            <File Id="Bible_bg.qm" Name="Bible_bg.qm" Source="..\Bible_bg.qm" DiskId="1" />
+                            <File Id="copying.txt" Name="copying.txt" Source="..\copying.txt" />
+                            <File Id="mingwm10.dll" Name="mingwm10.dll" Source="..\rel\mingwm10.dll" />
+                            <File Id="QtCore4.dll" Name="QtCore4.dll" Source="..\rel\QtCore4.dll" />
+                            <File Id="QtGui4.dll" Name="QtGui4.dll" Source="..\rel\QtGui4.dll" />
+                            <File Id="QtNetwork4.dll" Name="QtNetwork4.dll" Source="..\rel\QtNetwork4.dll" />
+                            <File Id="unzip.exe" Name="unzip.exe" Source="..\rel\unzip.exe" />
+                            <File Id="update.exe" Name="update.exe" Source="..\rel\update.exe" />
+                            <File Id="libgcc_s_dw2_1.dll" Name="libgcc_s_dw2-1.dll" Source="..\rel\libgcc_s_dw2-1.dll" />
+                        </Component>
+                        <Directory Id="data" Name="data">
+                            <Component Id="data" DiskId="1" Guid="FE7E55E0-9E6C-4923-8DD3-619152F1B9B6">
+                                <File Id="style_w.css" Name="style-w.css" Source="..\rel\data\style-w.css" />
+                            </Component>
+                            <Directory Id="bibles" Name="bibles">
+                                <Component Id="bibles" DiskId="1" Guid="0C78ACD5-2158-4333-A66D-877A2C10C604">
+                                    <File Id="Bible_Structure.txt" Name="Bible_Structure.txt" Source="..\rel\data\bibles\Bible_Structure.txt" />
+                                    <File Id="list_u.txt" Name="list-u.txt" Source="..\rel\data\bibles\list-u.txt" />
+                                    <RemoveFile Id="OtherBibleFiles" Name="*.*" On="uninstall" />
+                                </Component>
+                                <Directory Id="English" Name="English">
+                                    <Component Id="English" Guid="D6577E9F-B250-45EC-8B11-95F9592C75CA">
+                                        <RemoveFile Id="ETFiles" Name="*.*" On="uninstall" />
+                                        <RemoveFolder Id="English" On="uninstall" Directory="English" />
+                                    </Component>
+                                </Directory>
+                                <Directory Id="Bulgarian" Name="Bulgarian">
+                                    <Component Id="Bulgarian" Guid="A3C98E3D-F3FE-4569-A06E-1E3579FCE99A">
+                                        <RemoveFile Id="BTFiles" Name="*.*" On="uninstall" />
+                                        <RemoveFolder Id="Bulgarian" On="uninstall" Directory="Bulgarian" />
+                                    </Component>
+                                </Directory>
+                            </Directory>
+                        </Directory>
+                        <Directory Id="images" Name="images">
+                            <Component Id="images" DiskId="1" Guid="6D0581AD-69EB-4966-971B-7C0231AC51E1">
+                                <File Id="Logo_2a.png" Name="Logo_2a.png" Source="..\images\Logo_2a.png" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+            </Directory>
+            <Directory Id="DesktopFolder" Name="Desktop" />
+        </Directory>
+        <Feature Id="MainExeFiles" Level="1">
+            <ComponentRef Id="MainExeAndDlls" />
+            <ComponentRef Id="data" />
+            <ComponentRef Id="bibles" />
+            <ComponentRef Id="images" />
+            <ComponentRef Id="English" />
+            <ComponentRef Id="Bulgarian" />
+        </Feature>
+        <Icon Id="Bible.exe" SourceFile="..\rel\Bible.exe" />
+        <Property Id="ARPURLUPDATEINFO" Value="http://readthebible.sourceforge.net" />
+        <Property Id="ARPCONTACT" Value="+359 898 265530" />
+        <Property Id="PUBLISHER" Value=" Ваньо Георгиев" />
+        <Property Id="ARPHELPLINK" Value="ARPHELPLINK" />
+        <Property Id="ARPHELPTELEPHONE" Value="ARPHELPTELEPHONE" />
+        <Property Id="ARPREADME" Value="ARPREADME" />
+        <Property Id="ARPCONTACTS" Value="ARPCONTACTS" />
+        <Property Id="ARPURLINFOABOUT" Value="ARPURLINFOABOUT" />
+    </Product>
+</Wix>

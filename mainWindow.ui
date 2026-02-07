@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>724</width>
+    <height>389</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Read the Bible 5</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>724</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Bible_1">
+    <property name="title">
+     <string>&amp;Bible</string>
+    </property>
+    <addaction name="actionOpen_again"/>
+    <addaction name="actionDownload_again"/>
+   </widget>
+   <widget class="QMenu" name="menu_Windows">
+    <property name="title">
+     <string>&amp;Windows</string>
+    </property>
+    <addaction name="action_Next_window"/>
+    <addaction name="separator"/>
+    <addaction name="action_Tile"/>
+    <addaction name="action_Cascade"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose_current"/>
+    <addaction name="actionClose_others"/>
+    <addaction name="actionClose_all"/>
+    <addaction name="separator"/>
+    <addaction name="actionCrossBGBible"/>
+    <addaction name="actionVersion_4_3"/>
+    <addaction name="separator"/>
+    <addaction name="action_Preferences"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="font">
+     <font>
+      <family>Dejavu Sans</family>
+     </font>
+    </property>
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="action_Searching_toolbox"/>
+    <addaction name="actionVerse_collectien_toolbox"/>
+    <addaction name="actionStay_on_top"/>
+    <addaction name="separator"/>
+    <addaction name="action_Preferences_2"/>
+    <addaction name="action_Color_preferences"/>
+    <addaction name="action_Styles"/>
+    <addaction name="separator"/>
+    <addaction name="actionBigger_font"/>
+    <addaction name="actionSmaller_font"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionHelp_Content"/>
+    <addaction name="actionReadme_file"/>
+    <addaction name="actionAbout_Program"/>
+    <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAbout_Bible_Version"/>
+    <addaction name="separator"/>
+    <addaction name="action_Web_site"/>
+    <addaction name="actionCheck_for_updates"/>
+   </widget>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionExport_as_html"/>
+    <addaction name="actionExport_as_txt"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_from_txt"/>
+    <addaction name="action_Import_links"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_application_folder"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Go">
+    <property name="font">
+     <font>
+      <family>Dejavu Sans</family>
+     </font>
+    </property>
+    <property name="title">
+     <string>&amp;Go</string>
+    </property>
+    <addaction name="actionNext_Verse"/>
+    <addaction name="actionPrevious_Verse"/>
+    <addaction name="actionVerse_for_reading"/>
+    <addaction name="separator"/>
+    <addaction name="actionNext_Chapter"/>
+    <addaction name="actionPrevious_Chapter"/>
+    <addaction name="separator"/>
+    <addaction name="action_Back"/>
+    <addaction name="action_Forward"/>
+    <addaction name="separator"/>
+    <addaction name="actionBook"/>
+    <addaction name="actionChapter"/>
+    <addaction name="actionVerse"/>
+    <addaction name="separator"/>
+    <addaction name="actionRandom_Verse"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Bible_1"/>
+   <addaction name="menu_View"/>
+   <addaction name="menu_Go"/>
+   <addaction name="menu_Windows"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomDockWidgetArea|Qt::TopDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Navigation</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
+     <property name="leftMargin">
+      <number>3</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>3</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="toolTip">
+        <string>Back</string>
+       </property>
+       <property name="text">
+        <string>&lt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="toolTip">
+        <string>Forward</string>
+       </property>
+       <property name="text">
+        <string>&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Lucida Grande'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Book&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Chapter</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Verse</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="minimumSize">
+    <size>
+     <width>153</width>
+     <height>243</height>
+    </size>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Searching</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>in selected books</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Words to search</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="MyListView" name="listView">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>List of all words</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="layoutMode">
+         <enum>QListView::Batched</enum>
+        </property>
+        <property name="uniformItemSizes">
+         <bool>true</bool>
+        </property>
+        <property name="batchSize">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="MyListView" name="listView_2">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Verses found</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_5">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Verse Collections</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <property name="leftMargin">
+      <number>4</number>
+     </property>
+     <property name="topMargin">
+      <number>4</number>
+     </property>
+     <property name="rightMargin">
+      <number>4</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>New</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>151</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="0" colspan="6">
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditKeyPressed</set>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::InternalMove</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectItems</enum>
+       </property>
+       <property name="columnCount">
+        <number>2</number>
+       </property>
+       <attribute name="headerDefaultSectionSize">
+        <number>200</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string notr="true">2</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>Unselect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="pushButton_7">
+       <property name="text">
+        <string>Edit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="pushButton_8">
+       <property name="text">
+        <string>Finish</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_Tile">
+   <property name="text">
+    <string>&amp;Tile</string>
+   </property>
+  </action>
+  <action name="action_Cascade">
+   <property name="text">
+    <string>&amp;Cascade</string>
+   </property>
+  </action>
+  <action name="actionClose_all">
+   <property name="text">
+    <string>Close &amp;all</string>
+   </property>
+  </action>
+  <action name="actionClose_others">
+   <property name="text">
+    <string>Close &amp;others</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
+   </property>
+  </action>
+  <action name="action_Searching_toolbox">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Searching toolbox</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionAbout_Program">
+   <property name="text">
+    <string>About Read the Bible 5</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="action_Next_window">
+   <property name="text">
+    <string>&amp;Next window</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+`</string>
+   </property>
+  </action>
+  <action name="actionExport_as_html">
+   <property name="text">
+    <string>Export as .&amp;html</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionClose_current">
+   <property name="text">
+    <string>Close current</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Стих</string>
+   </property>
+  </action>
+  <action name="action_Web_site">
+   <property name="text">
+    <string>&amp;Web site</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_updates">
+   <property name="text">
+    <string>Check for &amp;updates</string>
+   </property>
+  </action>
+  <action name="actionAbout_Bible_Version">
+   <property name="text">
+    <string>About Bible &amp;Version</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionNext_Verse">
+   <property name="text">
+    <string>Next Verse</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Down</string>
+   </property>
+  </action>
+  <action name="actionPrevious_Verse">
+   <property name="text">
+    <string>Previous Verse</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Up</string>
+   </property>
+  </action>
+  <action name="action_Preferences">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+,</string>
+   </property>
+  </action>
+  <action name="actionCrossBGBible">
+   <property name="text">
+    <string>CrossBgBible</string>
+   </property>
+  </action>
+  <action name="action_Back">
+   <property name="text">
+    <string>&amp;Back</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+,</string>
+   </property>
+  </action>
+  <action name="action_Forward">
+   <property name="text">
+    <string>&amp;Forward</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+.</string>
+   </property>
+  </action>
+  <action name="actionVersion_4_3">
+   <property name="text">
+    <string>Version 4.3</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionVerse_for_reading">
+   <property name="text">
+    <string>Verse for reading</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="action_Color_preferences">
+   <property name="text">
+    <string>&amp;Color preferences</string>
+   </property>
+  </action>
+  <action name="action_Preferences_2">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+,</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="actionExport_as_txt">
+   <property name="text">
+    <string>Export as .&amp;txt</string>
+   </property>
+  </action>
+  <action name="action_Styles">
+   <property name="text">
+    <string>&amp;Styles</string>
+   </property>
+  </action>
+  <action name="actionBook">
+   <property name="text">
+    <string>Book</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+B</string>
+   </property>
+  </action>
+  <action name="actionChapter">
+   <property name="text">
+    <string>Chapter</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+C</string>
+   </property>
+  </action>
+  <action name="actionVerse">
+   <property name="text">
+    <string>Verse</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+V</string>
+   </property>
+  </action>
+  <action name="actionBigger_font">
+   <property name="text">
+    <string>Bigger font</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionSmaller_font">
+   <property name="text">
+    <string>Smaller font</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionHelp_Content">
+   <property name="text">
+    <string>Help Content</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionDownload_again">
+   <property name="text">
+    <string>Download again</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRandom_Verse">
+   <property name="text">
+    <string>Random Verse</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+R</string>
+   </property>
+  </action>
+  <action name="action_Import_links">
+   <property name="text">
+    <string>Import &amp;links</string>
+   </property>
+  </action>
+  <action name="actionOpen_application_folder">
+   <property name="text">
+    <string>Open application &amp;folder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionReadme_file">
+   <property name="text">
+    <string>Readme file</string>
+   </property>
+  </action>
+  <action name="actionOpen_again">
+   <property name="text">
+    <string>Open again</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionStay_on_top">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Stay on top</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionImport_from_txt">
+   <property name="text">
+    <string>Import from .txt</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionNext_Chapter">
+   <property name="text">
+    <string>Next Chapter</string>
+   </property>
+   <property name="shortcut">
+    <string>PgDown</string>
+   </property>
+  </action>
+  <action name="actionPrevious_Chapter">
+   <property name="text">
+    <string>Previous Chapter</string>
+   </property>
+   <property name="shortcut">
+    <string>PgUp</string>
+   </property>
+  </action>
+  <action name="actionVerse_collectien_toolbox">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Verse collectien toolbox</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyListView</class>
+   <extends>QListView</extends>
+   <header>myListView.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>comboBox_4</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>listView</tabstop>
+  <tabstop>listView_2</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
