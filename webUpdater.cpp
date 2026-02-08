@@ -115,6 +115,7 @@ void WebUpdater::setHost(const QString & hostName){
 // Слот, който се извиква щом има данни за четене от сървъра
 //
 void WebUpdater::onReadyRead(const QHttpResponseHeader &resp){
+    Q_UNUSED(resp);
 //   showMessage("ReadyRead");
    int sc = 0; // Код на отговора от сървъра. 200 - успешен отговор
    QHttpResponseHeader rh = lastResponse();
@@ -130,6 +131,7 @@ void WebUpdater::onReadyRead(const QHttpResponseHeader &resp){
 // Слот, който се извиква при завършване на http заявката
 
 void WebUpdater::onRequestFinished( int id, bool error){
+   Q_UNUSED(id);
    if (error){
       showMessage( tr("An error occur trying to check for update:\n%1").arg(errorString()) );
       return;

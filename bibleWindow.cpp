@@ -142,6 +142,7 @@ void BibleWindow::readCorrection(){
 };
 
 void BibleWindow::downloadBible(const QString &bv){
+   Q_UNUSED(bv);
    if (yesNo( tr("Would you like to download Bible %1?").arg(windowTitle()) )!=YES) return;
    if (!fileDownloader){
       fileDownloader = new FileDownloader( this, downloadProgressBar, dounloadCancelButton);
@@ -502,6 +503,7 @@ void BibleWindow::onBDownloadDone(bool e){
 };
 
 void BibleWindow::onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ){
+   Q_UNUSED(exitCode); Q_UNUSED(exitStatus);
    showMessage( tr("Downloaging is finished. Now you can open the Bible %1.").arg(windowTitle()) );
    QFile( QFileInfo(zipFile).absoluteFilePath() ).remove();
 };
@@ -722,7 +724,7 @@ QString BibleWindow::toHtml(ExportDialog::Export e){
    r = "<h1>"+windowTitle()+"</h1>\n\n";
    for(int b=b1; b<=b2; b++){
       // Ако се експортира само текущата книга
-      if (b2=b1) 
+      if (b2==b1)
       r += "<h2>"+longTitles.value(b-1)+"</h2>\n\n";
       int c1=1, c2=bible_Structure->value(b-1)->size()-1;
       if (e==ExportDialog::Chapter){ c1=chapter(); c2=c1; ht = wordChapter(b)+" &nbsp; "+QString::number(c1);}
@@ -1004,6 +1006,7 @@ void BibleWindow::refreshText(){
 };
 
 void BibleWindow::closeEvent(QCloseEvent *event){
+   Q_UNUSED(event);
    writeSettings();
    emit closing(this);
 };

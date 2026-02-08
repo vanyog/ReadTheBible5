@@ -60,6 +60,7 @@ ConcordanceModel::ConcordanceModel(const QString &pth, const QByteArray &cd, Bib
 
 int ConcordanceModel::rowCount( const QModelIndex &parent ) const
 {
+    Q_UNUSED(parent);
    return wordCount();
 };
 
@@ -310,6 +311,7 @@ void Concordance::onEditTextChanged(const QString &t0){
 // Изпълнява се при смяна на глобалния индекс на текущия стих и прави този стих да стане селектиран
 // в списъка с намерени стихове
 void Concordance::onGlobalIndexChanged(BibleWindow *bw){
+    Q_UNUSED(bw);
    int ci = vListView->currentIndex().row(); // Номер на селектирания ред в списъка с намерени стихове
    int vi = cModel->bible->verseIndex();  // Локален индек на активния стих от Библията
    if (!vi) return; // Ако няма активен стих - изход
@@ -329,6 +331,7 @@ void Concordance::onPushButton(){
 
 // Изпълнява се при затваряне на Библията
 void Concordance::onBibleClosing(BibleWindow *bw){
+    Q_UNUSED(bw);
    cModel = 0;
 };
 

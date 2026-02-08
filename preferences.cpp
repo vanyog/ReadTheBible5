@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QFontDialog>
 #include <QNetworkProxy>
 
-Preferences::Preferences( QWidget * parent, Qt::WindowFlags f ){
+Preferences::Preferences( QWidget *parent, Qt::WindowFlags f ){
+    Q_UNUSED(parent); Q_UNUSED(f);
    ui.setupUi(this);
    connect(ui.comboBox,  SIGNAL(currentIndexChanged(int)), this, SLOT(onCurrentIndexChanged(int)));
    connect(ui.comboBox_2,SIGNAL(currentIndexChanged(int)), this, SLOT(onCurrentIndexChanged(int)));
@@ -80,12 +81,14 @@ QString Preferences::CrossBgBiblePath(){
 };
 
 void Preferences::showEvent(QShowEvent *event){
+    Q_UNUSED(event);
    ui.label_6->setText(font().family() + " " + QString::number(font().pointSize()) );
    proxyType = ui.comboBox_3->currentIndex();
    langIndex = ui.comboBox_4->currentIndex();
 };
 
 void Preferences::onCurrentIndexChanged(int i){
+   Q_UNUSED(i);
    emit optionChanged();
 };
 
@@ -117,6 +120,7 @@ void Preferences::onAccepted(){
    int i=ui.comboBox_3->currentIndex();
    bool ok;
    int port=ui.lineEdit_3->text().toInt(&ok,16);
+   Q_UNUSED(port);
    if (((proxyType!=i)
        ||ui.lineEdit_2->isModified()
        ||ui.lineEdit_3->isModified()

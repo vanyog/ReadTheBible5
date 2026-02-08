@@ -289,6 +289,7 @@ void BMainWindow::onBibleWindowClosing(BibleWindow *bw){
 };
 
 void BMainWindow::onBibleWindowDestroyed(QObject *obj){
+   Q_UNUSED(obj);
    tileOrCascade();
    ui.listView_2->setModel(0);
 //   concordance->setModel(0);
@@ -304,6 +305,7 @@ void BMainWindow::onBibleAnchorClicked(const QUrl &link){
 };
 
 void BMainWindow::onBookChanged(int i){
+   Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference();
    if (!ab) return;
    setNumberComboBox(ui.comboBox_3, ab->chapterCount(), ab->chapter() );
@@ -313,6 +315,7 @@ void BMainWindow::onBookChanged(int i){
 };
 
 void BMainWindow::onChapterChanged(int i){
+   Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference();
    if (!ab) return;
    setNumberComboBox(ui.comboBox_4, ab->verseCount(), ab->verse() );
@@ -321,6 +324,7 @@ void BMainWindow::onChapterChanged(int i){
 };
 
 void BMainWindow::onVerseChanged(int i){
+   Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference(true);
    if (!ab) return;
    emitIndexChanged(ab);

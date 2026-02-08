@@ -110,6 +110,7 @@ void FileDownloader::onDownloadDone(bool e){
 };
 
 void FileDownloader::onUnzipFinished(int ec, QProcess::ExitStatus es){
+   Q_UNUSED(ec); Q_UNUSED(es);
    showMessage(tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage));
 };
 
@@ -126,8 +127,10 @@ QString progDir(){
 void setProgDir(){
     prog_Dir = qApp->applicationFilePath();
     int l = QDir(prog_Dir).dirName().size();
+    Q_UNUSED(l);
 #ifdef Q_WS_MAC
     prog_Dir = prog_Dir.left(prog_Dir.size()-2*l-20);
+    Q_UNUSED(l);
 #else
     prog_Dir = QDir::currentPath()+"/";
 #endif
