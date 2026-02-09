@@ -383,8 +383,8 @@ void BibleWindow::import(const QString &fn){
    QDataStream ps(&cp);
    ts.setByteOrder(QDataStream::LittleEndian);
    ps.setByteOrder(QDataStream::LittleEndian);
-   QTextCodec *tc = QTextCodec::codecForName(versionCodec(bibleVersion()));
-   QTextCodec::setCodecForCStrings(tc);
+//   QTextCodec *tc = QTextCodec::codecForName(versionCodec(bibleVersion()));
+ //  QTextCodec::setCodecForCStrings(tc);
    qint32 p = 0;
    for(int i=0; i<tx.size(); i++){
        ps << p;
@@ -1124,6 +1124,7 @@ int pointer2(int i, const QString &fn){
 };
 
 QString textFragment(int p, const QString &fn, const QByteArray &cd){
+   Q_UNUSED(cd);
    QFile file(fn);
    if (!file.open(QFile::ReadOnly)) return "";
    QDataStream ds(&file);
@@ -1134,20 +1135,21 @@ QString textFragment(int p, const QString &fn, const QByteArray &cd){
    char b[r+1];
    ds.readRawData(b,r); b[r]=0;
    file.close();
-   QTextCodec *tc = QTextCodec::codecForName(cd);
-   QTextCodec::setCodecForCStrings(tc);
+//   QTextCodec *tc = QTextCodec::codecForName(cd);
+//   QTextCodec::setCodecForCStrings(tc);
    QString rt(b);
    return rt;
 };
 
 QStringList *textFragments(int p, int c, const QString &fn, const QByteArray &cd){
+   Q_UNUSED(cd);
    QFile file(fn);
    if (!file.open(QFile::ReadOnly)) return 0;
    QStringList *sl = new QStringList();
    QDataStream ds(&file);
    ds.setByteOrder(QDataStream::LittleEndian);
-   QTextCodec *tc = QTextCodec::codecForName(cd);
-   QTextCodec::setCodecForCStrings(tc);
+//   QTextCodec *tc = QTextCodec::codecForName(cd);
+//   QTextCodec::setCodecForCStrings(tc);
    file.seek(p);
    do{
       quint16 r;

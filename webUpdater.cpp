@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QApplication>
 #include <QStringList>
 #include <QFileInfo>
-#include <QHttpResponseHeader>
+//#include <QHttpResponseHeader>
 #include <QCloseEvent>
 
 WebUpdater::WebUpdater( const QString & hostName, quint16 port, QObject *parent, QProgressBar *pbar, QPushButton *buttn  )
-   :QHttp(hostName, port, parent)
+   :QObject(parent)
 {
    getID = 0;
    host = hostName;
@@ -70,7 +70,7 @@ void WebUpdater::checkForUpdates(const QString &pth, const QString &cv){
    QString vf = pth+"version1-"+system+".txt";
    notOK = false; // Флаг за неуспешна проверка. Ще стане true в случай на неуспех.
    // Четене на файла с информация от сървъра. Щом сървърът отговори се изпълнява слота onRequestFinished(int,bool)
-   getID = get(vf);
+//   getID = get(vf);
    path = pth;
    version = cv;
 };
@@ -114,8 +114,8 @@ void WebUpdater::setHost(const QString & hostName){
 //
 // Слот, който се извиква щом има данни за четене от сървъра
 //
-void WebUpdater::onReadyRead(const QHttpResponseHeader &resp){
-    Q_UNUSED(resp);
+void WebUpdater::onReadyRead(/*const QHttpResponseHeader &resp*/){
+/*    Q_UNUSED(resp);
 //   showMessage("ReadyRead");
    int sc = 0; // Код на отговора от сървъра. 200 - успешен отговор
    QHttpResponseHeader rh = lastResponse();
@@ -126,6 +126,7 @@ void WebUpdater::onReadyRead(const QHttpResponseHeader &resp){
       return;
    }
    emit onToUpdate(); // Странно!
+   */
 };
 
 // Слот, който се извиква при завършване на http заявката
@@ -133,7 +134,7 @@ void WebUpdater::onReadyRead(const QHttpResponseHeader &resp){
 void WebUpdater::onRequestFinished( int id, bool error){
    Q_UNUSED(id);
    if (error){
-      showMessage( tr("An error occur trying to check for update:\n%1").arg(errorString()) );
+//      showMessage( tr("An error occur trying to check for update:\n%1").arg(errorString()) );
       return;
    }
 };
@@ -142,7 +143,7 @@ void WebUpdater::onRequestFinished( int id, bool error){
 // Изпълнява се, когато има успешен отговор от сървъра и данни за четене
 //
 void WebUpdater::onToUpdate(){
-   QString v = QString( readAll() ); // Прочитат се всички данни от сървъра - съдържанието на файла с информация за нова версия
+   QString v = ""; //QString( readAll() ); // Прочитат се всички данни от сървъра - съдържанието на файла с информация за нова версия
    QStringList vl = v.split("\n");
    if (vl.size()<2) return;
    // Първият ред от файла с информация е номера на новата версия

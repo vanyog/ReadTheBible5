@@ -23,14 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FILEDOWNLOADER_H
 #define FILEDOWNLOADER_H
 
-#include <QHttp>
 #include <QFile>
 #include <QProcess>
+#include <QNetworkReply>
 
 class QProgressBar;
 class QPushButton;
 
-class FileDownloader: public QHttp
+// Обект извършващ изтегляне на файлове от Интернет.
+// Показва напредъка на изтеглянето варху QProgressBar лента.
+// С щракваане върху QPushButton изтеглянето може да се прекъсне.
+class FileDownloader: public QObject
 {
   Q_OBJECT
 
@@ -38,6 +41,7 @@ public:
   FileDownloader( QObject *parent=0, QProgressBar *pbar=0, QPushButton *button=0 );
   
   bool notDone;
+  QNetworkReply *replay;
 
   void downloadFile(const QString &of, const QString &lf);
   void downloadAndUnzip(const QString &of, const QString &lf, const QString &ms = QString());

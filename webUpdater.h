@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef WEBUPDATER_H
 #define WEBUPDATER_H
 
-#include <QHttp>
 #include <QFile>
 
 class FileDownloader;
 class QProgressBar;
 class QPushButton;
 
-class WebUpdater: public QHttp
+class WebUpdater: public QObject
 {
   Q_OBJECT
 
@@ -48,7 +47,7 @@ signals:
   void toUpdate(); // Излъчва се за да запачне обновяването с нова версия
 
 private slots:
-  void onReadyRead(const QHttpResponseHeader &resp);
+  void onReadyRead(/*const QHttpResponseHeader &resp*/);
   void onRequestFinished(int id, bool error);
   void onToUpdate();
   void onUDownloadDone(bool error);

@@ -29,12 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QFileInfo>
 #include <QDir>
 #include <QApplication>
+#include <QNetworkAccessManager>
+
+QNetworkAccessManager *netAManager = 0;
 
 FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButton *button)
-   :QHttp(parent)
+   :QObject(parent)
 {
   progressBar=pbar; pushButton=button;
   file=0; getID=0; notDone=false; doneMessage=""; zipFile=""; zipProcess=0;
+  if (!netAManager) netAManager = new QNetworkAccessManager;
   connect(this, SIGNAL(dataReadProgress(int,int)), this, SLOT(onDataReadProgress(int,int)));
   connect(this, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
 //  connect(this, SIGNAL(readyRead(const QHttpResponseHeader&)), this, SLOT(onReadyRead(const QHttpResponseHeader&)));
@@ -42,12 +46,13 @@ FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButto
 
 void FileDownloader::downloadFile(const QString &of, const QString &lf){
    QUrl url(of);
+   QNetworkRequest req(url);
    QDir dir( QFileInfo(lf).absolutePath() );
    if (!dir.exists()) dir.mkpath(dir.path());
-   file=new QFile(lf);// showMessage(lf);
+   file=new QFile(lf);
    if (file->open(QIODevice::WriteOnly)){
-      setHost(url.host());
-      getID=get(url.path(),file);
+      replay = netAManager->get(req);
+ //     getID=get(url.path(),file);
       notDone=false;
    }
    else showMessage( tr("Cannot write to file: %1.\n%2.").arg(lf).arg(file->errorString()) );
@@ -73,7 +78,7 @@ void FileDownloader::downloadAndUnzip(const QString &of, const QString &lf, cons
 };*/
 
 void FileDownloader::onDataReadProgress(int d, int t){
-   int sc = 0;
+/*   int sc = 0;
    QHttpResponseHeader rh = lastResponse();
    if (rh.isValid()) sc =rh.statusCode();
    if (sc!=200){
@@ -85,15 +90,15 @@ void FileDownloader::onDataReadProgress(int d, int t){
       progressBar->show();
       progressBar->setMaximum(t);
       progressBar->setValue(d);
-   };
+   };*/
 };
 
 void FileDownloader::onRequestFinished(int id, bool error){
-   if (progressBar)  progressBar->hide();
+/*   if (progressBar)  progressBar->hide();
    if (pushButton)  pushButton->hide();
    if ((id==getID) && file) file->close();
    if (error) showMessage( tr("Error: %1.\nCheck your internet connection.").arg(errorString()) );
-   if (id==getID) file=0;
+   if (id==getID) file=0;*/
 };
 
 void FileDownloader::onDownloadDone(bool e){
