@@ -29,7 +29,7 @@ class ExportDialog: public QDialog
   Q_OBJECT
 
 public:
-  ExportDialog( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+  ExportDialog( QWidget * parent = 0, Qt::WindowFlags f = Qt::WindowFlags() );
 
   enum Export { Chapter, Book, Bible };
 

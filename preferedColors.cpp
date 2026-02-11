@@ -138,5 +138,5 @@ void PreferedColor::readSettings(QSettings *s){
 
 QColorDialog::ColorDialogOptions PreferedColor::cdOptions(){
   if (ui.checkBox->isChecked()) return QColorDialog::DontUseNativeDialog;
-  else return 0;
+  else return QColorDialog::ColorDialogOption();
 };

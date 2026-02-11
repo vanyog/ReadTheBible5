@@ -103,7 +103,7 @@ void Preferences::onBrowse(){
 
 void Preferences::onFontChange(){
    bool ok;
-   QFontDialog::FontDialogOptions opt = 0;
+    QFontDialog::FontDialogOptions opt = QFontDialog::FontDialogOptions();
    if (ui.checkBox->checkState()==Qt::Checked) opt = QFontDialog::DontUseNativeDialog;
    QFont f = QFontDialog::getFont(&ok,font(),this,tr("Change Font"), opt);
    if (ok){

@@ -32,7 +32,7 @@ class FilterDialog: public QDialog
    Q_OBJECT
 
 public:
-   FilterDialog(ConcordanceModel *cm, QWidget *parent=0, Qt::WindowFlags f=0);
+   FilterDialog(ConcordanceModel *cm, QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags());
 
 protected:
 

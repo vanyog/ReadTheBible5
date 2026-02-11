@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "bibleWindow.h"
 #include "showMessage.h"
+#include "myDecode.h"
 #include "myFileRoutines.h"
 #include "language.h"
 #include "fileDownloader.h"
@@ -29,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QHash>
 #include <QFileInfo>
 #include <QApplication>
-#include <QTextCodec>
+//#include <QTextCodec>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QTextBlock>
@@ -77,7 +78,7 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 #else
    QString sf = "style-w.css";
 #endif
-   if (QFileInfo(dir+sf).exists()) css = fileContent(dir+sf);
+   if (QFileInfo::exists(dir+sf)) css = fileContent(dir+sf);
    else css = defaultCss();
    process = 0;
    setWindowTitle( versionCaption(bv) );
@@ -101,9 +102,9 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 bool BibleWindow::readTitles(){
    QString fn  = dir+"BibleTitles.txt";
    QString fnu = dir+"BibleTitles-u.txt";
-   if (!QFileInfo(fn).exists()) return false;
+   if (!QFileInfo::exists(fn)) return false;
    QString fc="";
-   if (QFileInfo(fnu).exists()) fc = fileContent(fnu, "UTF-8" );
+   if (QFileInfo::exists(fnu)) fc = fileContent(fnu, "UTF-8" );
    else fc = fileContent(fn, versionCodec(bibleVersion()) );
    if (!fc.size()) return false;
    QStringList fl = fc.split("\n");
@@ -126,7 +127,7 @@ bool BibleWindow::readTitles(){
 
 void BibleWindow::readCorrection(){
   QString fn = dir+"_Diff_.txt";
-  if ( !QFileInfo(fn).exists() ) return;
+  if ( !QFileInfo::exists(fn) ) return;
   QString fc = fileContent(fn);
   QStringList fl = fc.split("\n");
   for(int i=0; i<fl.size(); i++){
@@ -191,7 +192,7 @@ void BibleWindow::createLinksBin(){
    for (int i=0; i<lns.size(); i++){ // Обработва се всеки ред
       QString ln = lns.at(i).trimmed();   // Това е i-ия ред
       if (!ln.size()) continue;
-      QStringList lks = ln.split(QString(9)); // Реда се разделя на две части от табулатор
+      QStringList lks = ln.split(QChar(9)); // Реда се разделя на две части от табулатор
       if (lks.size()<2){                      // Ако няма табулатор реда се прескача
         showMessage( tr("There is no Tab symbol in this line:\n%1").arg(ln) );
         continue;
@@ -251,7 +252,7 @@ void BibleWindow::import(const QString &fn){
      // Заглавията на книгите са на два реда
      bt = bt + " " + fc.at(i); i++; // Добавя се втория ред
      if (bt.trimmed()!=longTitles.at(b-1)){ // Ако заглавието не е коректно обработката се прекратява
-       showMessage(tr("Incorrect Book title.<br>%1<br>Must be %2").arg(bt).arg(longTitles.at(b-1)));
+       showMessage(tr("Incorrect Book title.<br>%1<br>Must be %2").arg(bt,longTitles.at(b-1)));
        return;
      }
      for(int c=1; c<=chapterCount(b); c++){ // Цикъл за четене на главите ат поредната книга с номер b
@@ -285,8 +286,7 @@ void BibleWindow::import(const QString &fn){
           }
           else {   
              if (!vt.startsWith(vn)){ // Ако номерът на стиха е некоректен обработката се прекратява
-               showMessage(tr("%1<br>Incorrect verse number in line<br>%2.<br>Must be %3")
-                .arg(r).arg(vt).arg(vn)
+               showMessage(tr("%1<br>Incorrect verse number in line<br>%2.<br>Must be %3").arg(r,vt,vn)
                );
                return;
              }
@@ -360,7 +360,7 @@ void BibleWindow::import(const QString &fn){
          if (!wl.contains(w)) wl << w;
       } 
    }
-   qSort(wl.begin(), wl.end(), caseInsensitiveLessThan);
+   std::sort(wl.begin(), wl.end(), caseInsensitiveLessThan);
    
    // Изтриване на думите с главна буква, ако се срещат и с малка буква
    for(int i=wl.count()-1; i>0; i--) if (wl.at(i).toLower()==wl.at(i-1).toLower()){
@@ -371,14 +371,14 @@ void BibleWindow::import(const QString &fn){
    // Ако новата директория не съществува, то тя се създава
    QString nn = bible_Version + "-";
    QString np = bible_Path;
-   if (!QFileInfo(np+nn).exists()) QDir(np).mkdir(nn);
+   if (!QFileInfo::exists(np+nn)) QDir(np).mkdir(nn);
    nn = np+nn;
 
    // Запис на текста
    QFile ct(nn+"/CompactText.bin");
    QFile cp(nn+"/CompactPoint.bin");
-   ct.open(QIODevice::WriteOnly);
-   cp.open(QIODevice::WriteOnly);
+   bool ok = ct.open(QIODevice::WriteOnly);
+   ok = cp.open(QIODevice::WriteOnly);
    QDataStream ts(&ct);
    QDataStream ps(&cp);
    ts.setByteOrder(QDataStream::LittleEndian);
@@ -390,7 +390,7 @@ void BibleWindow::import(const QString &fn){
        ps << p;
        qint16 c = tx.at(i).size();
        ts << c; //countedMessage(tx.at(i+" "+QString::number(p));
-       QByteArray ba = tx.at(i).toAscii();
+       QByteArray ba = tx.at(i).toUtf8();
        ts.writeRawData(ba.data(),c);
 //       ts << ba;
        p = ct.pos();
@@ -405,7 +405,7 @@ void BibleWindow::import(const QString &fn){
    saveToFile(nn+"/WordList.txt",wl.join("\r\n"));
 #endif
    cp.setFileName(nn+"/WordPoint.bin");
-   cp.open(QIODevice::WriteOnly);
+   ok = cp.open(QIODevice::WriteOnly);
    ps.setDevice(&cp);
    p = 0;
    for(int i=0; i<wl.size(); i++){
@@ -458,8 +458,9 @@ void BibleWindow::import(const QString &fn){
    // Записване на конкорданса
    ct.setFileName(nn+"/Conc.bin");
    cp.setFileName(nn+"/ConcP.bin");
-   ct.open(QIODevice::WriteOnly);
-   cp.open(QIODevice::WriteOnly);
+   ok = ct.open(QIODevice::WriteOnly);
+   ok = cp.open(QIODevice::WriteOnly);
+   Q_UNUSED(ok)
    ts.setDevice(&ct);
    ps.setDevice(&cp);
    for(int i=0; i<wl.size(); i++){
@@ -589,7 +590,7 @@ QString BibleWindow::addTags(const QString &s0){
    for(i = 0; i<s.size(); i++){
       switch (s.at(i).unicode()){
       case 0x7B: // {
-         if (i>j1) r += s.mid( j1, i-j1-1 ); 
+         if (i>j1) r += s.mid( j1, i-j1-1 );
          j1 = i+1;
          f2 = true;
          break;
@@ -625,7 +626,7 @@ QString BibleWindow::addTags(const QString &s0){
 
 QString BibleWindow::addLinks(int i, int v){
    QString r = ""; QString lnk = "";
-   if (QFileInfo(dir+"LinksP.bin").exists()){
+   if (QFileInfo::exists(dir+"LinksP.bin")){
       int p = pointer(i-1,dir+"LinksP.bin"); 
       if (p>=0){//showMessage(p);
          QString ln = QString::number(p);
@@ -881,6 +882,7 @@ int BibleWindow::verseIndex(const QString &s){
    return referenceToIndex(b,c,v,bible_Structure);
 };
 
+// Задаване на стих по индекс.
 void BibleWindow::setVerseByIndex(int i){
    int b,c,v;
    indexToRefrence(i,&b,&c,&v,bible_Structure);
@@ -1022,7 +1024,7 @@ QString versionCaption(const QString &bv){
 };
 
 QByteArray versionCodec(const QString &bv){
-   return version_Codec[bv].toAscii();
+   return version_Codec[bv].toUtf8();
 };
 
 QString versionLanguage(const QString &bv){
@@ -1123,8 +1125,7 @@ int pointer2(int i, const QString &fn){
    return r;
 };
 
-QString textFragment(int p, const QString &fn, const QByteArray &cd){
-   Q_UNUSED(cd);
+QString textFragment(int p, const QString &fn, const QString &cd){
    QFile file(fn);
    if (!file.open(QFile::ReadOnly)) return "";
    QDataStream ds(&file);
@@ -1132,31 +1133,29 @@ QString textFragment(int p, const QString &fn, const QByteArray &cd){
    file.seek(p);
    quint16 r;
    ds >> r; //countedMessage(QString::number(p)+" "+QString::number(r));
-   char b[r+1];
-   ds.readRawData(b,r); b[r]=0;
+   QByteArray b;
+   b.resize(r);
+   ds.readRawData(b.data(),r);
    file.close();
-//   QTextCodec *tc = QTextCodec::codecForName(cd);
-//   QTextCodec::setCodecForCStrings(tc);
-   QString rt(b);
+   QString rt = myDecode(b,cd);
    return rt;
 };
 
-QStringList *textFragments(int p, int c, const QString &fn, const QByteArray &cd){
-   Q_UNUSED(cd);
+QStringList *textFragments(int p, int c, const QString &fn, const QString &cd){
    QFile file(fn);
    if (!file.open(QFile::ReadOnly)) return 0;
    QStringList *sl = new QStringList();
    QDataStream ds(&file);
    ds.setByteOrder(QDataStream::LittleEndian);
-//   QTextCodec *tc = QTextCodec::codecForName(cd);
-//   QTextCodec::setCodecForCStrings(tc);
    file.seek(p);
    do{
       quint16 r;
       ds >> r;
-      char b[r+1];
-      ds.readRawData(b,r); b[r]=0;
-      QString rt(b);
+      QByteArray b;
+      b.resize(r);
+      ds.readRawData(b.data(),r);
+      b[r]=0;
+      QString rt = myDecode(b,cd);
       if (rt.size()==0) showMessage("Null string");
       sl->append(rt);
       c--;

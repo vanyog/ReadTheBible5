@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "history.h"
-#include "showMessage.h"
+//#include "showMessage.h"
 
 History::History(){
   c_i=-1; m_i=-1;
@@ -49,3 +49,11 @@ int History::forward(){
    return r;
 
 };
+
+int History::count(){
+    return list.size();
+}
+
+int History::index(){
+    return c_i;
+}

@@ -60,6 +60,7 @@ BMainWindow::BMainWindow(QWidget *parent)
    ui.setupUi(this);
    ui.progressBar->hide();
    ui.pushButton->hide();
+   ui.dockWidget_2->setTitleBarWidget(new QWidget());
    
    setDownloadWidgets(ui.progressBar, ui.pushButton);
    mdiArea = ui.mdiArea;
@@ -323,6 +324,7 @@ void BMainWindow::onChapterChanged(int i){
    emitIndexChanged(ab);
 };
 
+// Смяна на стиха оп падащия списък
 void BMainWindow::onVerseChanged(int i){
    Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference(true);
@@ -330,6 +332,7 @@ void BMainWindow::onVerseChanged(int i){
    emitIndexChanged(ab);
 };
 
+// При команда следващ стих
 void BMainWindow::onGoNextVerse(){
    BibleWindow *ab = activeBible();
    if (!ab) return;
@@ -337,7 +340,7 @@ void BMainWindow::onGoNextVerse(){
    if (i<ab->verseTotalCount()) i++;
    else showMessage(tr("Last verse is reached %.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
-   ui.comboBox_4->setFocus();
+ //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoPreviousVerse(){
@@ -346,7 +349,7 @@ void BMainWindow::onGoPreviousVerse(){
    int i = ab->verseIndex();
    if (i>1) i--;
    goByIndex(ab,i);
-   ui.comboBox_4->setFocus();
+ //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoNextChapter(){
@@ -376,11 +379,13 @@ void BMainWindow::onGoVerseForReadieng(){
 };
 
 void BMainWindow::onGoBack(){
-   goByGlobalIndex(history->back());
+    int i = history->back();
+    goByGlobalIndex(i);
 };
 
 void BMainWindow::onGoForward(){
-   goByGlobalIndex(history->forward());
+    int i = history->forward();
+    goByGlobalIndex(i);
 };
 
 void BMainWindow::onGoBookList(){
@@ -403,7 +408,7 @@ void BMainWindow::onGoRandomVerse(){
   if (!ab) return;
   static int r = 1;
   if (r) { srand((unsigned)time(0)); r = 0; }
-  int i = rand();
+  int i = arc4random();
   i = i % ab->verseTotalCount();
   goByIndex(ab,i);
 };
@@ -559,7 +564,7 @@ void BMainWindow::onHelpReadme(){
 
 void BMainWindow::onHelpAboutProgram(){
    showMessage(tr("Read the Bible 5 - v%1<br>Copyright (C) 2008  Vanyo Georgiev<br>&lt;<A HREF=mailto:%3>%3</A>&gt;<br><A HREF=%2>%2</A><br><br>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.<br><br>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br><br>You should have received a copy of the GNU General Public License along with this program; if not, write to the<br><br>Free Software Foundation, Inc.,<br>51 Franklin Street, Fifth Floor,<BR>Boston, MA  02110-1301, USA.").
-       arg(progVersion).arg(progURL+interfaceLanguage()).arg(progEmail) );
+       arg(progVersion).arg(progURL+interfaceLanguage(),progEmail) );
 };
 
 void BMainWindow::onHelpAboutBibleVersion(){
@@ -589,7 +594,6 @@ void BMainWindow::onVerseClick(BibleWindow *ab, int i){
 
 // Намира индекса на текста, изписан в QComboBox
 // и прави този индекс текущ.
-
 void setIndexByText(QComboBox *cb){
    QString s = cb->currentText();
    int i = cb->findText(s,Qt::MatchFixedString);
@@ -598,8 +602,7 @@ void setIndexByText(QComboBox *cb){
 
 // Установява книга,глава,стих на активния прозорец
 // според изписаното в трите comboBox-а.
-// Ако si се установяват индексите да съответстват на изписаното.
-
+// Ако si==true се установяват индексите да съответстват на изписаното.
 BibleWindow * BMainWindow::setActiveBibleReference(bool si){
    BibleWindow *ab = activeBible();
    if (!ab) return 0;
@@ -608,11 +611,6 @@ BibleWindow * BMainWindow::setActiveBibleReference(bool si){
      setIndexByText(ui.comboBox_3);
      setIndexByText(ui.comboBox_4);
    }
-/*   ab->setReference(
-      ui.comboBox_2->currentIndex(),
-      ui.comboBox_3->currentIndex(),
-      ui.comboBox_4->currentIndex()
-   );*/
    QString s = ui.comboBox_2->currentText();
    int i = ui.comboBox_2->findText(s,Qt::MatchFixedString);
    if (i<0) return ab;
@@ -624,12 +622,16 @@ BibleWindow * BMainWindow::setActiveBibleReference(bool si){
    return ab;
 };
 
+// Изпращане на сигнал, че е променен активния стих
 void BMainWindow::emitIndexChanged(BibleWindow *ab){
-   int gi = ab->localToGlobalIndex();
-   if (gi!=globalVerseIndex()) history->push(gi);
-   setGlobalVerseIndex(gi);  //showMessage(gi);
-   emit globalIndexChanged(ab);
+   int gi = ab->localToGlobalIndex(); // Глобален индекс на активния сих от активната библия
+    if (gi!=globalVerseIndex()){ // Записване в историята, ако е различен от текущия
+        history->push(gi);
+    }
+   setGlobalVerseIndex(gi);     // Новия става текущ
+   emit globalIndexChanged(ab); // Изпращане на сигнал
    ab->setReadPos();
+   updateNavButtons();
 };
 
 BibleWindow *BMainWindow::openBible(const QString &bv){
@@ -720,7 +722,7 @@ void BMainWindow::readSettings(){
      if (st.size()) setBiblePath(st);
    }
 
-   // Стойността "downloadSite" се въвежда ръчно, ако е необходимо сайта за изтагляне да е различен от подразбиращия се
+   // Стойността "downloadSite" се въвежда ръчно, ако е необходимо сайта за изтeгляне да е различен от подразбиращия се
    st = s.value("downloadSite").toString();
    if (st.size()) setDownloadSite(st);
    webUpdater->setHost( downloadSite() );
@@ -811,6 +813,7 @@ void BMainWindow::createBActions(){
    ui.menu_Bible_1->insertAction(ba,ac);
 };
 
+// Пълни падащите списъци за избиране на номера (на глави и стихове)
 void BMainWindow::setNumberComboBox(QComboBox *cb, int max, int curr){
    cb->clear();
    if (max<1) max=1;
@@ -852,12 +855,24 @@ void BMainWindow::tileOrCascade(){
    }
 //   showMessage("T or C");
    if (doTile){
-     mdiArea->tileSubWindows();
+       mdiArea->tileSubWindows();
    }
-   else mdiArea->cascadeSubWindows();
+   else
+       mdiArea->cascadeSubWindows();
    emit scrollToActiveVerse();
 };
 
+// Прави активни бутоните за навигация
+void BMainWindow::updateNavButtons(){
+    bool p3 = history->index()>0;
+    bool p4 = history->index() < history->count()-1;
+    ui.pushButton_3->setEnabled(p3);
+ //   if(p3) ui.pushButton_3->setFocus();
+    ui.pushButton_4->setEnabled(p4);
+ //   if(p4) ui.pushButton_4->setFocus();
+}
+
+// Ъпдейтва контролите при смяна на текущия стих
 void BMainWindow::updateControls(BibleWindow *ab){
    int b = ab->book()-1;
    if ( b != ui.comboBox_2->currentIndex() ){
@@ -881,16 +896,16 @@ void BMainWindow::updateControls(BibleWindow *ab){
    }
 };
 
-// Установява флагът activeBibleMaximized - дали активната библия е максимицирана
-
+// Установява флагът activeBibleMaximized, който означава дали активната библия е максимицирана
 void BMainWindow::checkMaximization(){
    QMdiSubWindow *aw = mdiArea->activeSubWindow();
    if (aw) activeBibleMaximized = aw->windowState().testFlag(Qt::WindowMaximized);
 };
 
+// Отиване до номер на стих i от текущата библия
 void BMainWindow::goByIndex(BibleWindow *ab, int i){
-   ab->setVerseByIndex(i);
-   updateControls(ab);
+    ab->setVerseByIndex(i);
+    updateControls(ab);
 };
 
 void BMainWindow::goByGlobalIndex(int i){

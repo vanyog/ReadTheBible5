@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "concordance.h"
 #include "myListView.h"
+#include "myDecode.h"
 #include "showMessage.h"
 #include "preferences.h"
 #include "filterDialog.h"
@@ -46,7 +47,7 @@ void setFileNOpened(bool b){
 
 //-----------------ConcordanceModel---------
 
-ConcordanceModel::ConcordanceModel(const QString &pth, const QByteArray &cd, BibleWindow *parent)
+ConcordanceModel::ConcordanceModel(const QString &pth, const QString &cd, BibleWindow *parent)
    :QAbstractListModel(parent)
 {
    path = pth;
@@ -85,10 +86,16 @@ QString ConcordanceModel::word(int i) const
    QFile file(path + "WordList.txt");
    fileNOpened = !file.open(QFile::ReadOnly);
    if (fileNOpened) return "";
-   QTextStream ds(&file);
-   ds.setCodec(codec);
-   if (!ds.seek(p)) return "seek() not done";
-   QString r = ds.readLine();
+   QDataStream ds(&file);
+   if (p>0 && !ds.skipRawData(p)) return "seek() not done";
+   QByteArray line;
+   char ch;
+   while (!ds.atEnd()) {
+       ds.readRawData(&ch, 1);
+       if (ch == '\n') break;
+       line.append(ch);
+   }
+   QString r = myDecode(line,codec);
    file.close();
    return r;
 };

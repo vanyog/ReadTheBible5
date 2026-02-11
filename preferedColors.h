@@ -32,7 +32,7 @@ class PreferedColor: public QDialog
   Q_OBJECT
 
 public:
-  PreferedColor(QWidget *parent = 0, Qt::WindowFlags f=0);
+  PreferedColor(QWidget *parent = 0, Qt::WindowFlags f=Qt::WindowFlags());
   const QColor &baseColor() const;
   const QColor &bibleTextColor() const;
   const QColor &activeVerseColor() const;

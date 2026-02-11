@@ -30,7 +30,7 @@ class Preferences: public QDialog
   Q_OBJECT
 
 public:
-  Preferences( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+  Preferences( QWidget * parent = 0, Qt::WindowFlags f = Qt::WindowFlags() );
 
    void writeSettings(QSettings *s);
    void readSettings(QSettings *s);

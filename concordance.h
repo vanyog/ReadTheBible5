@@ -52,7 +52,7 @@ public:
    QStringList words;  // Списък на потърсените думи
    QList<bool> searchIn; // Списък от флагове в кои книги да се търси
 
-   ConcordanceModel( const QString &pth, const QByteArray &cd, BibleWindow *parent = 0);
+   ConcordanceModel( const QString &pth, const QString &cd, BibleWindow *parent = 0);
 
    int rowCount( const QModelIndex &parent = QModelIndex() ) const; // Предефинирана функция
    QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const; // Предефинирана функция
@@ -71,7 +71,7 @@ public:
    
 private:
    QString path;
-   QByteArray codec;
+   QString codec;
    
    QList<int> *filter(QList<int> *l); 
 };

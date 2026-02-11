@@ -66,7 +66,7 @@ private slots:
    void onBibleWindowActivated(QMdiSubWindow *w);
    void onBibleWindowClosing(BibleWindow *bw);
    void onBibleWindowDestroyed(QObject *obj);
-   void onBibleAnchorClicked(const QUrl &link);
+   void onBibleAnchorClicked(const QUrl &link); // Кликване върху препратка
    void onBookChanged(int i);
    void onChapterChanged(int i);
    void onVerseChanged(int i);
@@ -131,7 +131,7 @@ private:
    QString lastVersion;
 
    void fileExport(const QString &ex);
-   BibleWindow * setActiveBibleReference(bool si = false);
+   BibleWindow *setActiveBibleReference(bool si = false);
    void emitIndexChanged(BibleWindow *cb);
    BibleWindow *openBible(const QString &bv);
    bool isOpened(const QString &bv);
@@ -140,6 +140,7 @@ private:
    void createBActions();
    void setNumberComboBox(QComboBox *cb, int max, int curr);
    BibleWindow *activeBible();
+   void updateNavButtons();
    void updateControls(BibleWindow *ab);
    void checkMaximization();
    void goByIndex(BibleWindow *ab, int i);

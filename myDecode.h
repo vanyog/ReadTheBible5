@@ -17,35 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef HISTORY_H
-#define HISTORY_H
+#ifndef MYDECODE_H
+#define MYDECODE_H
 
-//#include "bibleWindow.h"
+#include <QByteArray>
+#include <QString>
 
-#include <QList>
-#include <QObject>
-
-// Обект, който поддържа история на отваряните през препратки стихове
-
-class History: public QObject
-{
-  Q_OBJECT
-
-public:
-  History();
-  
-  void push(int i);
-  int back();
-  int forward();
-  int count();
-  int index();
-  
-private slots:
-
-private:
-  QList<int> list;
-  int c_i, m_i;
-};
-
+QString myDecode(const QByteArray &tx, const QString &cd);
 
 #endif
+

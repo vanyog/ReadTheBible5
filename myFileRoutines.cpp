@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "myFileRoutines.h"
+#include "myDecode.h"
 #include "showMessage.h"
 
 #include <QString>
@@ -26,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
-#include <QTextCodec>
+//#include <QTextCodec>
+#include <QStringConverter>
+
 
 void removeExt(const QString &ex, QStringList *list){
    int c = list->size()-1;
@@ -50,33 +53,25 @@ QStringList otherFiles(const QString &fn){
 QString fileContent(const QString &fn, const QString &codec){
    QFile file(fn);
    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-      showMessage(QApplication::tr("Cannot read file:\n%1.\n%2.")
-         .arg(fn)
-         .arg(file.errorString())
-      );
+       showMessage( QApplication::tr("Cannot read file:\n%1.\n%2.").arg(fn,file.errorString()) );
       return "";
    }
-   QTextStream in(&file);
-   QApplication::setOverrideCursor(Qt::WaitCursor);
-   in.setCodec(QTextCodec::codecForName(codec.toLatin1()));
-   QString r = QString(in.readAll());
+   QByteArray r = file.readAll();
    file.close();
+   QString s = myDecode(r,codec);
    QApplication::restoreOverrideCursor();
-   return r;
+   return s;
 };
 
 void saveToFile(const QString &fn, const QString &fc, const QString &codec){
+    Q_UNUSED(codec)
    QFile file(fn);
    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-      showMessage(QApplication::tr("Cannot write to file: %1.\n%2.")
-         .arg(fn)
-         .arg(file.errorString())
-      );
+      showMessage(QApplication::tr("Cannot write to file: %1.\n%2.").arg(fn,file.errorString()));
       return;
    }
    QTextStream in(&file);
    QApplication::setOverrideCursor(Qt::WaitCursor);
-   in.setCodec(QTextCodec::codecForName(codec.toLatin1()));
    in << fc;
    file.close();
    QApplication::restoreOverrideCursor();
