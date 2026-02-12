@@ -1,3 +1,9 @@
 .DS_Store
+.qtc_clangd
+.qtcreator
+.qmake.stash
 Bible.pro.user
+Bible.app
+Bible.app.dSYM
 build
+Makefile

@@ -23,15 +23,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "webUpdater.h"
 #include "showMessage.h"
 #include "fileDownloader.h"
-#include "process.h"
+//#include "process.h"
 
 #include <QApplication>
 #include <QStringList>
 #include <QFileInfo>
-//#include <QHttpResponseHeader>
 #include <QCloseEvent>
+#include <QProgressBar>
 
-WebUpdater::WebUpdater( const QString & hostName, quint16 port, QObject *parent, QProgressBar *pbar, QPushButton *buttn  )
+// Генерирана от CahtGPT функция
+QString downloadText(const QUrl &url)
+{
+    QNetworkAccessManager manager;
+    QNetworkRequest request(url);
+
+    QNetworkReply *reply = manager.get(request);
+
+    // чакаме да приключи (синхронно за простота)
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    QString result;
+    if (reply->error() == QNetworkReply::NoError) {
+        result = QString::fromUtf8(reply->readAll());
+    }
+
+    reply->deleteLater();
+    return result;
+}
+
+WebUpdater::WebUpdater( const QString & hostName, QObject *parent, QProgressBar *pbar, QPushButton *buttn  )
    :QObject(parent)
 {
    getID = 0;
@@ -41,10 +63,10 @@ WebUpdater::WebUpdater( const QString & hostName, quint16 port, QObject *parent,
    progressBar = pbar;
    button = buttn;
    system = ""; notOK = false;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
    system = "win";
 #endif
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
    system = "mac";
 #endif
    zipFile = ""; 
@@ -67,12 +89,15 @@ void WebUpdater::checkForUpdates(const QString &pth, const QString &cv){
       return;
    }
    // Път до файла на сървъра с информация за най-новата версия, налична там
-   QString vf = pth+"version1-"+system+".txt";
+   QString vf = "https://" + host + pth+"version1-"+system+".txt";
    notOK = false; // Флаг за неуспешна проверка. Ще стане true в случай на неуспех.
    // Четене на файла с информация от сървъра. Щом сървърът отговори се изпълнява слота onRequestFinished(int,bool)
-//   getID = get(vf);
+   progressBar->setVisible(true);
+   infoText = downloadText(QUrl(vf));
+   progressBar->setVisible(false);
    path = pth;
    version = cv;
+   onToUpdate();
 };
 
 //
@@ -143,12 +168,14 @@ void WebUpdater::onRequestFinished( int id, bool error){
 // Изпълнява се, когато има успешен отговор от сървъра и данни за четене
 //
 void WebUpdater::onToUpdate(){
-   QString v = ""; //QString( readAll() ); // Прочитат се всички данни от сървъра - съдържанието на файла с информация за нова версия
-   QStringList vl = v.split("\n");
-   if (vl.size()<2) return;
+   QStringList vl = infoText.split("\n");
+    if (vl.size()<2){
+       showMessage(tr("Insufficient information on the download site. Contact the author of the program."));
+       return;
+    }
    // Първият ред от файла с информация е номера на новата версия
    // Ако този номер съвпада с настоящата версия - съобщение и край
-   if (version==vl.at(0).trimmed()){
+   if (version>=vl.at(0).trimmed()){
      showMessage( tr("The program is up to date.") );
      return;
    }

@@ -90,6 +90,7 @@ class VerseCorrectionList : public QList<VerseCorrection*>{};
    Клас, представляващ прозорец, в който се показва една глава от дадено
    издание на Библията. Класът съдържа и друга информация за самото издание.
 */
+
 class BibleWindow: public QTextBrowser
 {
    Q_OBJECT

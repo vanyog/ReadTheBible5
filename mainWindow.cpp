@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTime>
 #include <QFileDialog>
 
-QString progVersion = "5.2.2";
-QString progURL = "http://readthebible.sourceforge.net/index.php?l=";
-QString progEmail = "readthebible-general@lists.sourceforge.net";
+QString progVersion = "5.3.0";
+QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
+QString progEmail = "info@vanyog.com";
 #ifdef Q_WS_WIN
    QString styleFile = "style-w.css";
 #else
@@ -68,7 +68,7 @@ BMainWindow::BMainWindow(QWidget *parent)
    activeBibleMaximized = false;
    exportDialog = new ExportDialog(this);
    history = new History();
-   webUpdater = new WebUpdater( downloadSite(), 80, this, ui.progressBar );
+   webUpdater = new WebUpdater( downloadSite(), this, ui.progressBar );
    fileDownloader = 0;
    do_Not_Exec = false;
 
@@ -89,7 +89,7 @@ BMainWindow::BMainWindow(QWidget *parent)
    readSettings();
    myProcess = new MyProcess( this );
 
-   connect(ui.actionExport_as_html, SIGNAL(triggered()), this, SLOT(onFileExport()));
+   connect(ui.actionExport_as_html, SIGNAL(triggered()), this, SLOT(onFileExportHtml()));
    connect(ui.actionExport_as_txt, SIGNAL(triggered()), this, SLOT(onFileExportTxt()));
    connect(ui.actionImport_from_txt, SIGNAL(triggered()), this, SLOT(onFileImportTxt()));
    connect(ui.action_Import_links, SIGNAL(triggered()), this, SLOT(onFileImportLinks()));
@@ -169,14 +169,17 @@ void BMainWindow::fileExport(const QString &ex){
    exportDialog->setFileName(fn);
    exportDialog->setWindowTitle(tr("Export as %1 file").arg(ex));
    if (exportDialog->exec()){
-      QString ht="";
-      if (ex==".html") ht = bw->toHtml( exportDialog-> whatToExport() );
-      else ht = bw->toTxt( exportDialog-> whatToExport() );
-      saveToFile(exportDialog->fileName(),ht);
+       QString tx="";
+      if (ex==".html") tx = bw->toHtml( exportDialog-> whatToExport() );
+      else tx = bw->toTxt( exportDialog-> whatToExport() );
+      saveToFile(exportDialog->fileName(),tx);
+      QSettings s("VanyoG", "CD Bible 5");
+      QFileInfo i(exportDialog->fileName());
+      s.setValue("eport_dir",i.path());
    };
 };
 
-void BMainWindow::onFileExport(){
+void BMainWindow::onFileExportHtml(){
    fileExport(".html");
 };
 

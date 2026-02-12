@@ -739,9 +739,11 @@ QString BibleWindow::toHtml(ExportDialog::Export e){
          }
       }
    }
-   QString t1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html>\n<head>\n   ";
+   QString t1 = "<!doctype html>\n<html>\n<head>\n";
    r = t1+"<title>"+ht+"</title>\n"+
-        "   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">\n</head>\n\n"+
+        "   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+
+        "   <style>body{font-family: sans-serif;}</style>\n"+
+        "</head>\n\n"+
         "<body>\n"+r+"\n</body>\n</html>";
    return r;
 };

@@ -31,7 +31,7 @@ QStringList otherFiles(const QString &fn);
 QString fileContent(const QString &fn, const QString &codec = "cp1251");
 
 // Записва във файл fn стринга fc с кодировка codec
-void saveToFile(const QString &fn, const QString &fc, const QString &codec = "cp1251");
+void saveToFile(const QString &fn, const QString &fc);
 
 // Връща истина ако файл fn съдържа стринг s
 bool fileContains(const QString &fn, const QString &s, Qt::CaseSensitivity cs = Qt::CaseInsensitive);

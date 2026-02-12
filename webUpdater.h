@@ -33,7 +33,7 @@ class WebUpdater: public QObject
   Q_OBJECT
 
 public:
-  WebUpdater( const QString & hostName, quint16 port = 80, QObject *parent=0, QProgressBar *pbar=0, QPushButton *buttn=0 );
+  WebUpdater( const QString & hostName, QObject *parent=0, QProgressBar *pbar=0, QPushButton *buttn=0 );
 
   bool notOK;
   
@@ -56,11 +56,12 @@ private slots:
 
 private:
   int getID;
-  QString host, 
-    path,
-    version,
-    system, // Операционна система "win", "mac" или "" - ако няма изпалними файлове за системата 
-    zipFile, dFile;
+  QString host, // хост на който се проверява за нова версия на програмата
+    path,       // път върху сървъра
+    version,   // текуща версия на програмата
+    system,   // Операционна система "win", "mac" или "" - ако няма изпалними файлове за системата
+    zipFile, dFile,
+    infoText; // Текс с информация за неличната на сървъра версия за сваляне
   FileDownloader *fileDownloader;
   QProgressBar *progressBar;
   QPushButton *button;

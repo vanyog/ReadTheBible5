@@ -42,8 +42,7 @@ private slots:
   void onBrowse();
 
 private:
-   Ui::Dialog ui;
-
+    Ui::Dialog ui;
 };
 
 #endif

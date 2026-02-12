@@ -58,7 +58,7 @@ protected:
    void closeEvent(QCloseEvent *event);
 
 private slots:
-   void onFileExport();
+   void onFileExportHtml();
    void onFileExportTxt();
    void onFileImportTxt();
    void onFileImportLinks();

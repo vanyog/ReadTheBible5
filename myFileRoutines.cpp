@@ -63,8 +63,7 @@ QString fileContent(const QString &fn, const QString &codec){
    return s;
 };
 
-void saveToFile(const QString &fn, const QString &fc, const QString &codec){
-    Q_UNUSED(codec)
+void saveToFile(const QString &fn, const QString &fc){ showMessage(fn);
    QFile file(fn);
    if (!file.open(QFile::WriteOnly | QFile::Text)) {
       showMessage(QApplication::tr("Cannot write to file: %1.\n%2.").arg(fn,file.errorString()));

@@ -1,50 +1,71 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>Dialog</class>
- <widget class="QDialog" name="Dialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>339</width>
-    <height>258</height>
+    <width>531</width>
+    <height>338</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Export as .html file</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" colspan="3" >
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="5" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>To file:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Export:</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QRadioButton" name="radioButton" >
-        <property name="text" >
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
          <string>Current chapter</string>
         </property>
-        <property name="checked" >
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_2" >
-        <property name="text" >
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
          <string>Current book</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_3" >
-        <property name="text" >
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
          <string>The wholе Bible</string>
         </property>
        </widget>
@@ -52,39 +73,41 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
-      <string>To file:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="3" >
-    <widget class="QLineEdit" name="lineEdit" />
-   </item>
-   <item row="3" column="0" colspan="3" >
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons" >
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2" >
-    <widget class="QPushButton" name="pushButton" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+   <item row="2" column="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Browse</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QLineEdit" name="lineEdit"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -98,11 +121,11 @@
    <receiver>Dialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -114,11 +137,11 @@
    <receiver>Dialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>
