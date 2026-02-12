@@ -52,10 +52,9 @@ void FileDownloader::downloadFile(const QString &of, const QString &lf){
    file=new QFile(lf);
    if (file->open(QIODevice::WriteOnly)){
       replay = netAManager->get(req);
- //     getID=get(url.path(),file);
       notDone=false;
    }
-   else showMessage( tr("Cannot write to file: %1.\n%2.").arg(lf).arg(file->errorString()) );
+   else showMessage( tr("Cannot write to file: %1.\n%2.").arg(lf,file->errorString()) );
 };
 
 void FileDownloader::downloadAndUnzip(const QString &of, const QString &lf, const QString &ms){

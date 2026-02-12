@@ -226,7 +226,6 @@ void BMainWindow::onFileAppFolder(){
 };
 
 // Изпълнява се при избор на библия от меню "Библия" - "Превод"
-
 void BMainWindow::onBibleAction(QAction *action){
    if (!action) return;
    if (action->objectName()=="actionDownload_again"){
@@ -634,6 +633,7 @@ void BMainWindow::emitIndexChanged(BibleWindow *ab){
    updateNavButtons();
 };
 
+// Създаване на прозорец с Библия от директория bv
 BibleWindow *BMainWindow::openBible(const QString &bv){
    static int n = 0; // уникален номер на поредния създаден прозорец с Библия
    BibleWindow *bw = new BibleWindow(bv);
@@ -862,7 +862,7 @@ void BMainWindow::tileOrCascade(){
    emit scrollToActiveVerse();
 };
 
-// Прави активни бутоните за навигация
+// Прави активни бутоните за навигация "Напред" и "Назад"
 void BMainWindow::updateNavButtons(){
     bool p3 = history->index()>0;
     bool p4 = history->index() < history->count()-1;

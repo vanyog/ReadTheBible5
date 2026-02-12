@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 QString myDecode(const QByteArray &tx, const QString &cd){
     QString rz = "";
-    if (cd == "cp1251"){ //countedMessage("aaa");
+    if (cd == "cp1251"){
         for(char c : tx){
             int code = static_cast<unsigned char>(c);
             if(code>191 && code<256) rz += QChar(code + 848);
@@ -47,5 +47,20 @@ QString myDecode(const QByteArray &tx, const QString &cd){
     }
     else if(cd == "UTF-8")
         rz = QString(tx);
+    else if (cd == "cp1250")
+        rz = QString(tx);
+    else if (cd == "cp1253"){
+        for(char c : tx){
+            int code = static_cast<unsigned char>(c);
+            if(code>191 && code<256)
+                rz += QChar(code + 720);
+            else {
+                if (code>127){ rz += QChar(c); countedMessage(rz + QString::number(code)); }
+                else rz += QChar(c);
+            }
+        }
+    }
+    else
+        showMessage("Unknown codec "+cd);
     return rz;
 }

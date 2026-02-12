@@ -100,7 +100,7 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 };
 
 bool BibleWindow::readTitles(){
-   QString fn  = dir+"BibleTitles.txt";
+    QString fn  = dir+"BibleTitles.txt";
    QString fnu = dir+"BibleTitles-u.txt";
    if (!QFileInfo::exists(fn)) return false;
    QString fc="";
