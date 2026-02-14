@@ -110,7 +110,7 @@ private slots:
    void onMaxItemsChanged(int i);
    void onVerseClick(BibleWindow *ab, int i);
 
-private:
+ private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;
    QHash<QString, BibleWindow*> bibleWindow;

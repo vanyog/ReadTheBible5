@@ -41,25 +41,31 @@ public:
   FileDownloader( QObject *parent=0, QProgressBar *pbar=0, QPushButton *button=0 );
   
   bool notDone;
-  QNetworkReply *replay;
 
+  QNetworkReply *reply;
+
+  // Изтегляне от адрес of и запис във файл lf
   void downloadFile(const QString &of, const QString &lf);
+  // Изтегляне на zip файл с адрес of, запис във файл lf и разархивиране
+  // ms - съобщение, което се показва след разархивирането
   void downloadAndUnzip(const QString &of, const QString &lf, const QString &ms = QString());
 
 private slots:
-   void onDataReadProgress(int d, int t);
-//   void onReadyRead(const QHttpResponseHeader &resp);
-   void onRequestFinished(int id, bool error);
-   void onDownloadDone(bool e);
-   void onUnzipFinished(int ec, QProcess::ExitStatus es);
+    void onDataReadProgress(qint64 d, qint64 t);
+    void onReadyRead();
+    void onRequestFinished();
+    void onDownloadDone(bool e);
+    void onUnzipFinished(int ec, QProcess::ExitStatus es);
 
 private:
-  QProgressBar *progressBar;
-  QPushButton *pushButton;
-  QFile *file;
-  int getID;
-  QString doneMessage, zipFile;
-  QProcess *zipProcess;
+    bool doUnzip = false;
+    QProgressBar *progressBar;
+    QPushButton *pushButton;
+    QFile *file;
+    int getID;
+    QString doneMessage, zipFile, zipDir;
+    QProcess *zipProcess;
+    void unzipStep(); // Разархивиране на изтеглен zip файл
 };
 
 QString progDir();

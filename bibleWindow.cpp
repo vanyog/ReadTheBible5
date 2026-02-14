@@ -142,6 +142,7 @@ void BibleWindow::readCorrection(){
   }
 };
 
+// Стартира изтеглянето на библията
 void BibleWindow::downloadBible(const QString &bv){
    Q_UNUSED(bv);
    if (yesNo( tr("Would you like to download Bible %1?").arg(windowTitle()) )!=YES) return;
@@ -149,9 +150,9 @@ void BibleWindow::downloadBible(const QString &bv){
       fileDownloader = new FileDownloader( this, downloadProgressBar, dounloadCancelButton);
       connect(fileDownloader, SIGNAL(done(bool)), this, SLOT(onBDownloadDone(bool)));
    }
-   QString of = "http://"+downloadSite()+"/bible/v5/"+QFileInfo(zipFile).fileName();
-//   showMessage(zipFile);// return;
-   fileDownloader->downloadFile(of,zipFile);
+   QString of = "https://"+downloadSite()+"/bible/v5/"+QFileInfo(zipFile).fileName();
+//   fileDownloader->downloadFile(of,zipFile);
+   fileDownloader->downloadAndUnzip(of,zipFile,windowTitle());
 };
 
 void BibleWindow::writeSettings(){

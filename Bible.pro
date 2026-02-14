@@ -5,7 +5,9 @@
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x040800
 QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
 QT += widgets printsupport
-CONFIG += c++11
+CONFIG += c++17
+include(3rdparty/quazip/quazip.pri)
+Qt += core
 
 CONFIG += release
 QT += network

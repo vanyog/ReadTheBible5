@@ -237,6 +237,7 @@ void BMainWindow::onBibleAction(QAction *action){
    }
    QString bv = action->objectName();
    if (action->objectName()=="actionOpen_again") bv = lastVersion;
+
    BibleWindow *bw = openBible(bv);
    if (!bw) return;
    if (!bw->longTitles.size()) action->setChecked(false);
@@ -245,7 +246,12 @@ void BMainWindow::onBibleAction(QAction *action){
 };
 
 void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
-   if (!w) return; /* Рядко се случва указателя w да е нулев и за да не възникне грешка функцията се прекратява */
+    if (!w){ // Затворен е последния прозорец с библия
+        ui.comboBox_2->clear();
+        ui.comboBox_3->clear();
+        ui.comboBox_4->clear();
+        return;
+   }
    static QMdiSubWindow *w0 = 0; // Статична променлива, която съхранява указатл към последния активиран прозорец
    if (w==w0) return; // Функцията се прекратява ако прозорецът вече е бил активиран
    w0 = w; // Запаметява се последния активиран прозорец
@@ -566,7 +572,7 @@ void BMainWindow::onHelpReadme(){
 
 void BMainWindow::onHelpAboutProgram(){
    showMessage(tr("Read the Bible 5 - v%1<br>Copyright (C) 2008  Vanyo Georgiev<br>&lt;<A HREF=mailto:%3>%3</A>&gt;<br><A HREF=%2>%2</A><br><br>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.<br><br>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br><br>You should have received a copy of the GNU General Public License along with this program; if not, write to the<br><br>Free Software Foundation, Inc.,<br>51 Franklin Street, Fifth Floor,<BR>Boston, MA  02110-1301, USA.").
-       arg(progVersion).arg(progURL+interfaceLanguage(),progEmail) );
+       arg(progVersion,progURL+interfaceLanguage(),progEmail) );
 };
 
 void BMainWindow::onHelpAboutBibleVersion(){
@@ -958,7 +964,7 @@ void BMainWindow::newVersion(){
   }
   else
 #endif
-  showMessage(tr("Congratulations. You started the new version %1. Please, write to<br><a href=\"mailto:%2\">%2</a><br>for any questions or bug reporting.").arg(progVersion).arg(progEmail));
+  showMessage(tr("Congratulations. You started the new version %1. Please, write to<br><a href=\"mailto:%2\">%2</a><br>for any questions or bug reporting.").arg(progVersion,progEmail));
 };
 
 void BMainWindow::downloadActiveBible(){

@@ -30,6 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QDir>
 #include <QApplication>
 #include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+
+#include <JlCompress.h>
 
 QNetworkAccessManager *netAManager = 0;
 
@@ -39,65 +43,83 @@ FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButto
   progressBar=pbar; pushButton=button;
   file=0; getID=0; notDone=false; doneMessage=""; zipFile=""; zipProcess=0;
   if (!netAManager) netAManager = new QNetworkAccessManager;
-  connect(this, SIGNAL(dataReadProgress(int,int)), this, SLOT(onDataReadProgress(int,int)));
-  connect(this, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
-//  connect(this, SIGNAL(readyRead(const QHttpResponseHeader&)), this, SLOT(onReadyRead(const QHttpResponseHeader&)));
 };
 
 void FileDownloader::downloadFile(const QString &of, const QString &lf){
-   QUrl url(of);
-   QNetworkRequest req(url);
-   QDir dir( QFileInfo(lf).absolutePath() );
-   if (!dir.exists()) dir.mkpath(dir.path());
-   file=new QFile(lf);
-   if (file->open(QIODevice::WriteOnly)){
-      replay = netAManager->get(req);
-      notDone=false;
-   }
-   else showMessage( tr("Cannot write to file: %1.\n%2.").arg(lf,file->errorString()) );
+    zipFile = lf;
+    QUrl url(of);
+    QNetworkRequest req(url);
+    reply = netAManager->get(req);
+    QFileInfo info(lf);
+    zipDir = info.absoluteDir().path();
+    QDir().mkdir(zipDir);
+    file = new QFile(lf);
+    if(!file->open(QIODevice::WriteOnly)){
+        showMessage(tr("Error opening file %1 for writting").arg(lf));
+        return;
+    }
+    notDone=true;
+    progressBar->setValue(0);
+    progressBar->setVisible(true);
+    pushButton ->setVisible(true);
+    connect(reply, &QNetworkReply::readyRead,this,&FileDownloader::onReadyRead);
+    connect(reply, &QNetworkReply::downloadProgress,this, &FileDownloader::onDataReadProgress);
+    connect(reply,&QNetworkReply::finished,this,&FileDownloader::onRequestFinished);
 };
+
 
 void FileDownloader::downloadAndUnzip(const QString &of, const QString &lf, const QString &ms){
    doneMessage=ms;
-   disconnect(this, SIGNAL(done(bool)), 0, 0);
-   connect(this, SIGNAL(done(bool)), this, SLOT(onDownloadDone(bool)));
-   zipFile = lf;
    downloadFile(of, lf);
+   doUnzip = true;
 };
 
-/*void FileDownloader::onReadyRead(const QHttpResponseHeader &resp){
-   showMessage("ReadyRead");
-   int sc = 0;
-   QHttpResponseHeader rh = lastResponse();
-   if (rh.isValid()) sc =rh.statusCode();
-   if (sc!=200){
-      showMessage( tr("Not OK response from server.\n Error: %1.").arg(sc) );
-      return;
-   }
-};*/
-
-void FileDownloader::onDataReadProgress(int d, int t){
-/*   int sc = 0;
-   QHttpResponseHeader rh = lastResponse();
-   if (rh.isValid()) sc =rh.statusCode();
-   if (sc!=200){
-      notDone=true;
-      showMessage( tr("Not OK response from server.\nError: %1.").arg(sc) );
-      return;
-   }
-   if (progressBar) {
-      progressBar->show();
-      progressBar->setMaximum(t);
-      progressBar->setValue(d);
-   };*/
+// Показва напредъка на изтеглянето върху лента за напредък
+void FileDownloader::onDataReadProgress(qint64 d, qint64 t){
+    progressBar->setValue(progressBar->maximum()*t/d);
 };
 
-void FileDownloader::onRequestFinished(int id, bool error){
-/*   if (progressBar)  progressBar->hide();
-   if (pushButton)  pushButton->hide();
-   if ((id==getID) && file) file->close();
-   if (error) showMessage( tr("Error: %1.\nCheck your internet connection.").arg(errorString()) );
-   if (id==getID) file=0;*/
+// Записване на пристигащите данни в отворения файл
+void FileDownloader::onReadyRead(){
+    file->write(reply->readAll());
+};
+
+// Изпълнява се след края на изтеглянето
+void FileDownloader::onRequestFinished(){
+    file->close();
+    progressBar->setVisible(false);
+    pushButton->setVisible(false);
+    if(doUnzip) unzipStep();
+};
+
+
+// Функция, написана от ChatGPT: извличане на ZIP и презаписване на съществуващи файлове
+bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
+    // Получаваме списък на файловете в архива
+    QStringList files = JlCompress::getFileList(zipFile);
+    for (const QString &fileName : files) {
+        QString outPath = destDir + "/" + fileName;
+        QFile outFile(outPath);
+        if (outFile.exists()) {
+            if (!outFile.remove()) {
+                showMessage( QApplication::tr("Failed to remove existing file:").arg(outPath) );
+                return false; // спираме при грешка
+            }
+        }
+        // Уверяваме се, че всички поддиректории съществуват
+        QFileInfo fi(outPath);
+        QDir().mkpath(fi.path());
+    }
+    // Извличаме всички файлове
+    JlCompress::extractDir(zipFile, destDir);
+    return true;
+}
+
+void FileDownloader::unzipStep(){
+    extractDirOverwrite(zipFile, zipDir);
+    QFile z(zipFile);
+    z.remove();
+    showMessage( tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage) );
 };
 
 void FileDownloader::onDownloadDone(bool e){

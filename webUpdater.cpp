@@ -83,7 +83,7 @@ WebUpdater::WebUpdater( const QString & hostName, QObject *parent, QProgressBar 
 // cv - версия на програмата, това е стойността на променлива progVersion от mainWindow.cpp
 //
 void WebUpdater::checkForUpdates(const QString &pth, const QString &cv){
-   // Ако стрингът system е празен, значи няма двоични файлове за текущата операционна система
+   // Ако стрингът system е празен, няма двоични файлове за текущата операционна система
    if (!system.size()) {
       showMessage( tr("There is no binary updates for your operating system. Visit the program web site for more detales.") );
       return;
