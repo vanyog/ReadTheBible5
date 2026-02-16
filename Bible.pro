@@ -3,10 +3,16 @@
 ######################################################################
 
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x040800
-QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
+!win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
 QT += widgets printsupport
 CONFIG += c++17
 include(3rdparty/quazip/quazip.pri)
+INCLUDEPATH += $$PWD/3rdparty/zlib
+DEPENDPATH += $$PWD/3rdparty/zlib
+win32 {
+    LIBS += -L$$PWD/3rdparty/zlib/build/Release -lz
+}
+DEFINES += QUAZIP_BUILD
 Qt += core
 
 CONFIG += release
@@ -37,3 +43,5 @@ CONFIG += release
 MOC_DIR = build
 UI_DIR = build
 OBJECTS_DIR = build
+
+CONFIG += no_moc_predefs

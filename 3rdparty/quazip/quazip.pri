@@ -3,6 +3,8 @@
 # Include this in your .pro: include(3rdparty/quazip/quazip.pri)
 #############################################################
 
+DEFINES += QUAZIP_USE_QT_ZLIB
+
 # Base path to QuaZip folder
 QUAZIP_DIR = $$PWD/quazip
 

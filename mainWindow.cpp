@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QCloseEvent>
 #include <QTime>
 #include <QFileDialog>
+#include <QRandomGenerator>
 
 QString progVersion = "5.3.0";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
@@ -416,7 +417,8 @@ void BMainWindow::onGoRandomVerse(){
   if (!ab) return;
   static int r = 1;
   if (r) { srand((unsigned)time(0)); r = 0; }
-  int i = arc4random();
+  int i = QRandomGenerator::global()->generate();
+//  int i = arc4random();
   i = i % ab->verseTotalCount();
   goByIndex(ab,i);
 };
