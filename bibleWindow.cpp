@@ -78,7 +78,6 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 #else
    QString sf = "style-w.css";
 #endif
-   showMessage(QDir::currentPath());
    if (QFileInfo::exists(dir+sf)) css = fileContent(dir+sf);
    else css = defaultCss();
    process = 0;

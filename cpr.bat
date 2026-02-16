@@ -1,47 +1,39 @@
-path d:\windows\system32
+@echo off
+setlocal
 
-echo off
-echo This script creates a new directory rel and copies files in it which are necessary for  Bible.exe to execute. Close it you if don't like to do that or
+echo Make deployment for Read the Bible App
 pause
 
-echo on
-rmdir /s/q rel
+set OUTDIR=build\rel
+set QTDIR=C:\Qt\6.10.2\msvc2022_arm64
+set ZIPFILE=build\Bible5.zip
 
-mkdir rel
-copy C:\Users\vanyog\Documents\build-Bible-Desktop_Qt_4_8_5-Release\release\Bible.exe rel
-copy Bible_bg.qm rel
-copy Bible_mk.qm rel
-copy copying.txt rel
-copy unzip.exe rel
-copy C:\Qt\4.8.5\bin\mingwm10.dll rel
-copy C:\Qt\4.8.5\bin\QtCore4.dll rel
-copy C:\Qt\4.8.5\bin\QtGui4.dll rel
-copy C:\Qt\4.8.5\bin\QtNetwork4.dll rel
-copy C:\Qt\4.8.5\bin\libgcc_s_dw2-1.dll rel
+rmdir /s/q %OUTDIR%
 
+mkdir %OUTDIR%
+copy build\release\Bible.exe %OUTDIR%
+copy 3rdparty\zlib\build\Release\z.dll %OUTDIR%
 
-mkdir rel\htdocs
-copy htdocs\readme-bg.html rel\htdocs
-copy htdocs\readme-en.html rel\htdocs
-copy htdocs\style.css rel\htdocs
-copy htdocs\copying.txt rel\htdocs
+mkdir %OUTDIR%\images
+copy images\Logo_2a.png %OUTDIR%\images
 
-mkdir rel\htdocs\images
-copy htdocs\images\scr-min-3.png rel\htdocs\images
-copy htdocs\images\scr-min-4.png rel\htdocs\images
+mkdir %OUTDIR%\data
+copy data\style.css %OUTDIR%\data
+copy data\style-w.css %OUTDIR%\data
 
-mkdir rel\htdocs\help
-copy htdocs\help\*.* rel\htdocs\help
-del rel\htdocs\help\help.odt
+mkdir %OUTDIR%\data\bibles
+copy data\bibles\list-u.txt %OUTDIR%\data\bibles
+copy data\bibles\Bible_Structure.txt %OUTDIR%\data\bibles
+copy data\bibles\php-bible.css %OUTDIR%\data\bibles
+copy data\bibles\style.css %OUTDIR%\data\bibles
 
-mkdir rel\images
-copy images\Logo_2a.png rel\images
+cd %OUTDIR%
+%QTDIR%\bin\windeployqt Bible.exe
 
-mkdir rel\data
-copy data\style-w.css rel\data
+cd ..\..
+if exist "%ZIPFILE%" del "%ZIPFILE%"
+powershell Compress-Archive -Path %OUTDIR%\* -DestinationPath %ZIPFILE%
 
-mkdir rel\data\bibles
-copy data\bibles\list-u.txt rel\data\bibles
-copy data\bibles\Bible_Structure.txt rel\data\bibles
-
+endlocal
+echo All done
 pause

@@ -957,7 +957,7 @@ void BMainWindow::downloadV43(){
 };
 
 void BMainWindow::newVersion(){
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
   QString d = "C:\\Program Files\\VanyoG\\Bible\\";
   if (QFileInfo(d+"CDBible40.exe").exists() && 
      (yesNo(tr("Version 4.3 is found in %1. Do you want to use bibles from this version to save disk space.").arg(d))==YES)
@@ -991,3 +991,19 @@ void setIntegfaceLanguage(){
 QString interfaceLanguage(){
    return int_lang;
 };
+
+void BMainWindow::on_actionClean_Restart_triggered()
+{
+   if (yesNo( tr("All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?") )!=YES) return;
+   // Код написан от ChatGPT
+   // 1. Изтриване на всички настройки
+   QSettings settings("VanyoG", "CD Bible 5");
+   settings.clear();
+   settings.sync();
+   // 2. Рестарт на програмата
+   QString program = QCoreApplication::applicationFilePath();
+   QStringList args = QCoreApplication::arguments();
+   QProcess::startDetached(program, args);
+   // 3. Изход от текущата инстанция
+   QCoreApplication::quit();
+}

@@ -29,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>724</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Bible_1">
@@ -101,6 +101,8 @@
     <addaction name="action_Import_links"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_application_folder"/>
+    <addaction name="separator"/>
+    <addaction name="actionClean_Restart"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
@@ -861,6 +863,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Verse collectien toolbox</string>
+   </property>
+  </action>
+  <action name="actionClean_Restart">
+   <property name="text">
+    <string>Clean Restart</string>
    </property>
   </action>
  </widget>
