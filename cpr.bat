@@ -12,6 +12,7 @@ rmdir /s/q %OUTDIR%
 
 mkdir %OUTDIR%
 copy build\release\Bible.exe %OUTDIR%
+copy *.qm %OUTDIR%
 copy 3rdparty\zlib\build\Release\z.dll %OUTDIR%
 
 mkdir %OUTDIR%\images
