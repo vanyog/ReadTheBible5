@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSettings>
 
 #include "mainWindow.h"
-//#include "showMessage.h"
+#include "showMessage.h"
 #include "fileDownloader.h"
 
 int main(int argc, char *argv[])
@@ -48,17 +48,20 @@ int main(int argc, char *argv[])
 
    BMainWindow window;
    if (window.doNotExec()){
-      window.onFileAppFolder();
-      return 0;
+        window.onFileAppFolder();
+        return 0;
    }
    window.show();
    spls.raise();
    window.tileOrCascade();
    spls.finish(&window);
    
-   int i = app.exec();
-   if (window.openAppFolder())
-    window.onFileAppFolder();
-   return i;
+    int i = app.exec();
+    if(i==42){
+        QProcess::startDetached(QCoreApplication::applicationFilePath(), QCoreApplication::arguments());
+        return 0;
+    }
+    if (window.openAppFolder()) window.onFileAppFolder();
+    return i;
 }
 

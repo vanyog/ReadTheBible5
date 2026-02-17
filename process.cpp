@@ -26,7 +26,7 @@ MyProcess::MyProcess( QObject * parent)
    :QProcess(parent)
 {
    program = "proba";
-   connect(this, SIGNAL(error( QProcess::ProcessError)), this, SLOT(onError( QProcess::ProcessError)));
+//   connect(this, SIGNAL(error( QProcess::ProcessError)), this, SLOT(onError( QProcess::ProcessError)));
 };
 
 void MyProcess::start(){

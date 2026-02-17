@@ -207,6 +207,8 @@ void BMainWindow::onFileImportLinks(){
    ab->createLinksBin();
 };
 
+
+// Отваряне на директорията на програмата
 void BMainWindow::onFileAppFolder(){
    QString d = QApplication::applicationDirPath();
    QString c;
@@ -1003,7 +1005,26 @@ void BMainWindow::on_actionClean_Restart_triggered()
    // 2. Рестарт на програмата
    QString program = QCoreApplication::applicationFilePath();
    QStringList args = QCoreApplication::arguments();
-   QProcess::startDetached(program, args);
+#ifdef Q_OS_MAC
+   // Намера .app bundle пътя
+   QString appPath = QCoreApplication::applicationDirPath();
+   // качване до .app
+   while (!appPath.endsWith(".app") && appPath.contains("/"))
+       appPath = appPath.left(appPath.lastIndexOf('/'));
+   QStringList openArgs;
+   openArgs << appPath;
+   // подаване аргументи към приложението
+   if (args.size() > 1) {
+       openArgs << "--args";
+       for (int i = 1; i < args.size(); ++i)
+           openArgs << args[i];
+   }
+   QProcess::startDetached("open", openArgs);
    // 3. Изход от текущата инстанция
+   qApp->exit(42);
+#else
+   // Windows / Linux
+   QProcess::startDetached(program, args);
    QCoreApplication::quit();
+#endif
 }

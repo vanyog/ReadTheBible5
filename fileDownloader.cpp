@@ -154,9 +154,8 @@ void setProgDir(){
     prog_Dir = qApp->applicationFilePath();
     int l = QDir(prog_Dir).dirName().size();
     Q_UNUSED(l);
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     prog_Dir = prog_Dir.left(prog_Dir.size()-2*l-20);
-    Q_UNUSED(l);
 #else
     prog_Dir = QDir::currentPath()+"/";
 #endif

@@ -72,8 +72,8 @@ WebUpdater::WebUpdater( const QString & hostName, QObject *parent, QProgressBar 
    zipFile = ""; 
    dFile="";
    fileDownloader = 0;
-   connect(this, SIGNAL(readyRead(const QHttpResponseHeader&)), this, SLOT(onReadyRead(const QHttpResponseHeader&)));
-   connect(this, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
+ //  connect(this, SIGNAL(readyRead(const QHttpResponseHeader&)), this, SLOT(onReadyRead(const QHttpResponseHeader&)));
+ //  connect(this, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
 //   connect(this, SIGNAL(done(int,bool)), this, SLOT(onCheckDone(int,bool)));
 };
 
