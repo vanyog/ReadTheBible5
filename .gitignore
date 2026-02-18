@@ -2,8 +2,10 @@
 .qtc_clangd
 .qtcreator
 .qmake.stash
+*.zip
 Bible.pro.user
 Bible.app
 Bible.app.dSYM
 build
 Makefile
+rel
