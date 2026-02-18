@@ -44,7 +44,7 @@ cp data/bibles/php-bible.css rel/data/bibles
 cp data/bibles/list-u.txt rel/data/bibles
 cp data/bibles/Bible_Structure.txt rel/data/bibles
 
-~/Qt/6.10.1/macos/bin/macdeployqt rel/Bible.app
+~/Qt/6.10.2/macos/bin/macdeployqt rel/Bible.app
 
 cd rel
 zip -rq -9 ../"$ZIPF" .

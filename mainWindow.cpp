@@ -214,7 +214,7 @@ void BMainWindow::onFileAppFolder(){
    QString c;
    QProcess *p = new QProcess();
    QStringList a;
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
    d.append("/../..");
    d = QFileInfo(d).absolutePath();
    c = "open";
