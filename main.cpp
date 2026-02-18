@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSettings>
 
 #include "mainWindow.h"
-#include "showMessage.h"
+//#include "showMessage.h"
 #include "fileDownloader.h"
 
 int main(int argc, char *argv[])
@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
    setProgDir();
    
    QTranslator translator;
-   translator.load(progDir()+"Bible_"+interfaceLanguage());
+   bool b = translator.load(progDir()+"Bible_"+interfaceLanguage());
+   Q_UNUSED(b)
    app.installTranslator(&translator);
 
    QPixmap pm("images/Logo_2a.png");

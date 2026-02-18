@@ -5,7 +5,7 @@ echo Make deployment for Read the Bible App
 pause
 
 set OUTDIR=build\rel
-set QTDIR=C:\Qt\6.10.2\msvc2022_arm64
+set QTDIR=C:\Qt\6.10.2\msvc2022_64
 set ZIPFILE=build\Bible5.zip
 
 rmdir /s/q %OUTDIR%
