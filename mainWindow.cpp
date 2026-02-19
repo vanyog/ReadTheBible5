@@ -189,7 +189,7 @@ void BMainWindow::onFileExportTxt(){
 };
 
 void BMainWindow::onFileImportTxt(){
-//   showMessage(tr("This feature is not finished yet. See the source code.")); return;
+   showMessage(tr("This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the \"Read the Bible\".")); return;
    BibleWindow *ab = activeBible();
    if (!ab) return;
    QSettings s("VanyoG", "CD Bible 5");
@@ -202,6 +202,7 @@ void BMainWindow::onFileImportTxt(){
 };
 
 void BMainWindow::onFileImportLinks(){
+    if (yesNo( tr("In the current Bible directory, if there is a file with references Links.txt, it will be converted to file Links.bin. Thus, the references will be shown when this Bible is opened again. For more information, see Help. Will you continue?") )!=YES) return;
    BibleWindow *ab = activeBible();
    if (!ab) return;
    ab->createLinksBin();

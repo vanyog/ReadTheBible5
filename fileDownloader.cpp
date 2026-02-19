@@ -65,6 +65,7 @@ void FileDownloader::downloadFile(const QString &of, const QString &lf){
     connect(reply, &QNetworkReply::readyRead,this,&FileDownloader::onReadyRead);
     connect(reply, &QNetworkReply::downloadProgress,this, &FileDownloader::onDataReadProgress);
     connect(reply,&QNetworkReply::finished,this,&FileDownloader::onRequestFinished);
+    connect(reply, &QNetworkReply::errorOccurred, this, &FileDownloader::onError);
 };
 
 
@@ -92,11 +93,15 @@ void FileDownloader::onRequestFinished(){
     if(doUnzip) unzipStep();
 };
 
+void FileDownloader::onError(QNetworkReply::NetworkError code){
+    QString es = reply->errorString();
+    showMessage( tr("Error %1<br>%2").arg(QString::number(code),es) );
+};
 
 // Функция, написана от ChatGPT: извличане на ZIP и презаписване на съществуващи файлове
 bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
     // Получаваме списък на файловете в архива
-    QStringList files = JlCompress::getFileList(zipFile);
+    const QStringList files = JlCompress::getFileList(zipFile);
     for (const QString &fileName : files) {
         QString outPath = destDir + "/" + fileName;
         QFile outFile(outPath);
@@ -116,6 +121,7 @@ bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
 }
 
 void FileDownloader::unzipStep(){
+    if(reply->error()) return;
     extractDirOverwrite(zipFile, zipDir);
     QFile z(zipFile);
     z.remove();

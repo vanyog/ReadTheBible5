@@ -9,7 +9,7 @@
         <translation type="obsolete">&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:info@vanyog.com&gt;info@vanyog.com&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="817"/>
+        <location filename="mainWindow.cpp" line="820"/>
         <source>File %1 is corrupt at line %2.</source>
         <translation>Фајл %1 е оштетен во ред %2. </translation>
     </message>
@@ -23,64 +23,74 @@
         <translation>Експортирање во %1 формат</translation>
     </message>
     <message>
+        <location filename="mainWindow.cpp" line="192"/>
+        <source>This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the &quot;Read the Bible&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="mainWindow.cpp" line="198"/>
         <source>Import Bible from .txt file</source>
         <translation>Импортирање на Библија од .txt фајл</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="226"/>
+        <location filename="mainWindow.cpp" line="205"/>
+        <source>In the current Bible directory, if there is a file with references Links.txt, it will be converted to file Links.bin. Thus, the references will be shown when this Bible is opened again. For more information, see Help. Will you continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="229"/>
         <source>This is not implemented for your operating system.</source>
         <translation>Оваа функција  не може да се изврши во вашиот оперативен систем.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="350"/>
-        <location filename="mainWindow.cpp" line="369"/>
+        <location filename="mainWindow.cpp" line="353"/>
+        <location filename="mainWindow.cpp" line="372"/>
         <source>Last verse is reached %.</source>
         <translation>Последниот стих е достигнат %.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="453"/>
+        <location filename="mainWindow.cpp" line="456"/>
         <source>Style changes will take effect next time you strat the Bible program. Click OK to start editing.</source>
         <oldsource>Changes will take effect next time you strat the Bible program.</oldsource>
         <translation>Промените во стилот ќе се извршат по следното стартирање на програмата. Притиснете ОК за да почне редактирањето на стиловите.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="529"/>
+        <location filename="mainWindow.cpp" line="532"/>
         <source>While your are working with version 4.3, the word lists in %1 of the same Bibles wil not be visible.</source>
         <translation>Додека работите со верзијата 4.3, списоците со зборови на отворените од неа Библии нема да бидат достапни во верзијата %1.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="536"/>
+        <location filename="mainWindow.cpp" line="539"/>
         <source>This feature is available only for Windows.</source>
         <translation>Оваа функција е достапна само во Windows.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="576"/>
+        <location filename="mainWindow.cpp" line="579"/>
         <source>Read the Bible 5 - v%1&lt;br&gt;Copyright (C) 2008  Vanyo Georgiev&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&lt;br&gt;&lt;br&gt;You should have received a copy of the GNU General Public License along with this program; if not, write to the&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</source>
         <translation>&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="943"/>
+        <location filename="mainWindow.cpp" line="946"/>
         <source>Version 4.3 is not Installed. Do you want to download it?</source>
         <translation>Верзијата 4.3 не е инсталирана. Сакате ли да биде симната од интернет?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="947"/>
+        <location filename="mainWindow.cpp" line="950"/>
         <source>When download on Windows Vista or Windows 7 you have to run this progrm as Administrator.(Right click on C:\Program files (x86)\VanyoG\Bible5\Bible.exe and click on &quot;Run as Administrator&quot;). Do you run it as Administrator?</source>
         <translation>Кога го симнувате овој фајл на Windows Vista или Windows 7, треба да сте ја стартирале „Компјутерска Библија“ како администратор. (Затворете ја програмата и со десниот клик притиснете на глувчето врз фајлот C:\Program files (x86)\VanyoG\Bible5\Bible.exe и изберете &quot;Run as Administrator&quot;). Дали така направивте?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="955"/>
+        <location filename="mainWindow.cpp" line="958"/>
         <source>Version 4.3</source>
         <translation>Верзија 4.3</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="969"/>
+        <location filename="mainWindow.cpp" line="972"/>
         <source>Congratulations. You started the new version %1. Please, write to&lt;br&gt;&lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt;&lt;br&gt;for any questions or bug reporting.</source>
         <translation>Ви честитаме! Ја стартиравте новата верзија %1 на &quot;Компјутерска Библија&quot;. Ве молиме пишете на &lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt; за сите прашања што ги имате за оваа програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="997"/>
+        <location filename="mainWindow.cpp" line="1000"/>
         <source>All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -89,12 +99,12 @@
         <translation type="obsolete">Честито! Вие стартирахте новата версия %1 на &quot;Компютърна Библия&quot;. Моля, пишете на &lt;a href=&quot;mailto:info@vanyog.com&quot;&gt;info@vanyog.com&lt;/a&gt; по всички въпроси, които имате за тази програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="975"/>
+        <location filename="mainWindow.cpp" line="978"/>
         <source>Open the Bible Translation you like to download and try again.</source>
         <translation>Прво отворете го преводот на Библијата што сакате повторно да го симнете.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="963"/>
+        <location filename="mainWindow.cpp" line="966"/>
         <source>Version 4.3 is found in %1. Do you want to use bibles from this version to save disk space.</source>
         <translation>Верзијата 4.3 беше најдена во %1. Сакате ли да ги користите Библиите од таа верзија за да заштедите простор?</translation>
     </message>
@@ -302,8 +312,13 @@ Error: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="122"/>
-        <location filename="fileDownloader.cpp" line="140"/>
+        <location filename="fileDownloader.cpp" line="98"/>
+        <source>Error %1&lt;br&gt;%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fileDownloader.cpp" line="128"/>
+        <location filename="fileDownloader.cpp" line="146"/>
         <source>File has been downloaded and unziped. Now you can open %1.</source>
         <translation>Фајлот беше симнат и распакуван. Сега може да отворите %1.</translation>
     </message>
@@ -1023,7 +1038,7 @@ p, li { white-space: pre-wrap; }
         <translation>False</translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="105"/>
+        <location filename="fileDownloader.cpp" line="110"/>
         <source>Failed to remove existing file:</source>
         <translation type="unfinished"></translation>
     </message>
