@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSettings>
 #include <QMdiSubWindow>
 #include <QDir>
-#include <QThread>
+//#include <QThread>
 #include <QTimer>
 #include <QCloseEvent>
 #include <QTime>
@@ -440,11 +440,13 @@ void BMainWindow::onViewVerseCollection(){
 };
 
 void BMainWindow::onViewStayOnTop(){
-  Qt::WindowFlags flags = windowFlags();
-  if (ui.actionStay_on_top->isChecked()) flags |= Qt::WindowStaysOnTopHint;
-  else flags &= ~Qt::WindowStaysOnTopHint; 
-  setWindowFlags(flags);
-  show();
+    bool visible = isVisible();
+    setWindowFlag(Qt::WindowStaysOnTopHint, ui.actionStay_on_top->isChecked());
+//  Qt::WindowFlags flags = windowFlags();
+//  if (ui.actionStay_on_top->isChecked()) flags |= Qt::WindowStaysOnTopHint;
+//  else flags &= ~Qt::WindowStaysOnTopHint;
+//  setWindowFlags(flags);
+    if(visible) show();
 };
 
 void BMainWindow::onViewColorPreferences(){

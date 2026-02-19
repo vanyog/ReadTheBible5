@@ -34,7 +34,7 @@
    </property>
    <widget class="QMenu" name="menu_Bible_1">
     <property name="title">
-     <string>&amp;Bible</string>
+     <string>B&amp;ible</string>
     </property>
     <addaction name="actionOpen_again"/>
     <addaction name="actionDownload_again"/>
@@ -64,7 +64,7 @@
      </font>
     </property>
     <property name="title">
-     <string>&amp;View</string>
+     <string>Vi&amp;ew</string>
     </property>
     <addaction name="action_Searching_toolbox"/>
     <addaction name="actionVerse_collectien_toolbox"/>
@@ -832,7 +832,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionImport_from_txt">
    <property name="text">
-    <string>Import from .txt</string>
+    <string>&amp;Import from .txt</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -867,7 +867,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionClean_Restart">
    <property name="text">
-    <string>Clean Restart</string>
+    <string>Clean &amp;Restart</string>
    </property>
   </action>
  </widget>

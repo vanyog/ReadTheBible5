@@ -315,7 +315,7 @@ Error: %1.</source>
     <message>
         <location filename="fileDownloader.cpp" line="98"/>
         <source>Error %1&lt;br&gt;%2</source>
-        <translation type="unfinished">Грешка %1&lt;br&gt;%2</translation>
+        <translation>Грешка %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="fileDownloader.cpp" line="128"/>
@@ -376,7 +376,7 @@ Error: %1.</source>
     </message>
     <message>
         <location filename="mainWindow.ui" line="37"/>
-        <source>&amp;Bible</source>
+        <source>B&amp;ible</source>
         <translation>&amp;Библия</translation>
     </message>
     <message>
@@ -386,7 +386,7 @@ Error: %1.</source>
     </message>
     <message>
         <location filename="mainWindow.ui" line="67"/>
-        <source>&amp;View</source>
+        <source>Vi&amp;ew</source>
         <translation>&amp;Изглед</translation>
     </message>
     <message>
@@ -511,7 +511,7 @@ Error: %1.</source>
     </message>
     <message>
         <location filename="mainWindow.ui" line="870"/>
-        <source>Clean Restart</source>
+        <source>Clean &amp;Restart</source>
         <translation>Чисто рестартиране</translation>
     </message>
     <message>
@@ -624,7 +624,7 @@ Error: %1.</source>
     </message>
     <message>
         <location filename="mainWindow.ui" line="835"/>
-        <source>Import from .txt</source>
+        <source>&amp;Import from .txt</source>
         <translation>Импортиране от .txt</translation>
     </message>
     <message>
@@ -738,7 +738,7 @@ Error: %1.</source>
     <message>
         <location filename="mainWindow.ui" line="116"/>
         <source>&amp;Go</source>
-        <translation>&amp;Движение</translation>
+        <translation>&amp;Отиване до</translation>
     </message>
     <message>
         <location filename="mainWindow.ui" line="576"/>
