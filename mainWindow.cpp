@@ -250,10 +250,13 @@ void BMainWindow::onBibleAction(QAction *action){
 };
 
 void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
-    if (!w){ // Затворен е последния прозорец с библия
-        ui.comboBox_2->clear();
-        ui.comboBox_3->clear();
-        ui.comboBox_4->clear();
+    if ( !w ){
+        int sn = mdiArea->subWindowList().size(); // Брой на подпрозорците
+        if(sn==0){ // Ако няма повече прозорци с беблии се почистват падащите списъци
+            ui.comboBox_2->clear(); // на кроките
+            ui.comboBox_3->clear(); // главите и
+            ui.comboBox_4->clear(); // стиховете
+        }
         return;
    }
    static QMdiSubWindow *w0 = 0; // Статична променлива, която съхранява указатл към последния активиран прозорец
@@ -516,6 +519,7 @@ void BMainWindow::onWindowsCloseActive(){
 };
 
 void BMainWindow::onWindowsCrossBGBible(){
+    showMessage(tr("Old function. Not used yet.")); return;
    QString p = preferences()->CrossBgBiblePath();
    QString d = QFileInfo(p).absolutePath();
    myProcess->setWorkingDirectory(d);
