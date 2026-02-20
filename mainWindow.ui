@@ -29,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>724</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Bible_1">
@@ -810,6 +810,9 @@ p, li { white-space: pre-wrap; }
   <action name="actionReadme_file">
    <property name="text">
     <string>Readme file</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionOpen_again">

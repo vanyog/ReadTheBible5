@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTime>
 #include <QFileDialog>
 #include <QRandomGenerator>
+#include <QDesktopServices>
 
 QString progVersion = "5.3.0";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
@@ -221,7 +222,7 @@ void BMainWindow::onFileAppFolder(){
    c = "open";
    a << d;
 #else
- #ifdef Q_WS_WIN
+ #ifdef Q_OS_WIN
    c = "explorer";
    d = progDir().replace("/","\\");
    a << "/n,/e," << d;
@@ -531,9 +532,9 @@ void BMainWindow::onWindowsCrossBGBible(){
 };
 
 void BMainWindow::onWindowsVersion43(){
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
    QString p = QFileInfo(biblePath()+"CDBible40.exe").absoluteFilePath();
-   if (QFileInfo(p).exists()){
+   if (QFileInfo::exists(p)){
       QString d = QFileInfo(p).absolutePath();
       showMessage(tr("While your are working with version 4.3, the word lists in %1 of the same Bibles wil not be visible.").arg(progVersion));
       myProcess->setWorkingDirectory(d);
@@ -574,11 +575,13 @@ void BMainWindow::onChangeTextColor(const QColor &c){
 };
 
 void BMainWindow::onHelpContent(){
-   myProcess->browse(progDir() + "htdocs/help/help.html");
+    QUrl url = QUrl::fromLocalFile(progDir() + "htdocs/help/help.html");
+    QDesktopServices::openUrl(url);
 };
 
 void BMainWindow::onHelpReadme(){
-   myProcess->browse(progDir() + "htdocs/readme-"+interfaceLanguage()+".html");
+    QUrl url = QUrl::fromLocalFile(progDir() + "htdocs/readme-"+interfaceLanguage()+".html");
+    QDesktopServices::openUrl(url);
 };
 
 void BMainWindow::onHelpAboutProgram(){
@@ -588,7 +591,10 @@ void BMainWindow::onHelpAboutProgram(){
 
 void BMainWindow::onHelpAboutBibleVersion(){
    BibleWindow *ab = activeBible();
-   if (!ab) return;
+    if (!ab){
+       showMessage(tr("Open a Bible, and then look for information about it."));
+       return;
+    }
    ab->about(myProcess);
 };
 
@@ -948,18 +954,18 @@ void BMainWindow::setSynchronization(BibleWindow *ab){
 };
 
 void BMainWindow::downloadV43(){
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
    if (yesNo(tr("Version 4.3 is not Installed. Do you want to download it?"))==NO) return;
-   if ( ((QSysInfo::windowsVersion()==QSysInfo::WV_VISTA) || (QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7))
+/*   if ( ((QSysInfo::windowsVersion()==QSysInfo::WV_VISTA) || (QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7))
      && (qApp->applicationDirPath()=="C:/Program Files (x86)/VanyoG/Bible5")
    ){
      QString ms = tr("When download on Windows Vista or Windows 7 you have to run this progrm as Administrator."
                            "(Right click on C:\\Program files (x86)\\VanyoG\\Bible5\\Bible.exe and click on \"Run as Administrator\"). Do you run it as Administrator?"
                         ); 
      if (yesNo(ms)==NO) return;
-   }
+   }*/
    if (!fileDownloader) fileDownloader = new FileDownloader(this, ui.progressBar, ui.pushButton);
-   QString u = "http://" + downloadSite() + "/bible/v5/CDBible40.zip";
+   QString u = "https://" + downloadSite() + "/bible/v5/CDBible40.zip";
    QString p = QFileInfo(biblePath()+"CDBible40.zip").absoluteFilePath();
    fileDownloader->downloadAndUnzip(u, p, tr("Version 4.3"));
 #endif
@@ -968,7 +974,7 @@ void BMainWindow::downloadV43(){
 void BMainWindow::newVersion(){
 #ifdef Q_OS_WIN
   QString d = "C:\\Program Files\\VanyoG\\Bible\\";
-  if (QFileInfo(d+"CDBible40.exe").exists() && 
+  if (QFileInfo::exists(d+"CDBible40.exe") &&
      (yesNo(tr("Version 4.3 is found in %1. Do you want to use bibles from this version to save disk space.").arg(d))==YES)
   ){
     setBiblePath(d);

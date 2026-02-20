@@ -52,7 +52,7 @@ signals:
    void refreshText();
 
 public slots:
-   void onFileAppFolder();
+   void onFileAppFolder(); // Отваряне папката с програмата
 
 protected:
    void closeEvent(QCloseEvent *event);

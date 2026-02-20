@@ -9,3 +9,16 @@ Bible.app.dSYM
 build
 Makefile
 rel
+.vs
+data/bibles/Abrevs.txt
+data/bibles/BibleStructure.txt
+data/bibles/Bulgarian/
+data/bibles/CDBIBLE22.HLP
+data/bibles/CDBible40.exe
+data/bibles/CDBible40.ini
+data/bibles/English/
+data/bibles/Notes/
+data/bibles/OnTopView.exe
+data/bibles/Ort/Search_List.txt
+data/bibles/Ort/VerseHistory.txt
+data/bibles/beg1.wav

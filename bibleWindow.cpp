@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTextDocumentFragment>
 #include <QTextStream>
 #include <QDir>
+#include <QDesktopServices>
 
 QProgressBar  *downloadProgressBar = 0;
 QPushButton *dounloadCancelButton = 0;
@@ -778,6 +779,8 @@ void BibleWindow::about(MyProcess *p){
       showMessage( tr("There is no information about this Bible Version.") );
       return;
    }
+   QUrl url = QUrl::fromLocalFile(dir+"about.html");
+   QDesktopServices::openUrl(url);
    p->browse( QFileInfo(af).absoluteFilePath() );
 };
 
