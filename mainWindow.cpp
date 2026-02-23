@@ -175,7 +175,7 @@ void BMainWindow::fileExport(const QString &ex){
       if (ex==".html") tx = bw->toHtml( exportDialog-> whatToExport() );
       else tx = bw->toTxt( exportDialog-> whatToExport() );
       saveToFile(exportDialog->fileName(),tx);
-      QSettings s("VanyoG", "CD Bible 5");
+      QSettings s("VanyoG", "Read the Bible 5");
       QFileInfo i(exportDialog->fileName());
       s.setValue("eport_dir",i.path());
    };
@@ -193,7 +193,7 @@ void BMainWindow::onFileImportTxt(){
    showMessage(tr("This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the \"Read the Bible\".")); return;
    BibleWindow *ab = activeBible();
    if (!ab) return;
-   QSettings s("VanyoG", "CD Bible 5");
+   QSettings s("VanyoG", "Read the Bible 5");
    QString dr = s.value("ImportTxtFile").toString();
    QString fn;
    fn = QFileDialog::getOpenFileName(this, tr("Import Bible from .txt file"), dr, "Text file (*.txt)" );
@@ -704,7 +704,7 @@ int BMainWindow::windowCount(const QString &bv){
 };
 
 void BMainWindow::writeSettings(){
-   QSettings s("VanyoG", "CD Bible 5");
+   QSettings s("VanyoG", "Read the Bible 5");
    s.setValue("biblePath",biblePath());
    s.setValue("version",progVersion);
    s.setValue("windowState", saveState() );
@@ -737,7 +737,7 @@ void BMainWindow::readSettings(){
    
    setDefaultCss(fileContent(styleFile));
 
-   QSettings s("VanyoG", "CD Bible 5");
+   QSettings s("VanyoG", "Read the Bible 5");
 
    QString st; // Сринг, който ще се използва за проверка на различни запазени стрингови стойности
    
@@ -998,7 +998,7 @@ QString int_lang = QLocale::system().name().left(2);
 
 void setIntegfaceLanguage(){
    lang_list << "" << "bg" << "mk" <<"en";
-   QSettings s("VanyoG", "CD Bible 5");
+   QSettings s("VanyoG", "Read the Bible 5");
    int i = s.value("language").toInt();
    if (i>0) int_lang = lang_list.at(i);
 };
@@ -1012,7 +1012,7 @@ void BMainWindow::on_actionClean_Restart_triggered()
    if (yesNo( tr("All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?") )!=YES) return;
    // Код написан от ChatGPT
    // 1. Изтриване на всички настройки
-   QSettings settings("VanyoG", "CD Bible 5");
+   QSettings settings("VanyoG", "Read the Bible 5");
    settings.clear();
    settings.sync();
    // 2. Рестарт на програмата

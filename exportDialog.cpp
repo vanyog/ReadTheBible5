@@ -27,7 +27,7 @@ ExportDialog::ExportDialog( QWidget * parent, Qt::WindowFlags f ):
   QDialog( parent, f )
 {
     ui.setupUi(this);
-    QSettings s("VanyoG", "CD Bible 5");
+    QSettings s("VanyoG", "Read the Bible 5");
     QString d = s.value("eport_dir").toString();
     if(d.size()==0) {
         QDir dir(QCoreApplication::applicationDirPath());
