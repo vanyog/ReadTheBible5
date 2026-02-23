@@ -30,13 +30,23 @@ QString myDecode(const QByteArray &tx, const QString &cd){
             if(code>191 && code<256) rz += QChar(code + 848);
             else{
                 switch (code) {
+                case 132: rz += QChar(8222); break;
+                case 134: rz += QChar(8224); break;
+                case 135: rz += QChar(8225); break;
+                case 140: rz += QChar(1034); break;
+                case 142: rz += QChar(1035); break;
                 case 144: rz += QChar(1116); break;
+                case 147: rz += QChar(8220); break;
+                case 150: rz += QChar(8211); break;
                 case 154: rz += QChar(1113); break;
                 case 156: rz += QChar(1114); break;
                 case 158: rz += QChar(1115); break;
                 case 163: rz += QChar(1032); break;
+                case 167: rz += QChar(167); break;
+                case 171: rz += QChar(171); break;
                 case 182: rz += QChar(182); break;
                 case 184: rz += QChar(1105); break;
+                case 187: rz += QChar(187); break;
                 case 188: rz += QChar(1112); break;
                 default:
                         if (code>127){ rz += QChar(c); countedMessage(rz + QString::number(code)); }

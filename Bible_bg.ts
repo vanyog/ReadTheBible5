@@ -45,7 +45,7 @@
     <message>
         <location filename="mainWindow.cpp" line="357"/>
         <location filename="mainWindow.cpp" line="376"/>
-        <source>Last verse is reached %.</source>
+        <source>Last verse is reached %1.</source>
         <translation>Достигнат е последния стих %.</translation>
     </message>
     <message>

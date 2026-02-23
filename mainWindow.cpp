@@ -354,7 +354,7 @@ void BMainWindow::onGoNextVerse(){
    if (!ab) return;
    int i = ab->verseIndex();
    if (i<ab->verseTotalCount()) i++;
-   else showMessage(tr("Last verse is reached %.").arg(ab->verseTotalCount()));
+   else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
  //  ui.comboBox_4->setFocus();
 };
@@ -373,7 +373,7 @@ void BMainWindow::onGoNextChapter(){
    if (!ab) return;
    int i = ab->verseIndex();
    if (i<ab->verseTotalCount()) i += ui.comboBox_4->count()-ui.comboBox_4->currentIndex();
-   else showMessage(tr("Last verse is reached %.").arg(ab->verseTotalCount()));
+   else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
    ui.comboBox_4->setFocus();
 };
