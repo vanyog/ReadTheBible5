@@ -33,7 +33,7 @@ QString myDecode(const QByteArray &tx, const QString &cd){
                 case 132: rz += QChar(8222); break;
                 case 134: rz += QChar(8224); break;
                 case 135: rz += QChar(8225); break;
-                case 140: rz += QChar(1034); break;
+                case 140: rz += QChar(1035); break;
                 case 142: rz += QChar(1035); break;
                 case 144: rz += QChar(1116); break;
                 case 147: rz += QChar(8220); break;
@@ -57,8 +57,27 @@ QString myDecode(const QByteArray &tx, const QString &cd){
     }
     else if(cd == "UTF-8")
         rz = QString(tx);
-    else if (cd == "cp1250")
-        rz = QString(tx);
+    else if (cd == "cp1250"){
+        for(char c : tx){
+            int code = static_cast<unsigned char>(c);
+            if(code>127){
+                switch (code){
+                case 170: rz += QChar(350); break;
+                case 182: rz += QChar(182); break;
+                case 186: rz += QChar(351); break;
+                case 206: rz += QChar(206); break;
+                case 226: rz += QChar(226); break;
+                case 238: rz += QChar(238); break;
+                case 254: rz += QChar(355); break;
+                default:
+                    countedMessage(rz + QString::number(code));
+                    rz += QChar(c);
+                }
+            } else {
+                rz += QChar(c);
+            }
+        }
+    }
     else if (cd == "cp1253"){
         for(char c : tx){
             int code = static_cast<unsigned char>(c);
