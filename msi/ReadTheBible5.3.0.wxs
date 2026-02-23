@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="77703282-D590-44F2-B748-592E8DCFB660" Language="1033" Manufacturer="vanyog.com" Name="Read the Bible 5" Version="5.3.0" UpgradeCode="DD1495A9-938E-4D02-ABBD-2EECD663E114" Codepage="1251">
+        <Package Languages="1033" Compressed="yes" InstallerVersion="500" Comments="Многоплатфорем софтуер за четене и изучаване на Библията." Manufacturer="Vanyo Georgiev" InstallScope="perMachine" />
+        <Icon Id="BibleIcon" SourceFile="..\images\win1.ico" />
+        <Property Id="ARPPRODUCTICON" Value="BibleIcon" />
+        <UI />
+        <Media Id="1" Cabinet="Bible5.cab" EmbedCab="yes" />
+        <Property Id="ARPURLUPDATEINFO" Value="http://readthebible.sourceforge.net" />
+        <Property Id="ARPCONTACT" Value="+359 898 265530" />
+        <Property Id="PUBLISHER" Value=" Ваньо Георгиев" />
+        <Property Id="ARPHELPLINK" Value="ARPHELPLINK" />
+        <Property Id="ARPHELPTELEPHONE" Value="ARPHELPTELEPHONE" />
+        <Property Id="ARPREADME" Value="ARPREADME" />
+        <Property Id="ARPCONTACTS" Value="ARPCONTACTS" />
+        <Property Id="ARPURLINFOABOUT" Value="ARPURLINFOABOUT" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="CommonAppDataFolder">
+                <Directory Id="INSTALLDIR" Name="ReadTheBible5">
+                    <Component Id="MainExe" DiskId="1" Guid="9135597A-427B-4B38-A8AA-C6554362BF2C">
+                        <File Id="BIBLE_EXE" Name="Bible.exe" Source="..\build\rel\Bible.exe"></File>
+                    </Component>
+                    <Component Id="BIBLE_BG.QM_1" DiskId="1" Guid="1D40BDA1-B2D1-4724-9F84-A6D52885BAFD">
+                        <File Id="BIBLE_BG.QM_1" Name="Bible_bg.qm" Source="..\build\rel\Bible_bg.qm" />
+                    </Component>
+                    <Component Id="BIBLE_MK.QM_1" DiskId="1" Guid="A06BE831-F3C1-4AF2-86F0-9D0A27A27B2D">
+                        <File Id="BIBLE_MK.QM_1" Name="Bible_mk.qm" Source="..\build\rel\Bible_mk.qm" />
+                    </Component>
+                    <Component Id="ICUUC.DLL_1" DiskId="1" Guid="5E51F00B-FBCF-4D82-8496-19323CD68A76">
+                        <File Id="ICUUC.DLL_1" Name="icuuc.dll" Source="..\build\rel\icuuc.dll" />
+                    </Component>
+                    <Component Id="QT6CORE.DLL_1" DiskId="1" Guid="F1A62E79-37EF-4F13-83C5-BCFC3E22792A">
+                        <File Id="QT6CORE.DLL_1" Name="Qt6Core.dll" Source="..\build\rel\Qt6Core.dll" />
+                    </Component>
+                    <Component Id="QT6GUI.DLL_1" DiskId="1" Guid="AAA3DC5F-0D53-4D24-8EE9-8F8FC6F51D3E">
+                        <File Id="QT6GUI.DLL_1" Name="Qt6Gui.dll" Source="..\build\rel\Qt6Gui.dll" />
+                    </Component>
+                    <Component Id="QT6NETWORK.DLL_1" DiskId="1" Guid="DE0F5963-FAD1-4DB7-9D6C-0CDABEA032F7">
+                        <File Id="QT6NETWORK.DLL_1" Name="Qt6Network.dll" Source="..\build\rel\Qt6Network.dll" />
+                    </Component>
+                    <Component Id="QT6SVG.DLL_1" DiskId="1" Guid="5D824747-8005-426B-8FFA-D73641326889">
+                        <File Id="QT6SVG.DLL_1" Name="Qt6Svg.dll" Source="..\build\rel\Qt6Svg.dll" />
+                    </Component>
+                    <Component Id="QT6WIDGETS.DLL_1" DiskId="1" Guid="5F57E530-C02A-41DD-8DE3-14C12E749E78">
+                        <File Id="QT6WIDGETS.DLL_1" Name="Qt6Widgets.dll" Source="..\build\rel\Qt6Widgets.dll" />
+                    </Component>
+                    <Component Id="Z.DLL_1" DiskId="1" Guid="613E9874-0013-449C-BAAA-8D95AF9A8BCD">
+                        <File Id="Z.DLL_1" Name="z.dll" Source="..\build\rel\z.dll" />
+                    </Component>
+                    <Directory Id="DATA_1" Name="data">
+                        <Component Id="STYLE_W.CSS_1" DiskId="1" Guid="C3C95903-92C0-4015-870A-E99870C85CF1">
+                            <File Id="STYLE_W.CSS_1" Name="style-w.css" Source="..\build\rel\data\style-w.css" />
+                        </Component>
+                        <Component Id="STYLE.CSS_3" DiskId="1" Guid="8AD9A34B-86D1-41F6-A144-8BE177011ACA">
+                            <File Id="STYLE.CSS_3" Name="style.css" Source="..\build\rel\data\style.css" />
+                        </Component>
+                        <Directory Id="BIBLES_1" Name="bibles">
+                            <Component Id="BIBLE_STRUCTURE.TXT_1" DiskId="1" Guid="F03E06BB-48F0-4260-B715-B0C657D3137C">
+                                <File Id="BIBLE_STRUCTURE.TXT_1" Name="Bible_Structure.txt" Source="..\build\rel\data\bibles\Bible_Structure.txt" />
+                            </Component>
+                            <Component Id="LIST_U.TXT_1" DiskId="1" Guid="3D1AEB3D-EEA1-4E8E-B3B2-B8488DFDDB34">
+                                <File Id="LIST_U.TXT_1" Name="list-u.txt" Source="..\build\rel\data\bibles\list-u.txt" />
+                            </Component>
+                            <Component Id="PHP_BIBLE.CSS_1" DiskId="1" Guid="A9676D2C-B7CF-4D99-896A-79B7C2CECCE1">
+                                <File Id="PHP_BIBLE.CSS_1" Name="php-bible.css" Source="..\build\rel\data\bibles\php-bible.css" />
+                            </Component>
+                            <Component Id="STYLE.CSS_4" DiskId="1" Guid="B99D2004-DFA3-40E4-B0BF-AC478B89E6DC">
+                                <File Id="STYLE.CSS_4" Name="style.css" Source="..\build\rel\data\bibles\style.css" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="GENERIC_1" Name="generic">
+                        <Component Id="QTUIOTOUCHPLUGIN.DLL_1" DiskId="1" Guid="1675F544-C703-406A-9033-67B9DD3C3F8E">
+                            <File Id="QTUIOTOUCHPLUGIN.DLL_1" Name="qtuiotouchplugin.dll" Source="..\build\rel\generic\qtuiotouchplugin.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="HTDOCS_1" Name="htdocs">
+                        <Component Id="COPYING.TXT_1" DiskId="1" Guid="904DA61F-63E7-441D-B2D0-C5DDD37E5743">
+                            <File Id="COPYING.TXT_1" Name="copying.txt" Source="..\build\rel\htdocs\copying.txt" />
+                        </Component>
+                        <Component Id="INDEX.PHP_1" DiskId="1" Guid="B780C6E7-C72A-4944-A6CC-748B3CA1E82B">
+                            <File Id="INDEX.PHP_1" Name="index.php" Source="..\build\rel\htdocs\index.php" />
+                        </Component>
+                        <Component Id="INDEX_LEFT_MENU.PHP_1" DiskId="1" Guid="9C4E05DF-547C-48CD-A18F-DE1CE8655F2A">
+                            <File Id="INDEX_LEFT_MENU.PHP_1" Name="index_left_menu.php" Source="..\build\rel\htdocs\index_left_menu.php" />
+                        </Component>
+                        <Component Id="README_BG.HTML_1" DiskId="1" Guid="7D5A4BC0-7044-4783-8E2F-9B02CDF5E7DA">
+                            <File Id="README_BG.HTML_1" Name="readme-bg.html" Source="..\build\rel\htdocs\readme-bg.html" />
+                        </Component>
+                        <Component Id="README_EN.HTML_1" DiskId="1" Guid="4DFCAFB8-44BD-4898-BD7A-386C3B876452">
+                            <File Id="README_EN.HTML_1" Name="readme-en.html" Source="..\build\rel\htdocs\readme-en.html" />
+                        </Component>
+                        <Component Id="STYLE.CSS_5" DiskId="1" Guid="1CC72B3C-828B-4ADF-B0DE-B2776203CB21">
+                            <File Id="STYLE.CSS_5" Name="style.css" Source="..\build\rel\htdocs\style.css" />
+                        </Component>
+                        <Directory Id="CMS_1" Name="cms">
+                            <Component Id="F_HTML_FILE_CONTENTS.PHP_1" DiskId="1" Guid="CFF379B0-5409-411A-9978-4250CB72A532">
+                                <File Id="F_HTML_FILE_CONTENTS.PHP_1" Name="f_html_file_contents.php" Source="..\build\rel\htdocs\cms\f_html_file_contents.php" />
+                            </Component>
+                            <Component Id="F_TAG_CONTENT.PHP_1" DiskId="1" Guid="5BFF48A0-902B-4E91-A8CC-759BCFF5E4A6">
+                                <File Id="F_TAG_CONTENT.PHP_1" Name="f_tag_content.php" Source="..\build\rel\htdocs\cms\f_tag_content.php" />
+                            </Component>
+                            <Component Id="GOOGLE_ADSENSE_120X600.PHP_1" DiskId="1" Guid="11B26E61-53FD-42CD-B800-10D9EF98AE37">
+                                <File Id="GOOGLE_ADSENSE_120X600.PHP_1" Name="google_adsense_120x600.php" Source="..\build\rel\htdocs\cms\google_adsense_120x600.php" />
+                            </Component>
+                            <Component Id="GOOGLE_ADSENSE_120X90.PHP_1" DiskId="1" Guid="50A38B1D-A98E-4E68-BC7F-6214AE3287BF">
+                                <File Id="GOOGLE_ADSENSE_120X90.PHP_1" Name="google_adsense_120x90.php" Source="..\build\rel\htdocs\cms\google_adsense_120x90.php" />
+                            </Component>
+                            <Component Id="HTML_BUILD_PAGE.PHP_1" DiskId="1" Guid="38BE71FD-3A38-4D01-9671-E36F1876C867">
+                                <File Id="HTML_BUILD_PAGE.PHP_1" Name="html_build_page.php" Source="..\build\rel\htdocs\cms\html_build_page.php" />
+                            </Component>
+                            <Component Id="SELECTLANGUAGE.PHP_1" DiskId="1" Guid="BE722DF0-4916-4AFE-BD10-EF6B7DF7C7C1">
+                                <File Id="SELECTLANGUAGE.PHP_1" Name="selectLanguage.php" Source="..\build\rel\htdocs\cms\selectLanguage.php" />
+                            </Component>
+                            <Directory Id="CONF_1" Name="conf">
+                                <Component Id="LANGUAGES.PHP_1" DiskId="1" Guid="A54C1EA9-700F-4DB3-9FB5-ACD9166A6125">
+                                    <File Id="LANGUAGES.PHP_1" Name="languages.php" Source="..\build\rel\htdocs\cms\conf\languages.php" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                        <Directory Id="HELP_1" Name="help">
+                            <Component Id="HELP.HTML_1" DiskId="1" Guid="0FD5A5D2-3466-4A18-8B61-BFB0065D7CC8">
+                                <File Id="HELP.HTML_1" Name="help.html" Source="..\build\rel\htdocs\help\help.html" />
+                            </Component>
+                            <Component Id="HELP.ODT_1" DiskId="1" Guid="0D7ACB0D-CA1B-47BA-B4C1-7DA6170BC1B2">
+                                <File Id="HELP.ODT_1" Name="help.odt" Source="..\build\rel\htdocs\help\help.odt" />
+                            </Component>
+                            <Component Id="HELP_HTML_465859D5.PNG_1" DiskId="1" Guid="28AA919F-3D7A-4856-8907-A3B4B0229450">
+                                <File Id="HELP_HTML_465859D5.PNG_1" Name="help_html_465859d5.png" Source="..\build\rel\htdocs\help\help_html_465859d5.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_47A88FEC.PNG_1" DiskId="1" Guid="58FD3AFD-71E9-4C3A-A8F4-F99D35BB1A6E">
+                                <File Id="HELP_HTML_47A88FEC.PNG_1" Name="help_html_47a88fec.png" Source="..\build\rel\htdocs\help\help_html_47a88fec.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_68800CB2.PNG_1" DiskId="1" Guid="50E30B62-554C-42D6-A49B-62D9F59556BC">
+                                <File Id="HELP_HTML_68800CB2.PNG_1" Name="help_html_68800cb2.png" Source="..\build\rel\htdocs\help\help_html_68800cb2.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_794FA5F3.PNG_1" DiskId="1" Guid="3CCFD89B-1AA7-489B-BB8E-F9532E936D8B">
+                                <File Id="HELP_HTML_794FA5F3.PNG_1" Name="help_html_794fa5f3.png" Source="..\build\rel\htdocs\help\help_html_794fa5f3.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M4BAD47E5.PNG_1" DiskId="1" Guid="0A898FF2-7A6D-4463-AFFB-6363E3A88F5B">
+                                <File Id="HELP_HTML_M4BAD47E5.PNG_1" Name="help_html_m4bad47e5.png" Source="..\build\rel\htdocs\help\help_html_m4bad47e5.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M50671BB2.PNG_1" DiskId="1" Guid="194CC70D-1EFA-44D2-BD00-70F741832D2D">
+                                <File Id="HELP_HTML_M50671BB2.PNG_1" Name="help_html_m50671bb2.png" Source="..\build\rel\htdocs\help\help_html_m50671bb2.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M567F9918.PNG_1" DiskId="1" Guid="EFD3C7C1-07DD-4CB0-B0B3-944CDDCBAA36">
+                                <File Id="HELP_HTML_M567F9918.PNG_1" Name="help_html_m567f9918.png" Source="..\build\rel\htdocs\help\help_html_m567f9918.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M56F76BCE.PNG_1" DiskId="1" Guid="FE3F8CE2-D6BA-4762-9223-D5E5D8944946">
+                                <File Id="HELP_HTML_M56F76BCE.PNG_1" Name="help_html_m56f76bce.png" Source="..\build\rel\htdocs\help\help_html_m56f76bce.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M61AAAADA.PNG_1" DiskId="1" Guid="12AECF9B-348F-4837-9346-283ABD59ECCF">
+                                <File Id="HELP_HTML_M61AAAADA.PNG_1" Name="help_html_m61aaaada.png" Source="..\build\rel\htdocs\help\help_html_m61aaaada.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M65D361CE.PNG_1" DiskId="1" Guid="F61A6925-F23B-4B98-B857-FFC5A80950A9">
+                                <File Id="HELP_HTML_M65D361CE.PNG_1" Name="help_html_m65d361ce.png" Source="..\build\rel\htdocs\help\help_html_m65d361ce.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M6A90A0F2.PNG_1" DiskId="1" Guid="C7323AF8-4F5B-4EE2-BBD4-9211129AB7D0">
+                                <File Id="HELP_HTML_M6A90A0F2.PNG_1" Name="help_html_m6a90a0f2.png" Source="..\build\rel\htdocs\help\help_html_m6a90a0f2.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_M745E167C.PNG_1" DiskId="1" Guid="9CE91FB6-69D8-4BEE-A690-5BE6504112D6">
+                                <File Id="HELP_HTML_M745E167C.PNG_1" Name="help_html_m745e167c.png" Source="..\build\rel\htdocs\help\help_html_m745e167c.png" />
+                            </Component>
+                            <Component Id="HELP_HTML_MCB3F14D.PNG_1" DiskId="1" Guid="4D20BF93-D322-425A-AC39-B70C93FA62AB">
+                                <File Id="HELP_HTML_MCB3F14D.PNG_1" Name="help_html_mcb3f14d.png" Source="..\build\rel\htdocs\help\help_html_mcb3f14d.png" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="IMAGES_1" Name="images">
+                            <Component Id="SCR_MIN_3.PNG_1" DiskId="1" Guid="9B602A6C-B65A-4D8C-A340-4D52CF435C8B">
+                                <File Id="SCR_MIN_3.PNG_1" Name="scr-min-3.png" Source="..\build\rel\htdocs\images\scr-min-3.png" />
+                            </Component>
+                            <Component Id="SCR_MIN_4.PNG_1" DiskId="1" Guid="76411A12-66B9-47B9-BB93-6CD845F36D6D">
+                                <File Id="SCR_MIN_4.PNG_1" Name="scr-min-4.png" Source="..\build\rel\htdocs\images\scr-min-4.png" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="ICONENGINES" Name="iconengines">
+                        <Component Id="QSVGICON.DLL" DiskId="1" Guid="41EF4646-04C0-4038-A680-C5A93033A410">
+                            <File Id="QSVGICON.DLL" Name="qsvgicon.dll" Source="..\build\rel\iconengines\qsvgicon.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="IMAGEFORMATS" Name="imageformats">
+                        <Component Id="QGIF.DLL" DiskId="1" Guid="CC46FBF1-8B0E-484B-B290-A2F3A827AB3C">
+                            <File Id="QGIF.DLL" Name="qgif.dll" Source="..\build\rel\imageformats\qgif.dll" />
+                        </Component>
+                        <Component Id="QICNS.DLL" DiskId="1" Guid="6A109478-35A8-4898-8C67-F0C3255F1A70">
+                            <File Id="QICNS.DLL" Name="qicns.dll" Source="..\build\rel\imageformats\qicns.dll" />
+                        </Component>
+                        <Component Id="QICO.DLL" DiskId="1" Guid="B4BC0B7F-C12E-4B92-8A6C-77C4E3E7BEF8">
+                            <File Id="QICO.DLL" Name="qico.dll" Source="..\build\rel\imageformats\qico.dll" />
+                        </Component>
+                        <Component Id="QJPEG.DLL" DiskId="1" Guid="32345030-89DF-4C3B-96C6-B8FD1ABC7E5E">
+                            <File Id="QJPEG.DLL" Name="qjpeg.dll" Source="..\build\rel\imageformats\qjpeg.dll" />
+                        </Component>
+                        <Component Id="QSVG.DLL" DiskId="1" Guid="23DB2810-A3F6-470D-BB44-4196C4B3224D">
+                            <File Id="QSVG.DLL" Name="qsvg.dll" Source="..\build\rel\imageformats\qsvg.dll" />
+                        </Component>
+                        <Component Id="QTGA.DLL" DiskId="1" Guid="60E6CD4F-7B3E-4104-815E-60F20613961A">
+                            <File Id="QTGA.DLL" Name="qtga.dll" Source="..\build\rel\imageformats\qtga.dll" />
+                        </Component>
+                        <Component Id="QTIFF.DLL" DiskId="1" Guid="060DE1DE-2142-469F-A4BC-A9E65128E909">
+                            <File Id="QTIFF.DLL" Name="qtiff.dll" Source="..\build\rel\imageformats\qtiff.dll" />
+                        </Component>
+                        <Component Id="QWBMP.DLL" DiskId="1" Guid="64974150-A305-4AB2-A13E-A4138FD5394C">
+                            <File Id="QWBMP.DLL" Name="qwbmp.dll" Source="..\build\rel\imageformats\qwbmp.dll" />
+                        </Component>
+                        <Component Id="QWEBP.DLL" DiskId="1" Guid="FF79B23A-AFAE-4963-BDED-D35B19553D0C">
+                            <File Id="QWEBP.DLL" Name="qwebp.dll" Source="..\build\rel\imageformats\qwebp.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="IMAGES_2" Name="images">
+                        <Component Id="LOGO_2A.PNG" DiskId="1" Guid="1E10D297-2147-4490-81FB-79680BB449C9">
+                            <File Id="LOGO_2A.PNG" Name="Logo_2a.png" Source="..\build\rel\images\Logo_2a.png" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="NETWORKINFORMATION" Name="networkinformation">
+                        <Component Id="QNETWORKLISTMANAGER.DLL" DiskId="1" Guid="1919A320-47A0-4D41-B0FD-B1B3C73A6898">
+                            <File Id="QNETWORKLISTMANAGER.DLL" Name="qnetworklistmanager.dll" Source="..\build\rel\networkinformation\qnetworklistmanager.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="PLATFORMS" Name="platforms">
+                        <Component Id="QWINDOWS.DLL" DiskId="1" Guid="0D45CC8F-43CC-4A6F-B0C2-3A0AFDC42767">
+                            <File Id="QWINDOWS.DLL" Name="qwindows.dll" Source="..\build\rel\platforms\qwindows.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="STYLES" Name="styles">
+                        <Component Id="QMODERNWINDOWSSTYLE.DLL" DiskId="1" Guid="34EC9AC7-5C25-4B03-A25F-01FCE234482A">
+                            <File Id="QMODERNWINDOWSSTYLE.DLL" Name="qmodernwindowsstyle.dll" Source="..\build\rel\styles\qmodernwindowsstyle.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="TLS" Name="tls">
+                        <Component Id="QCERTONLYBACKEND.DLL" DiskId="1" Guid="02754268-CF7D-421A-B534-2F6EC151F3B8">
+                            <File Id="QCERTONLYBACKEND.DLL" Name="qcertonlybackend.dll" Source="..\build\rel\tls\qcertonlybackend.dll" />
+                        </Component>
+                        <Component Id="QSCHANNELBACKEND.DLL" DiskId="1" Guid="414C9D7F-DF20-4FA9-935B-672546340D37">
+                            <File Id="QSCHANNELBACKEND.DLL" Name="qschannelbackend.dll" Source="..\build\rel\tls\qschannelbackend.dll" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="TRANSLATIONS" Name="translations">
+                        <Component Id="QT_AR.QM" DiskId="1" Guid="CE970291-9728-421B-9C68-EC483FE32C38">
+                            <File Id="QT_AR.QM" Name="qt_ar.qm" Source="..\build\rel\translations\qt_ar.qm" />
+                        </Component>
+                        <Component Id="QT_BG.QM" DiskId="1" Guid="B25535E6-AC76-421A-A862-69755D4925C5">
+                            <File Id="QT_BG.QM" Name="qt_bg.qm" Source="..\build\rel\translations\qt_bg.qm" />
+                        </Component>
+                        <Component Id="QT_CA.QM" DiskId="1" Guid="A0A8E718-72AD-434A-A7E5-2E4AE49295F4">
+                            <File Id="QT_CA.QM" Name="qt_ca.qm" Source="..\build\rel\translations\qt_ca.qm" />
+                        </Component>
+                        <Component Id="QT_CS.QM" DiskId="1" Guid="00FC4621-B6FD-4763-8383-4BEB4B8C127F">
+                            <File Id="QT_CS.QM" Name="qt_cs.qm" Source="..\build\rel\translations\qt_cs.qm" />
+                        </Component>
+                        <Component Id="QT_DA.QM" DiskId="1" Guid="EE1F32FB-BBAF-404B-9D98-DC964825ABC6">
+                            <File Id="QT_DA.QM" Name="qt_da.qm" Source="..\build\rel\translations\qt_da.qm" />
+                        </Component>
+                        <Component Id="QT_DE.QM" DiskId="1" Guid="8FB155A0-6B7F-49E1-8D30-AEC409B0507B">
+                            <File Id="QT_DE.QM" Name="qt_de.qm" Source="..\build\rel\translations\qt_de.qm" />
+                        </Component>
+                        <Component Id="QT_EN.QM" DiskId="1" Guid="6303CD0A-E5EB-43E7-8949-0ECEDE952AE6">
+                            <File Id="QT_EN.QM" Name="qt_en.qm" Source="..\build\rel\translations\qt_en.qm" />
+                        </Component>
+                        <Component Id="QT_ES.QM" DiskId="1" Guid="6947025B-9A75-4C8D-9137-B821A88A1A9F">
+                            <File Id="QT_ES.QM" Name="qt_es.qm" Source="..\build\rel\translations\qt_es.qm" />
+                        </Component>
+                        <Component Id="QT_FA.QM" DiskId="1" Guid="4A155DCD-9BCE-497D-9BCF-7B1246BE8032">
+                            <File Id="QT_FA.QM" Name="qt_fa.qm" Source="..\build\rel\translations\qt_fa.qm" />
+                        </Component>
+                        <Component Id="QT_FI.QM" DiskId="1" Guid="D471B22A-024A-4624-A7C7-3A140F096548">
+                            <File Id="QT_FI.QM" Name="qt_fi.qm" Source="..\build\rel\translations\qt_fi.qm" />
+                        </Component>
+                        <Component Id="QT_FR.QM" DiskId="1" Guid="039E18EC-C6EA-48D9-BE02-76F89BA116B1">
+                            <File Id="QT_FR.QM" Name="qt_fr.qm" Source="..\build\rel\translations\qt_fr.qm" />
+                        </Component>
+                        <Component Id="QT_GD.QM" DiskId="1" Guid="CB2F1947-534C-4E0E-B81B-3982A2F041FD">
+                            <File Id="QT_GD.QM" Name="qt_gd.qm" Source="..\build\rel\translations\qt_gd.qm" />
+                        </Component>
+                        <Component Id="QT_HE.QM" DiskId="1" Guid="6C0ACA27-5CD3-4699-AD6F-8A531A970190">
+                            <File Id="QT_HE.QM" Name="qt_he.qm" Source="..\build\rel\translations\qt_he.qm" />
+                        </Component>
+                        <Component Id="QT_HR.QM" DiskId="1" Guid="579C367B-90EE-4DE2-97A8-6027DD22ADB8">
+                            <File Id="QT_HR.QM" Name="qt_hr.qm" Source="..\build\rel\translations\qt_hr.qm" />
+                        </Component>
+                        <Component Id="QT_HU.QM" DiskId="1" Guid="54FA392F-D8EA-40CB-96A3-9A03D6F91CFA">
+                            <File Id="QT_HU.QM" Name="qt_hu.qm" Source="..\build\rel\translations\qt_hu.qm" />
+                        </Component>
+                        <Component Id="QT_IT.QM" DiskId="1" Guid="BA75A4D6-F7EE-4568-A015-352201659A5A">
+                            <File Id="QT_IT.QM" Name="qt_it.qm" Source="..\build\rel\translations\qt_it.qm" />
+                        </Component>
+                        <Component Id="QT_JA.QM" DiskId="1" Guid="62EC7044-B754-4C40-B96F-6759EF124FA2">
+                            <File Id="QT_JA.QM" Name="qt_ja.qm" Source="..\build\rel\translations\qt_ja.qm" />
+                        </Component>
+                        <Component Id="QT_KA.QM" DiskId="1" Guid="0361C99F-D4F4-46DA-9E14-4335D1021AF9">
+                            <File Id="QT_KA.QM" Name="qt_ka.qm" Source="..\build\rel\translations\qt_ka.qm" />
+                        </Component>
+                        <Component Id="QT_KO.QM" DiskId="1" Guid="5B71EED3-E696-4151-8F34-5A231C351FD5">
+                            <File Id="QT_KO.QM" Name="qt_ko.qm" Source="..\build\rel\translations\qt_ko.qm" />
+                        </Component>
+                        <Component Id="QT_LG.QM" DiskId="1" Guid="DBC11572-2F80-4881-AB15-CFC752B64FE3">
+                            <File Id="QT_LG.QM" Name="qt_lg.qm" Source="..\build\rel\translations\qt_lg.qm" />
+                        </Component>
+                        <Component Id="QT_LV.QM" DiskId="1" Guid="464637F2-230B-4BDB-81B3-5A75B521838E">
+                            <File Id="QT_LV.QM" Name="qt_lv.qm" Source="..\build\rel\translations\qt_lv.qm" />
+                        </Component>
+                        <Component Id="QT_NL.QM" DiskId="1" Guid="09FB737B-83AB-4477-9CD4-0E59AD48E86B">
+                            <File Id="QT_NL.QM" Name="qt_nl.qm" Source="..\build\rel\translations\qt_nl.qm" />
+                        </Component>
+                        <Component Id="QT_NN.QM" DiskId="1" Guid="16AC466E-2996-4953-A450-FA096059B3FA">
+                            <File Id="QT_NN.QM" Name="qt_nn.qm" Source="..\build\rel\translations\qt_nn.qm" />
+                        </Component>
+                        <Component Id="QT_PL.QM" DiskId="1" Guid="C1E0032C-259C-449B-85A9-17CAF148D41B">
+                            <File Id="QT_PL.QM" Name="qt_pl.qm" Source="..\build\rel\translations\qt_pl.qm" />
+                        </Component>
+                        <Component Id="QT_PT_BR.QM" DiskId="1" Guid="260B0B33-10F2-4A43-B3CC-5DCC48824AED">
+                            <File Id="QT_PT_BR.QM" Name="qt_pt_BR.qm" Source="..\build\rel\translations\qt_pt_BR.qm" />
+                        </Component>
+                        <Component Id="QT_RU.QM" DiskId="1" Guid="8EE15DDB-21CC-4AC2-846A-7B803D4C0842">
+                            <File Id="QT_RU.QM" Name="qt_ru.qm" Source="..\build\rel\translations\qt_ru.qm" />
+                        </Component>
+                        <Component Id="QT_SK.QM" DiskId="1" Guid="208959EC-A7E6-4745-A0B8-5A21BA5C98B5">
+                            <File Id="QT_SK.QM" Name="qt_sk.qm" Source="..\build\rel\translations\qt_sk.qm" />
+                        </Component>
+                        <Component Id="QT_SV.QM" DiskId="1" Guid="D51C65F9-04C4-4A7D-9AE6-516FCB8365AE">
+                            <File Id="QT_SV.QM" Name="qt_sv.qm" Source="..\build\rel\translations\qt_sv.qm" />
+                        </Component>
+                        <Component Id="QT_TR.QM" DiskId="1" Guid="8E3903FA-5555-47A2-ADFE-8A0736B61E57">
+                            <File Id="QT_TR.QM" Name="qt_tr.qm" Source="..\build\rel\translations\qt_tr.qm" />
+                        </Component>
+                        <Component Id="QT_UK.QM" DiskId="1" Guid="4A97D915-DCD5-4A00-B1EE-490A874CA25F">
+                            <File Id="QT_UK.QM" Name="qt_uk.qm" Source="..\build\rel\translations\qt_uk.qm" />
+                        </Component>
+                        <Component Id="QT_ZH_CN.QM" DiskId="1" Guid="EA202710-6A19-4544-9BCC-42B4240DC5E9">
+                            <File Id="QT_ZH_CN.QM" Name="qt_zh_CN.qm" Source="..\build\rel\translations\qt_zh_CN.qm" />
+                        </Component>
+                        <Component Id="QT_ZH_TW.QM" DiskId="1" Guid="941C5533-7958-4B91-8A0E-41F5F4AC9514">
+                            <File Id="QT_ZH_TW.QM" Name="qt_zh_TW.qm" Source="..\build\rel\translations\qt_zh_TW.qm" />
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="StartMenuFolder" Name="Read the Bible 5">
+                    <Component Id="StartMenuShortcut" Guid="*">
+                        <Shortcut Id="BibleShort1" Name="Read the Bible 5" Target="[INSTALLDIR]Bible.exe" WorkingDirectory="INSTALLDIR" Icon="BibleIcon" />
+                        <RemoveFolder Id="StartMenuFolder" On="uninstall" />
+                        <RegistryValue Root="HKCU" Key="Software\ReadTheBible5" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="DesktopFolder">
+                <Component Id="DesktopShortcut" Guid="*">
+                    <Shortcut Id="BibleShort2" Name="Read the Bible 5" Target="[INSTALLDIR]Bible.exe" WorkingDirectory="INSTALLDIR" Icon="BibleIcon" />
+                    <RegistryValue Root="HKCU" Key="Software\ReadTheBible5" Name="desktop" Type="integer" Value="1" KeyPath="yes" />
+                </Component>
+            </Directory>
+        </Directory>
+        <Feature Id="Complete" Title="Bible5" Level="1">
+            <ComponentRef Id="MainExe" />
+            <ComponentRef Id="BIBLE_BG.QM_1" />
+            <ComponentRef Id="BIBLE_MK.QM_1" />
+            <ComponentRef Id="ICUUC.DLL_1" />
+            <ComponentRef Id="QT6CORE.DLL_1" />
+            <ComponentRef Id="QT6GUI.DLL_1" />
+            <ComponentRef Id="QT6NETWORK.DLL_1" />
+            <ComponentRef Id="QT6SVG.DLL_1" />
+            <ComponentRef Id="QT6WIDGETS.DLL_1" />
+            <ComponentRef Id="Z.DLL_1" />
+            <ComponentRef Id="STYLE_W.CSS_1" />
+            <ComponentRef Id="STYLE.CSS_3" />
+            <ComponentRef Id="BIBLE_STRUCTURE.TXT_1" />
+            <ComponentRef Id="LIST_U.TXT_1" />
+            <ComponentRef Id="PHP_BIBLE.CSS_1" />
+            <ComponentRef Id="STYLE.CSS_4" />
+            <ComponentRef Id="QTUIOTOUCHPLUGIN.DLL_1" />
+            <ComponentRef Id="COPYING.TXT_1" />
+            <ComponentRef Id="INDEX.PHP_1" />
+            <ComponentRef Id="INDEX_LEFT_MENU.PHP_1" />
+            <ComponentRef Id="README_BG.HTML_1" />
+            <ComponentRef Id="README_EN.HTML_1" />
+            <ComponentRef Id="STYLE.CSS_5" />
+            <ComponentRef Id="F_HTML_FILE_CONTENTS.PHP_1" />
+            <ComponentRef Id="F_TAG_CONTENT.PHP_1" />
+            <ComponentRef Id="GOOGLE_ADSENSE_120X600.PHP_1" />
+            <ComponentRef Id="GOOGLE_ADSENSE_120X90.PHP_1" />
+            <ComponentRef Id="HTML_BUILD_PAGE.PHP_1" />
+            <ComponentRef Id="SELECTLANGUAGE.PHP_1" />
+            <ComponentRef Id="LANGUAGES.PHP_1" />
+            <ComponentRef Id="HELP.HTML_1" />
+            <ComponentRef Id="HELP.ODT_1" />
+            <ComponentRef Id="HELP_HTML_465859D5.PNG_1" />
+            <ComponentRef Id="HELP_HTML_47A88FEC.PNG_1" />
+            <ComponentRef Id="HELP_HTML_68800CB2.PNG_1" />
+            <ComponentRef Id="HELP_HTML_794FA5F3.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M4BAD47E5.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M50671BB2.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M567F9918.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M56F76BCE.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M61AAAADA.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M65D361CE.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M6A90A0F2.PNG_1" />
+            <ComponentRef Id="HELP_HTML_M745E167C.PNG_1" />
+            <ComponentRef Id="HELP_HTML_MCB3F14D.PNG_1" />
+            <ComponentRef Id="SCR_MIN_3.PNG_1" />
+            <ComponentRef Id="SCR_MIN_4.PNG_1" />
+            <ComponentRef Id="QSVGICON.DLL" />
+            <ComponentRef Id="QGIF.DLL" />
+            <ComponentRef Id="QICNS.DLL" />
+            <ComponentRef Id="QICO.DLL" />
+            <ComponentRef Id="QJPEG.DLL" />
+            <ComponentRef Id="QSVG.DLL" />
+            <ComponentRef Id="QTGA.DLL" />
+            <ComponentRef Id="QTIFF.DLL" />
+            <ComponentRef Id="QWBMP.DLL" />
+            <ComponentRef Id="QWEBP.DLL" />
+            <ComponentRef Id="LOGO_2A.PNG" />
+            <ComponentRef Id="QNETWORKLISTMANAGER.DLL" />
+            <ComponentRef Id="QWINDOWS.DLL" />
+            <ComponentRef Id="QMODERNWINDOWSSTYLE.DLL" />
+            <ComponentRef Id="QCERTONLYBACKEND.DLL" />
+            <ComponentRef Id="QSCHANNELBACKEND.DLL" />
+            <ComponentRef Id="QT_AR.QM" />
+            <ComponentRef Id="QT_BG.QM" />
+            <ComponentRef Id="QT_CA.QM" />
+            <ComponentRef Id="QT_CS.QM" />
+            <ComponentRef Id="QT_DA.QM" />
+            <ComponentRef Id="QT_DE.QM" />
+            <ComponentRef Id="QT_EN.QM" />
+            <ComponentRef Id="QT_ES.QM" />
+            <ComponentRef Id="QT_FA.QM" />
+            <ComponentRef Id="QT_FI.QM" />
+            <ComponentRef Id="QT_FR.QM" />
+            <ComponentRef Id="QT_GD.QM" />
+            <ComponentRef Id="QT_HE.QM" />
+            <ComponentRef Id="QT_HR.QM" />
+            <ComponentRef Id="QT_HU.QM" />
+            <ComponentRef Id="QT_IT.QM" />
+            <ComponentRef Id="QT_JA.QM" />
+            <ComponentRef Id="QT_KA.QM" />
+            <ComponentRef Id="QT_KO.QM" />
+            <ComponentRef Id="QT_LG.QM" />
+            <ComponentRef Id="QT_LV.QM" />
+            <ComponentRef Id="QT_NL.QM" />
+            <ComponentRef Id="QT_NN.QM" />
+            <ComponentRef Id="QT_PL.QM" />
+            <ComponentRef Id="QT_PT_BR.QM" />
+            <ComponentRef Id="QT_RU.QM" />
+            <ComponentRef Id="QT_SK.QM" />
+            <ComponentRef Id="QT_SV.QM" />
+            <ComponentRef Id="QT_TR.QM" />
+            <ComponentRef Id="QT_UK.QM" />
+            <ComponentRef Id="QT_ZH_CN.QM" />
+            <ComponentRef Id="QT_ZH_TW.QM" />
+            <ComponentRef Id="StartMenuShortcut" />
+            <ComponentRef Id="DesktopShortcut" />
+        </Feature>
+    </Product>
+</Wix>
