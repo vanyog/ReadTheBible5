@@ -202,12 +202,11 @@ void ConcordanceModel::readSettings(){
 };
 
 QList<int> *ConcordanceModel::filter(QList<int> *l){
-   int b=0, min=0, max=0;
+   int b=0, max=0;
    QList<int> *r = new QList<int>;
    for(int i=0; i<l->size(); i++){
      int v = l->at(i);
      while (max<v){
-        min = max;
         b++;
         for(int c=1; c<=bible->chapterCount(b); c++) max += bible->verseCount(b,c);
      }

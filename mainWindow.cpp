@@ -520,7 +520,7 @@ void BMainWindow::onWindowsCloseActive(){
 };
 
 void BMainWindow::onWindowsCrossBGBible(){
-    showMessage(tr("Old function. Not used yet.")); return;
+    showMessage(tr("Old function. Not used any more.")); return;
    QString p = preferences()->CrossBgBiblePath();
    QString d = QFileInfo(p).absolutePath();
    myProcess->setWorkingDirectory(d);

@@ -55,7 +55,7 @@ void FileDownloader::downloadFile(const QString &of, const QString &lf){
     QDir().mkdir(zipDir);
     file = new QFile(lf);
     if(!file->open(QIODevice::WriteOnly)){
-        showMessage(tr("Error opening file %1 for writting").arg(lf));
+        showMessage(tr("Error opening file %1 for writing").arg(lf));
         return;
     }
     notDone=true;
