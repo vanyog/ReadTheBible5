@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QHash>
 #include <QFileInfo>
 #include <QApplication>
-//#include <QTextCodec>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QTextBlock>
@@ -66,21 +65,21 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 {
    setAttribute(Qt::WA_DeleteOnClose);
    bible_Version = bv;
-   zipFile = bv+".zip";
+   bZipFile = bv+".zip";
    setOpenLinks(false);
 #ifdef Q_WS_WIN
-   dir = bible_Path+bv+"\\";
+   bDir = bible_Path+bv+"\\";
 #else
-   dir = bible_Path+bv+"/";
+   bDir = bible_Path+bv+"/";
 #endif
-   zipFile = dir+zipFile;
+   bZipFile = bDir+bZipFile;
 #ifdef Q_WS_MAC
    QString sf = "style.css";
 #else
    QString sf = "style-w.css";
 #endif
-   if (QFileInfo::exists(dir+sf)) css = fileContent(dir+sf);
-   else css = defaultCss();
+/*   if (QFileInfo::exists(bDir+sf)) css = fileContent(bDir+sf);
+   else css = defaultCss();*/
    process = 0;
    setWindowTitle( versionCaption(bv) );
    bkl=0; chl=0; vrl=0;  fileDownloader=0;
@@ -90,9 +89,9 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
       downloadBible(bv);
       return;
    };
-   bible_Structure = readStructure(dir+"BibleStructure.csv");
+   bible_Structure = readStructure(bDir+"BibleStructure.csv");
    readCorrection();
-   concordance_ = new ConcordanceModel(dir, versionCodec(bv), this);
+   concordance_ = new ConcordanceModel(bDir, versionCodec(bv), this);
 /*   concordance_ = concordanceHash.value(bible_Version);
    if (!concordance_){
      concordance_ = new ConcordanceModel(dir, versionCodec(bv), this);
@@ -101,8 +100,8 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 };
 
 bool BibleWindow::readTitles(){
-    QString fn  = dir+"BibleTitles.txt";
-   QString fnu = dir+"BibleTitles-u.txt";
+    QString fn  = bDir+"BibleTitles.txt";
+   QString fnu = bDir+"BibleTitles-u.txt";
    if (!QFileInfo::exists(fn)) return false;
    QString fc="";
    if (QFileInfo::exists(fnu)) fc = fileContent(fnu, "UTF-8" );
@@ -127,7 +126,7 @@ bool BibleWindow::readTitles(){
 };
 
 void BibleWindow::readCorrection(){
-  QString fn = dir+"_Diff_.txt";
+  QString fn = bDir+"_Diff_.txt";
   if ( !QFileInfo::exists(fn) ) return;
   QString fc = fileContent(fn);
   QStringList fl = fc.split("\n");
@@ -147,13 +146,13 @@ void BibleWindow::readCorrection(){
 void BibleWindow::downloadBible(const QString &bv){
    Q_UNUSED(bv);
    if (yesNo( tr("Would you like to download Bible %1?").arg(windowTitle()) )!=YES) return;
+   isDonloading = true;
    if (!fileDownloader){
       fileDownloader = new FileDownloader( this, downloadProgressBar, dounloadCancelButton);
-      connect(fileDownloader, SIGNAL(done(bool)), this, SLOT(onBDownloadDone(bool)));
    }
-   QString of = "https://"+downloadSite()+"/bible/v5/"+QFileInfo(zipFile).fileName();
-//   fileDownloader->downloadFile(of,zipFile);
-   fileDownloader->downloadAndUnzip(of,zipFile,windowTitle());
+   QString of = "https://"+downloadSite()+"/bible/v5/"+QFileInfo(bZipFile).fileName();
+   connect(fileDownloader, SIGNAL(unzipFinished()), this, SLOT(onUnziped()));
+   fileDownloader->downloadAndUnzip(of,bZipFile,windowTitle());
 };
 
 void BibleWindow::writeSettings(){
@@ -165,14 +164,14 @@ void BibleWindow::readSettings(){
 };
 
 void BibleWindow::createLinksBin(){
-   QString fln = dir+"Links.txt";
+   QString fln = bDir+"Links.txt";
    QFile lf(fln);
    if (!lf.exists()) {
       showMessage(tr("File do not exist\n%1").arg(fln));
       return;
    }
-   QString idfn = dir+"Links.bin"; // Двоични файлове, в които се записват препратките
-   QString ipfn = dir+"LinksP.bin";
+   QString idfn = bDir+"Links.bin"; // Двоични файлове, в които се записват препратките
+   QString ipfn = bDir+"LinksP.bin";
    QFile idf(idfn);
    QFile ipf(ipfn);
    if (!idf.open(QFile::WriteOnly)){
@@ -495,20 +494,25 @@ void BibleWindow::onBDownloadDone(bool e){
      return;
    }
    QStringList a;
-   a << "-o" << QFileInfo(zipFile).absoluteFilePath();
-//   showMessage(a.join("\n"));
+   a << "-o" << QFileInfo(bZipFile).absoluteFilePath();
    if (!process){
       process = new QProcess(this);
       connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(onUnzipFinished(int,QProcess::ExitStatus)));
    }
-   process->setWorkingDirectory(QFileInfo(zipFile).absolutePath());
+   process->setWorkingDirectory(QFileInfo(bZipFile).absolutePath());
    process->start("unzip",a);
 };
 
 void BibleWindow::onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ){
    Q_UNUSED(exitCode); Q_UNUSED(exitStatus);
    showMessage( tr("Downloaging is finished. Now you can open the Bible %1.").arg(windowTitle()) );
-   QFile( QFileInfo(zipFile).absoluteFilePath() ).remove();
+   QFile( QFileInfo(bZipFile).absoluteFilePath() ).remove();
+};
+
+// Приема сигнала, че е завършило разархивирането и изпраща сигнал, че библията е налично
+void BibleWindow::onUnziped(){
+    isDonloading = false;
+    emit downloadFinished(bible_Version);
 };
 
 void BibleWindow::globalToLocal(){
@@ -541,9 +545,9 @@ void BibleWindow::localToGlobal(){
 };
 
 QString BibleWindow::verseText(int i){
-   int p = pointer(i-1, dir+"CompactPoint.bin");
+   int p = pointer(i-1, bDir+"CompactPoint.bin");
    if (p<0) return "";
-   return textFragment(p, dir+"CompactText.bin", versionCodec(bibleVersion()) );
+   return textFragment(p, bDir+"CompactText.bin", versionCodec(bibleVersion()) );
 };
 
 QString between(const QString &s, const QString &e, const QString &st){
@@ -574,9 +578,9 @@ void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
 };
 
 QStringList *BibleWindow::verseTexts(int i, int c){
-   int p = pointer(i-1, dir+"CompactPoint.bin");
+   int p = pointer(i-1, bDir+"CompactPoint.bin");
    if (p<0) return 0;
-   return textFragments(p, c, dir+"CompactText.bin", versionCodec(bibleVersion()) );
+   return textFragments(p, c, bDir+"CompactText.bin", versionCodec(bibleVersion()) );
 };
 
 QString BibleWindow::wordChapter(){
@@ -628,8 +632,8 @@ QString BibleWindow::addTags(const QString &s0){
 
 QString BibleWindow::addLinks(int i, int v){
    QString r = ""; QString lnk = "";
-   if (QFileInfo::exists(dir+"LinksP.bin")){
-      int p = pointer(i-1,dir+"LinksP.bin"); 
+   if (QFileInfo::exists(bDir+"LinksP.bin")){
+      int p = pointer(i-1,bDir+"LinksP.bin");
       if (p>=0){//showMessage(p);
          QString ln = QString::number(p);
          switch (preferences()->references()){
@@ -641,7 +645,7 @@ QString BibleWindow::addLinks(int i, int v){
             lnk = " <font color=\""+preferedColor()->footnoteColor().name()+"\">{"; 
             break;
          };
-         QList<int> *ia = indexArray(p, dir+"Links.bin");
+         QList<int> *ia = indexArray(p, bDir+"Links.bin");
          for(int k=0; k<ia->size(); k++){
             int vi = ia->at(k);
             QString t = QString::number(vi);
@@ -774,12 +778,12 @@ QString BibleWindow::toTxt(ExportDialog::Export e){
 };
 
 void BibleWindow::about(MyProcess *p){
-   QFile af( dir+"about.html" );
+   QFile af( bDir+"about.html" );
    if (!af.exists()){
       showMessage( tr("There is no information about this Bible Version.") );
       return;
    }
-   QUrl url = QUrl::fromLocalFile(dir+"about.html");
+   QUrl url = QUrl::fromLocalFile(bDir+"about.html");
    QDesktopServices::openUrl(url);
    p->browse( QFileInfo(af).absoluteFilePath() );
 };
@@ -808,8 +812,7 @@ QString BibleWindow::bibleVersion(){
 };
 
 QString BibleWindow::bibleDir(){
-//   return QFileInfo(dir).absolutePath();
-   return dir;
+   return bDir;
 };
 
 void BibleWindow::setReference(int b, int c, int v){
@@ -1044,7 +1047,7 @@ void setVersionAttributes(const QString &bv, const QString &bc, const QString &v
 };
 
 void readGlobalStructure(){
-   global_structure = readStructure(bible_Path+"Bible_Structure.txt");
+   global_structure = readStructure(":data/bibles/Bible_Structure.txt");
 };
 
 BibleStructure *readStructure(const QString &fn){
@@ -1221,6 +1224,7 @@ QString biblePath(){
 
 void setBiblePath(const QString &s){
   bible_Path = s;
+    qDebug() << s;
 };
 
 QStringList getReadPositions(){

@@ -29,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>724</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Bible_1">
@@ -603,6 +603,9 @@ p, li { white-space: pre-wrap; }
    <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionClose_current">
    <property name="text">
@@ -724,10 +727,16 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Export as .&amp;txt</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_Styles">
    <property name="text">
     <string>&amp;Styles</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionBook">
@@ -798,6 +807,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Import &amp;links</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionOpen_application_folder">
    <property name="text">
@@ -805,6 +817,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionReadme_file">
@@ -841,6 +856,9 @@ p, li { white-space: pre-wrap; }
    <property name="shortcut">
     <string>Ctrl+I</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionNext_Chapter">
    <property name="text">
@@ -863,7 +881,7 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Verse collectien toolbox</string>

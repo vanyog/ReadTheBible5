@@ -191,7 +191,6 @@ void WebUpdater::onToUpdate(){
    QString of = "http://"+host+path+zipFile; // URL на zip файла
    if (!fileDownloader){
       fileDownloader = new FileDownloader(this,progressBar,button);
-      connect(fileDownloader, SIGNAL(done(bool)), this, SLOT(onUDownloadDone(bool)));
    }
    // Изтегляне на zip файла
    fileDownloader->downloadFile( of, progDir() + zipFile );

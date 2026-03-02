@@ -42,11 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QFileDialog>
 #include <QRandomGenerator>
 #include <QDesktopServices>
+#include <QStandardPaths>
 
 QString progVersion = "5.3.0";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString progEmail = "info@vanyog.com";
-#ifdef Q_WS_WIN
+/*#ifdef Q_WS_WIN
    QString styleFile = "style-w.css";
 #else
    #ifdef Q_WS_MAC
@@ -54,7 +55,7 @@ QString progEmail = "info@vanyog.com";
    #else
      QString styleFile = "style-w.css";
    #endif
-#endif
+#endif*/
 
 BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
@@ -63,7 +64,8 @@ BMainWindow::BMainWindow(QWidget *parent)
    ui.progressBar->hide();
    ui.pushButton->hide();
    ui.dockWidget_2->setTitleBarWidget(new QWidget());
-   
+   onViewVerseCollection();
+
    setDownloadWidgets(ui.progressBar, ui.pushButton);
    mdiArea = ui.mdiArea;
    doTile = true;
@@ -175,7 +177,7 @@ void BMainWindow::fileExport(const QString &ex){
       if (ex==".html") tx = bw->toHtml( exportDialog-> whatToExport() );
       else tx = bw->toTxt( exportDialog-> whatToExport() );
       saveToFile(exportDialog->fileName(),tx);
-      QSettings s("VanyoG", "Read the Bible 5");
+      QSettings s;
       QFileInfo i(exportDialog->fileName());
       s.setValue("eport_dir",i.path());
    };
@@ -193,7 +195,7 @@ void BMainWindow::onFileImportTxt(){
    showMessage(tr("This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the \"Read the Bible\".")); return;
    BibleWindow *ab = activeBible();
    if (!ab) return;
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
    QString dr = s.value("ImportTxtFile").toString();
    QString fn;
    fn = QFileDialog::getOpenFileName(this, tr("Import Bible from .txt file"), dr, "Text file (*.txt)" );
@@ -219,6 +221,7 @@ void BMainWindow::onFileAppFolder(){
 #ifdef Q_OS_MAC
    d.append("/../..");
    d = QFileInfo(d).absolutePath();
+   QDesktopServices::openUrl(QUrl::fromLocalFile(d)); return;
    c = "open";
    a << d;
 #else
@@ -250,11 +253,18 @@ void BMainWindow::onBibleAction(QAction *action){
    tileOrCascade();
 };
 
+// Приема сегнал че библия bv е изтеглена и разархивирана и я отваря
+void BMainWindow::onBibleDownloaded(const QString &bv){
+    openBible(bv);
+    checkMaximization();
+    tileOrCascade();
+};
+
 void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
     if ( !w ){
         int sn = mdiArea->subWindowList().size(); // Брой на подпрозорците
         if(sn==0){ // Ако няма повече прозорци с беблии се почистват падащите списъци
-            ui.comboBox_2->clear(); // на кроките
+            ui.comboBox_2->clear(); // на книгите
             ui.comboBox_3->clear(); // главите и
             ui.comboBox_4->clear(); // стиховете
         }
@@ -458,9 +468,9 @@ void BMainWindow::onViewColorPreferences(){
 };
 
 void BMainWindow::onViewStyles(){
-   MyProcess *p = new MyProcess(this);
+//   MyProcess *p = new MyProcess(this);
    showMessage(tr("Style changes will take effect next time you strat the Bible program. Click OK to start editing."));
-   p->edit(styleFile);
+//   p->edit(styleFile);
 };
 
 void changeFontSize(int i){
@@ -575,7 +585,16 @@ void BMainWindow::onChangeTextColor(const QColor &c){
 };
 
 void BMainWindow::onHelpContent(){
-    QUrl url = QUrl::fromLocalFile(progDir() + "htdocs/help/help.html");
+    QString helpDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/help";
+    QString helpFile = helpDir + "/help.html";
+    if(!QFileInfo::exists(helpFile)){
+        QDir().mkpath(helpDir);
+        QFile::copy(":/htdocs/help/help.html", helpDir + "/help.html");
+        QDir imagesDir(":/htdocs/help/");
+        for (const QString &img : imagesDir.entryList(QDir::Files))
+            QFile::copy(":/htdocs/help/" + img, helpDir + "/" + img);
+    }
+    QUrl url = QUrl::fromLocalFile(helpDir + "/help.html");
     QDesktopServices::openUrl(url);
 };
 
@@ -663,6 +682,8 @@ void BMainWindow::emitIndexChanged(BibleWindow *ab){
 BibleWindow *BMainWindow::openBible(const QString &bv){
    static int n = 0; // уникален номер на поредния създаден прозорец с Библия
    BibleWindow *bw = new BibleWindow(bv);
+   if(bw->isDonloading)
+       connect(bw, SIGNAL(downloadFinished(QString)), this, SLOT(onBibleDownloaded(QString)));
    if (!bw->longTitles.size()) return bw;
    connect(this, SIGNAL(globalIndexChanged(BibleWindow*)), bw, SLOT(onGlobalIndexChanged(BibleWindow*)));
    connect(this, SIGNAL(scrollToActiveVerse()), bw, SLOT(scrollToActiveVerse()));
@@ -704,7 +725,7 @@ int BMainWindow::windowCount(const QString &bv){
 };
 
 void BMainWindow::writeSettings(){
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
    s.setValue("biblePath",biblePath());
    s.setValue("version",progVersion);
    s.setValue("windowState", saveState() );
@@ -735,9 +756,9 @@ void BMainWindow::writeSettings(){
 void BMainWindow::readSettings(){
    do_Not_Exec = false;
    
-   setDefaultCss(fileContent(styleFile));
+//   setDefaultCss(fileContent(styleFile));
 
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
 
    QString st; // Сринг, който ще се използва за проверка на различни запазени стрингови стойности
    
@@ -745,7 +766,7 @@ void BMainWindow::readSettings(){
    else{
      st = s.value("biblePath").toString();
      // Задава стойността, която се чете с biblePath() - път до директорията с библии
-     if (st.size()) setBiblePath(st);
+     //if (st.size()) setBiblePath(st);
    }
 
    // Стойността "downloadSite" се въвежда ръчно, ако е необходимо сайта за изтeгляне да е различен от подразбиращия се
@@ -756,8 +777,8 @@ void BMainWindow::readSettings(){
    // Състояние на главния прозорец
    // Оказва се, че това възстановява и размерите и състоянията на панелите и менютата.
    QByteArray ws = s.value("windowState").toByteArray();
-   if (!ws.size()) return;
-   else restoreState( ws );
+   if (!ws.isEmpty()) restoreState( ws );
+   else return;
 
    // Позиция на десния край на панела за търсене
 //   ui.splitter->restoreState( s.value("docSplitterState").toByteArray() );
@@ -775,7 +796,7 @@ void BMainWindow::readSettings(){
    // Зареждане на текущите настройки в прозореца за настройки
    preferences()->readSettings(&s);
    
-   // Отваряне на последно отваряните библии
+   // Отваряне на оставените отварени библии
    QStringList bl = s.value("openedBibles").toStringList();
    activeBibleMaximized = s.value("activeMaximized").toBool();
    for(int i=0; i<bl.size(); i++){
@@ -787,22 +808,25 @@ void BMainWindow::readSettings(){
    setReadPositions(bl);
    
    // Размери и позиция на главния прозорец
-   restoreGeometry( s.value("windowGeometry").toByteArray() );
+   QByteArray geom = s.value("windowGeometry").toByteArray();
+   if (!geom.isEmpty()){ restoreGeometry(geom); }
 
-   // Ако е запазено име на файл, съдържащ нова версие се стартира програмата за актуализиране
+   // Ако е запазено име на файл, съдържащ нова версия, се стартира програмата за актуализиране
    do_Not_Exec = webUpdater->updateFromFile( s.value("updateFile").toString() );
    
-   // Посведно отворения превод на Библията, използва се за "Отвори отново"
+   // Последно отворения превод на Библията, използва се за "Отвори отново"
    lastVersion = s.value("lastVersion").toString();
-   
+
    ui.action_Searching_toolbox->setChecked(ui.dockWidget_5->isVisible());
    ui.actionVerse_collectien_toolbox->setChecked(ui.dockWidget->isVisible());
+
 };
 
 void BMainWindow::createBActions(){
-   styleFile = progDir() + "data/"+styleFile;
-   QString fn = progDir()+"data/bibles/list-u.txt";
-   setBiblePath(progDir()+"data/bibles/");
+//   styleFile = progDir() + "data/"+styleFile;
+   QString fn = ":data/bibles/list-u.txt";
+   QString bibDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/bibles/";
+   setBiblePath(bibDir);
    QString fc = fileContent(fn,"UTF-8"), lng = "";
    QStringList bs = fc.split("\n");
    bool said = false;
@@ -977,11 +1001,11 @@ void BMainWindow::newVersion(){
   if (QFileInfo::exists(d+"CDBible40.exe") &&
      (yesNo(tr("Version 4.3 is found in %1. Do you want to use bibles from this version to save disk space.").arg(d))==YES)
   ){
-    setBiblePath(d);
+ //   setBiblePath(d);
   }
   else
 #endif
-  showMessage(tr("Congratulations. You started the new version %1. Please, write to<br><a href=\"mailto:%2\">%2</a><br>for any questions or bug reporting.").arg(progVersion,progEmail));
+//  showMessage(tr("Congratulations. You started the new version %1. Please, write to<br><a href=\"mailto:%2\">%2</a><br>for any questions or bug reporting.").arg(progVersion,progEmail));
 };
 
 void BMainWindow::downloadActiveBible(){
@@ -996,9 +1020,9 @@ void BMainWindow::downloadActiveBible(){
 QStringList lang_list;
 QString int_lang = QLocale::system().name().left(2);
 
-void setIntegfaceLanguage(){
+void setInterfaceLanguage(){
    lang_list << "" << "bg" << "mk" <<"en";
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
    int i = s.value("language").toInt();
    if (i>0) int_lang = lang_list.at(i);
 };
@@ -1012,31 +1036,22 @@ void BMainWindow::on_actionClean_Restart_triggered()
    if (yesNo( tr("All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?") )!=YES) return;
    // Код написан от ChatGPT
    // 1. Изтриване на всички настройки
-   QSettings settings("VanyoG", "Read the Bible 5");
+   QSettings settings;
    settings.clear();
    settings.sync();
    // 2. Рестарт на програмата
-   QString program = QCoreApplication::applicationFilePath();
-   QStringList args = QCoreApplication::arguments();
 #ifdef Q_OS_MAC
-   // Намера .app bundle пътя
-   QString appPath = QCoreApplication::applicationDirPath();
-   // качване до .app
-   while (!appPath.endsWith(".app") && appPath.contains("/"))
-       appPath = appPath.left(appPath.lastIndexOf('/'));
-   QStringList openArgs;
-   openArgs << appPath;
-   // подаване аргументи към приложението
-   if (args.size() > 1) {
-       openArgs << "--args";
-       for (int i = 1; i < args.size(); ++i)
-           openArgs << args[i];
-   }
-   QProcess::startDetached("open", openArgs);
-   // 3. Изход от текущата инстанция
-   qApp->exit(42);
+   QString scr = QCoreApplication::applicationDirPath() + "/restart.sh";
+   QString prg = QCoreApplication::applicationFilePath();
+   QStringList ars;
+   ars << scr << prg;
+   qDebug() << ars;
+   QProcess::startDetached("/bin/bash", ars);
+   exit(0);
 #else
    // Windows / Linux
+   QString program = QCoreApplication::applicationFilePath();
+   QStringList args = QCoreApplication::arguments();
    QProcess::startDetached(program, args);
    QCoreApplication::quit();
 #endif

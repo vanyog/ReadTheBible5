@@ -52,7 +52,7 @@ void FileDownloader::downloadFile(const QString &of, const QString &lf){
     reply = netAManager->get(req);
     QFileInfo info(lf);
     zipDir = info.absoluteDir().path();
-    QDir().mkdir(zipDir);
+    QDir().mkpath(zipDir);
     file = new QFile(lf);
     if(!file->open(QIODevice::WriteOnly)){
         showMessage(tr("Error opening file %1 for writing").arg(lf));
@@ -75,14 +75,14 @@ void FileDownloader::downloadAndUnzip(const QString &of, const QString &lf, cons
    doUnzip = true;
 };
 
-// Показва напредъка на изтеглянето върху лента за напредък
-void FileDownloader::onDataReadProgress(qint64 d, qint64 t){
-    progressBar->setValue(progressBar->maximum()*t/d);
-};
-
 // Записване на пристигащите данни в отворения файл
 void FileDownloader::onReadyRead(){
     file->write(reply->readAll());
+};
+
+// Показва напредъка на изтеглянето върху лента за напредък
+void FileDownloader::onDataReadProgress(qint64 d, qint64 t){
+    progressBar->setValue(progressBar->maximum()*t/d);
 };
 
 // Изпълнява се след края на изтеглянето
@@ -98,7 +98,7 @@ void FileDownloader::onError(QNetworkReply::NetworkError code){
     showMessage( tr("Error %1<br>%2").arg(QString::number(code),es) );
 };
 
-// Функция, написана от ChatGPT: извличане на ZIP и презаписване на съществуващи файлове
+// Функция, написана от ChatGPT: извличане от ZIP и презаписване на съществуващи файлове
 bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
     // Получаваме списък на файловете в архива
     const QStringList files = JlCompress::getFileList(zipFile);
@@ -120,25 +120,26 @@ bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
     return true;
 }
 
+void FileDownloader::onDownloadDone(bool e){
+    if (e || notDone) return;
+    QStringList a;
+    a << "-o" << QFileInfo(zipFile).absoluteFilePath();
+    if (!zipProcess){
+        zipProcess = new QProcess(this);
+        disconnect(zipProcess, SIGNAL(finished(int,QProcess::ExitStatus)), 0, 0);
+        connect(zipProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(onUnzipFinished(int,QProcess::ExitStatus)));
+    }
+    zipProcess->setWorkingDirectory(QFileInfo(zipFile).absolutePath());
+    zipProcess->start("unzip",a);
+};
+
 void FileDownloader::unzipStep(){
     if(reply->error()) return;
     extractDirOverwrite(zipFile, zipDir);
     QFile z(zipFile);
     z.remove();
-    showMessage( tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage) );
-};
-
-void FileDownloader::onDownloadDone(bool e){
-   if (e || notDone) return;
-   QStringList a;
-   a << "-o" << QFileInfo(zipFile).absoluteFilePath();
-   if (!zipProcess){
-      zipProcess = new QProcess(this);
-      disconnect(zipProcess, SIGNAL(finished(int,QProcess::ExitStatus)), 0, 0);
-      connect(zipProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(onUnzipFinished(int,QProcess::ExitStatus)));
-   }
-   zipProcess->setWorkingDirectory(QFileInfo(zipFile).absolutePath());
-   zipProcess->start("unzip",a);
+    emit unzipFinished();
+ //   showMessage( tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage) );
 };
 
 void FileDownloader::onUnzipFinished(int ec, QProcess::ExitStatus es){

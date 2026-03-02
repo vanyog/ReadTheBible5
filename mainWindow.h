@@ -62,7 +62,9 @@ private slots:
    void onFileExportTxt();
    void onFileImportTxt();
    void onFileImportLinks();
+   void on_actionClean_Restart_triggered();
    void onBibleAction(QAction *action);
+   void onBibleDownloaded(const QString &bv);
    void onBibleWindowActivated(QMdiSubWindow *w);
    void onBibleWindowClosing(BibleWindow *bw);
    void onBibleWindowDestroyed(QObject *obj);
@@ -110,9 +112,7 @@ private slots:
    void onMaxItemsChanged(int i);
    void onVerseClick(BibleWindow *ab, int i);
 
-   void on_actionClean_Restart_triggered();
-
-   private:
+private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;
    QHash<QString, BibleWindow*> bibleWindow;
@@ -153,7 +153,7 @@ private slots:
    void downloadActiveBible();
 };
 
-void setIntegfaceLanguage();
+void setInterfaceLanguage();
 QString interfaceLanguage();
 
 #endif

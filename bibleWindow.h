@@ -103,7 +103,8 @@ public:
       на съответното издание.
    */
    bool synchronize,  // Определя дали прозорецът да се синхронизира с активния стих
-   wordsChanged; // Става истина при смяна на думите за търсене
+       wordsChanged, // Става истина при смяна на думите за търсене
+       isDonloading = false; // Истина, ако е започнало изтегляне на библията от Интернет
 
    BibleWindow( const QString &bv, QWidget *parent = 0); // Конструктор на класа. bv е идентификатор на версия на Библията
 
@@ -148,6 +149,7 @@ public:
    void import(const QString &fn); // Импортиране на Библия от .txt файл.
 signals:
    void closing(BibleWindow *bw); // Сигнал, който се излъчва при затваряне на прозореца.
+    void downloadFinished(const QString &bv);
 
 public slots:
    void onGlobalIndexChanged(BibleWindow *bw); // Слот, който прихваща промяната на текущия стих
@@ -161,11 +163,12 @@ private slots:
    void onBDownloadDone(bool e); // Приема сигнал за край на тегленето от Интернет
    void onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ); /* Приема сигнал, че е завършено разархивирането
       на изтегления zip файл */
+   void onUnziped();
 
 private:
    QString bible_Version, // Идентификатор на версията на Библията, който съвпада с името на директорията й.
-     dir, // Пълно име до директорията с файлове от дадената версия.
-     zipFile, // Пълно име на изтегления от Интернет zip файл
+     bDir, // Пълно име до директорията с файлове от дадената версия.
+     bZipFile, // Пълно име на изтегления от Интернет zip файл
      css, // Стил (CSS)
      links, // Препратки
      footnotes; // Бележки под линия

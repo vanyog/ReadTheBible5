@@ -183,7 +183,7 @@ QString ConcordanceModel::colorWords(const QString &s){
 
 // Записване на настройките
 void ConcordanceModel::writeSettings(){
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
    QString v="";
    for(int i=0; i<searchIn.size(); i++)
      if (searchIn.at(i)) v.append("1"); else v.append("0");
@@ -194,7 +194,7 @@ void ConcordanceModel::writeSettings(){
 
 // Четене на настройките
 void ConcordanceModel::readSettings(){
-   QSettings s("VanyoG", "Read the Bible 5");
+   QSettings s;
    QString n = bible->bibleVersion()+"_searchInBooks";
    QString v=s.value(n).toString();
    for(int i=0; i<v.size(); i++) searchIn.replace(i, v.at(i)==QChar('1') );

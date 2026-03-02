@@ -26,26 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSettings>
 
 #include "mainWindow.h"
-//#include "showMessage.h"
+#include "showMessage.h"
 #include "fileDownloader.h"
 
 int main(int argc, char *argv[])
 {
-//   QApplication::setStyle(new QWindowsStyle);
    QApplication app(argc,argv);
 
-   setIntegfaceLanguage();
+    QCoreApplication::setOrganizationName("VanyoG");
+    QCoreApplication::setApplicationName("Read the Bible 5");
+
+   setInterfaceLanguage();
    setProgDir();
    
    QTranslator translator;
-   bool b = translator.load(progDir()+"Bible_"+interfaceLanguage());
+   bool b = translator.load(":Bible_"+interfaceLanguage());
    Q_UNUSED(b)
    app.installTranslator(&translator);
 
-   QPixmap pm("images/Logo_2a.png");
+/*   QPixmap pm(":images/Logo_2a.png");
    QSplashScreen spls(pm);
    spls.show();
-   app.processEvents();
+   app.processEvents();*/
 
    BMainWindow window;
    if (window.doNotExec()){
@@ -53,15 +55,15 @@ int main(int argc, char *argv[])
         return 0;
    }
    window.show();
-   spls.raise();
+//   spls.raise();
    window.tileOrCascade();
-   spls.finish(&window);
+//   spls.finish(&window);
    
-    int i = app.exec();
-    if(i==42){
+   int i = app.exec();
+ /*   if(i==42){ showMessage(i);
         QProcess::startDetached(QCoreApplication::applicationFilePath(), QCoreApplication::arguments());
         return 0;
-    }
+    }*/
     if (window.openAppFolder()) window.onFileAppFolder();
     return i;
 }

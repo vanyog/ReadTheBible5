@@ -15,10 +15,16 @@ win32 {
 DEFINES += QUAZIP_BUILD
 Qt += core
 
+macx {
+    QMAKE_BUNDLE_DATA += restart
+    restart.files = restart.sh
+    restart.path = Contents/MacOS
+}
+
 CONFIG += release
 QT += network
 TEMPLATE = app
-TARGET = Bible
+TARGET = Bible5
 DEPENDPATH += .
 INCLUDEPATH += .
 QMAKE_BUNDLE_DATA += icons
@@ -39,9 +45,14 @@ TRANSLATIONS += Bible_bg.ts Bible_mk.ts
 
 RC_FILE = BibleIcon.rc
 
+RESOURCES += resources.qrc
+
 CONFIG += release
 MOC_DIR = build
 UI_DIR = build
 OBJECTS_DIR = build
 
 CONFIG += no_moc_predefs
+
+DISTFILES += \
+    restart.sh

@@ -4,8 +4,10 @@
 .qmake.stash
 *.zip
 Bible.pro.user
-Bible.app
+Bible5.pro.user
+Bible5.app
 Bible.app.dSYM
+Bible5.app.dSYM
 build
 Makefile
 rel
@@ -22,3 +24,4 @@ data/bibles/OnTopView.exe
 data/bibles/Ort/Search_List.txt
 data/bibles/Ort/VerseHistory.txt
 data/bibles/beg1.wav
+qrc_resources.cpp

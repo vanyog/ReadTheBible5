@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/bibles/list-u.txt</file>
+        <file>Bible_mk.qm</file>
+        <file>Bible_bg.qm</file>
+        <file>images/Logo_2a.png</file>
+        <file>htdocs/help/help_html_47a88fec.png</file>
+        <file>htdocs/help/help_html_68800cb2.png</file>
+        <file>htdocs/help/help_html_m4bad47e5.png</file>
+        <file>htdocs/help/help_html_m6a90a0f2.png</file>
+        <file>htdocs/help/help_html_m61aaaada.png</file>
+        <file>htdocs/help/help_html_m567f9918.png</file>
+        <file>htdocs/help/help_html_m745e167c.png</file>
+        <file>htdocs/help/help_html_m50671bb2.png</file>
+        <file>htdocs/help/help_html_mcb3f14d.png</file>
+        <file>htdocs/help/help.html</file>
+        <file>htdocs/help/help_html_m65d361ce.png</file>
+        <file>htdocs/help/help_html_794fa5f3.png</file>
+        <file>htdocs/help/help_html_465859d5.png</file>
+        <file>htdocs/help/help_html_m56f76bce.png</file>
+        <file>data/bibles/Bible_Structure.txt</file>
+    </qresource>
+</RCC>

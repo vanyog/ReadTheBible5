@@ -51,12 +51,15 @@ public:
   void downloadAndUnzip(const QString &of, const QString &lf, const QString &ms = QString());
 
 private slots:
-    void onDataReadProgress(qint64 d, qint64 t);
-    void onReadyRead();
-    void onRequestFinished();
-    void onError(QNetworkReply::NetworkError code);
-    void onDownloadDone(bool e);
-    void onUnzipFinished(int ec, QProcess::ExitStatus es);
+  void onReadyRead();
+  void onDataReadProgress(qint64 d, qint64 t);
+  void onRequestFinished();
+  void onError(QNetworkReply::NetworkError code);
+  void onDownloadDone(bool e);
+  void onUnzipFinished(int ec, QProcess::ExitStatus es);
+
+signals:
+  void unzipFinished();
 
 private:
     bool doUnzip = false;
