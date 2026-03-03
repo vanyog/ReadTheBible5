@@ -119,7 +119,7 @@ bool WebUpdater::updateFromFile(const QString &fn){
    // при затваряне на програмата то ще се запази в настройките.
    // Следващото стартиране на програмата ще открие това име и ще предложи отново да се направи актуализиране.
    if (yesNo( tr("New version has been downloaded. Would you like to quit now and load it? (Click NO to do this later.)"),
-       tr("Read the Bible 5") )==NO) return false;
+       tr("Read the Bible Free") )==NO) return false;
    showMessage(tr("<p>After you click OK button this program will be closed and the containing folder will be opened. Please</p><ol><li>Delete the executable file</li><li>unzip the new file from the zip archive</li><li>delete the zip file.</li></ol>"));
    // Прекратяване на настоящата програма.
    // Преди да бъде прекратена се изпълнява closeEvent, която извиква writeSetting.

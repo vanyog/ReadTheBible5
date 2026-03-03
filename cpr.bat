@@ -14,7 +14,7 @@ set ZIPFILE=build\Bible5.zip
 rmdir /s/q %OUTDIR%
 
 mkdir %OUTDIR%
-copy build\release\Bible.exe %OUTDIR%
+copy build\release\Bible5.exe %OUTDIR%
 copy *.qm %OUTDIR%
 copy 3rdparty\zlib\build\Release\z.dll %OUTDIR%
 
@@ -35,7 +35,7 @@ copy data\bibles\php-bible.css %OUTDIR%\data\bibles
 copy data\bibles\style.css %OUTDIR%\data\bibles
 
 cd %OUTDIR%
-%QTDIR%\bin\windeployqt Bible.exe
+%QTDIR%\bin\windeployqt Bible5.exe
 
 cd ..\..
 if exist "%ZIPFILE%" del "%ZIPFILE%"

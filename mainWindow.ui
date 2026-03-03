@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Read the Bible 5</string>
+   <string>Read the Bible Free</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -29,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>724</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Bible_1">
@@ -574,7 +574,10 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionAbout_Program">
    <property name="text">
-    <string>About Read the Bible 5</string>
+    <string>About Read the Bible Free</string>
+   </property>
+   <property name="toolTip">
+    <string>About Read the Bible Free</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::AboutRole</enum>

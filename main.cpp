@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
    QApplication app(argc,argv);
 
     QCoreApplication::setOrganizationName("VanyoG");
-    QCoreApplication::setApplicationName("Read the Bible 5");
+    QCoreApplication::setApplicationName("Read the Bible Free");
 
    setInterfaceLanguage();
    setProgDir();

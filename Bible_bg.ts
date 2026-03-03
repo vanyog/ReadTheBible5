@@ -9,7 +9,7 @@
         <translation type="obsolete">&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:info@vanyog.com&gt;info@vanyog.com&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="832"/>
+        <location filename="mainWindow.cpp" line="856"/>
         <source>File %1 is corrupt at line %2.</source>
         <translation>Файл %1 е повреден на ред %2.</translation>
     </message>
@@ -18,70 +18,74 @@
         <translation type="obsolete">Почакайте да се зареди списъка думи...</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="172"/>
+        <location filename="mainWindow.cpp" line="174"/>
         <source>Export as %1 file</source>
         <translation>Експортиране в %1 формат</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="193"/>
+        <location filename="mainWindow.cpp" line="195"/>
         <source>This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the &quot;Read the Bible&quot;.</source>
         <translation>Тази функция се активира от автора на програмата само при необходимост. С нея се конвертира .txt файл с Библия, в ползвания от „Компютърна Библия“ формат.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="199"/>
+        <location filename="mainWindow.cpp" line="201"/>
         <source>Import Bible from .txt file</source>
         <translation>Импортиране на библия от .txt файл</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="206"/>
+        <location filename="mainWindow.cpp" line="208"/>
         <source>In the current Bible directory, if there is a file with references Links.txt, it will be converted to file Links.bin. Thus, the references will be shown when this Bible is opened again. For more information, see Help. Will you continue?</source>
         <translation>В директорията на текущата Библия, ако има файл с препратки Links.txt, той ще бъде конвертиран във файл Links.bin. Така препратките ще се покажат при ново отваряне на тази Библия. За повече информация вижте „Помощ“. Ще продължите ли?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="230"/>
+        <location filename="mainWindow.cpp" line="233"/>
         <source>This is not implemented for your operating system.</source>
         <translation>Тази функционалност не е реализирана за Вашата операционна система.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="357"/>
-        <location filename="mainWindow.cpp" line="376"/>
+        <location filename="mainWindow.cpp" line="367"/>
+        <location filename="mainWindow.cpp" line="386"/>
         <source>Last verse is reached %1.</source>
         <translation>Достигнат е последния стих %.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="462"/>
+        <location filename="mainWindow.cpp" line="472"/>
         <source>Style changes will take effect next time you strat the Bible program. Click OK to start editing.</source>
         <oldsource>Changes will take effect next time you strat the Bible program.</oldsource>
         <translation>Стиловите промени ще се видят при следващо стартиране на програмата. Щракне OK за да започнете редактиране на стиловете.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="523"/>
+        <location filename="mainWindow.cpp" line="533"/>
         <source>Old function. Not used any more.</source>
         <oldsource>Old function. Not used yet.</oldsource>
         <translation>Стара функция. Вече не се използва.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="539"/>
+        <location filename="mainWindow.cpp" line="549"/>
         <source>While your are working with version 4.3, the word lists in %1 of the same Bibles wil not be visible.</source>
         <translation>Докато работите с версия 4.3 списъците с думи на отворените от нея Библии няма да са достъпни във версия %1.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="546"/>
+        <location filename="mainWindow.cpp" line="556"/>
         <source>This feature is available only for Windows.</source>
         <translation>Тази функция е достапна само в Windows.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="588"/>
-        <source>Read the Bible 5 - v%1&lt;br&gt;Copyright (C) 2008  Vanyo Georgiev&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&lt;br&gt;&lt;br&gt;You should have received a copy of the GNU General Public License along with this program; if not, write to the&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</source>
+        <location filename="mainWindow.cpp" line="607"/>
+        <source>Read the Bible Free - v%1&lt;br&gt;Copyright (C) 2008  Vanyo Georgiev&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&lt;br&gt;&lt;br&gt;You should have received a copy of the GNU General Public License along with this program; if not, write to the&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</source>
         <translation>&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="595"/>
+        <source>Read the Bible 5 - v%1&lt;br&gt;Copyright (C) 2008  Vanyo Georgiev&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&lt;br&gt;&lt;br&gt;You should have received a copy of the GNU General Public License along with this program; if not, write to the&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</source>
+        <translation type="vanished">&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="614"/>
         <source>Open a Bible, and then look for information about it.</source>
         <translation>Отворете Библия и тогава потърсете информация за нея.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="958"/>
+        <location filename="mainWindow.cpp" line="982"/>
         <source>Version 4.3 is not Installed. Do you want to download it?</source>
         <translation>Версия 4.3 не е инсталирана. Искате ли да бъде изтеглена от Интернет?</translation>
     </message>
@@ -90,17 +94,16 @@
         <translation type="vanished">На Windows Vista или Windows 7, когато изтегляте този файл трябва да сте стартирали &quot;Компютърна Библия&quot; като администратор (Затворете програмата и щракнете с десния бутон на мишката върху файла C:\Program files (x86)\VanyoG\Bible5\Bible.exe и изберете &quot;Run as Administrator&quot;). Така ли сте направили?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="970"/>
+        <location filename="mainWindow.cpp" line="994"/>
         <source>Version 4.3</source>
         <translation>Версия 4.3</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="984"/>
         <source>Congratulations. You started the new version %1. Please, write to&lt;br&gt;&lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt;&lt;br&gt;for any questions or bug reporting.</source>
-        <translation>Честито! Вие стартирахте новата версия %1 на &quot;Компютърна Библия&quot;. Моля, пишете на &lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt; по всички въпроси, които имате за тази програма.</translation>
+        <translation type="vanished">Честито! Вие стартирахте новата версия %1 на &quot;Компютърна Библия&quot;. Моля, пишете на &lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt; по всички въпроси, които имате за тази програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1012"/>
+        <location filename="mainWindow.cpp" line="1035"/>
         <source>All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?</source>
         <translation>Може да бъдат изтрити всички запазени настройки и програмата да рестартира, както току що е инсталирана. Това няма да изтрие изтеглените текстове, но ако те са на необичайно място ще спрат да се отварят. Ще можете да ги изтеглите отново на предвиденото място. Ще продължите ли?</translation>
     </message>
@@ -109,20 +112,19 @@
         <translation type="obsolete">Честито! Вие стартирахте новата версия %1 на &quot;Компютърна Библия&quot;. Моля, пишете на &lt;a href=&quot;mailto:info@vanyog.com&quot;&gt;info@vanyog.com&lt;/a&gt; по всички въпроси, които имате за тази програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="990"/>
+        <location filename="mainWindow.cpp" line="1013"/>
         <source>Open the Bible Translation you like to download and try again.</source>
         <translation>Първо отворете превода на Библията, който искате да изтеглите отново.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="978"/>
         <source>Version 4.3 is found in %1. Do you want to use bibles from this version to save disk space.</source>
-        <translation>Версия 4.3 беше намерена в %1. Искате ли да ползвате библиите от тази версия, за да спестите място?</translation>
+        <translation type="vanished">Версия 4.3 беше намерена в %1. Искате ли да ползвате библиите от тази версия, за да спестите място?</translation>
     </message>
 </context>
 <context>
     <name>BibleWindow</name>
     <message>
-        <location filename="bibleWindow.cpp" line="974"/>
+        <location filename="bibleWindow.cpp" line="977"/>
         <source>No such book in this version.</source>
         <translation>Нама такава книга в тази Библия.</translation>
     </message>
@@ -135,89 +137,89 @@
         <translation type="obsolete">Изтеглянето завърши. Можете да отворите тази Библия.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="779"/>
+        <location filename="bibleWindow.cpp" line="783"/>
         <source>There is no information about this Bible Version.</source>
         <translation>Няма информация относно този превод на Библията.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="149"/>
+        <location filename="bibleWindow.cpp" line="148"/>
         <source>Would you like to download Bible %1?</source>
         <translation>Искате ли да изтеглите от Интернет Библията &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="171"/>
+        <location filename="bibleWindow.cpp" line="170"/>
         <source>File do not exist
 %1</source>
         <translation>Не съществува файл
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="179"/>
-        <location filename="bibleWindow.cpp" line="183"/>
+        <location filename="bibleWindow.cpp" line="178"/>
+        <location filename="bibleWindow.cpp" line="182"/>
         <source>Can&apos;t open file for write
 %1</source>
         <translation>Файлът не може да се отвори за четене
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="199"/>
+        <location filename="bibleWindow.cpp" line="198"/>
         <source>There is no Tab symbol in this line:
 %1</source>
         <translation>Липсва символ Tab на ред:
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="226"/>
-        <location filename="bibleWindow.cpp" line="843"/>
+        <location filename="bibleWindow.cpp" line="225"/>
+        <location filename="bibleWindow.cpp" line="846"/>
         <source>Can&apos;t recognize verse number in reference %1</source>
         <translation>Не може да се разпознае номера на стиха в препратката %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="237"/>
+        <location filename="bibleWindow.cpp" line="236"/>
         <source>Link file was created.</source>
         <translation>Файлът с препратки беше създаден.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="257"/>
+        <location filename="bibleWindow.cpp" line="256"/>
         <source>Incorrect Book title.&lt;br&gt;%1&lt;br&gt;Must be %2</source>
         <translation>Неправилно име на книга.&lt;br&gt;%1&lt;br&gt;Трябва да е %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="291"/>
+        <location filename="bibleWindow.cpp" line="290"/>
         <source>%1&lt;br&gt;Incorrect verse number in line&lt;br&gt;%2.&lt;br&gt;Must be %3</source>
         <translation>%1&lt;br&gt;Неправилин номер на стих в реда&lt;br&gt;%2.&lt;br&gt;Трябва да е %3</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="489"/>
+        <location filename="bibleWindow.cpp" line="488"/>
         <source>All done</source>
         <translation>Беше направено</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="510"/>
+        <location filename="bibleWindow.cpp" line="508"/>
         <source>Downloaging is finished. Now you can open the Bible %1.</source>
         <translation>Изтеглянето завърши. Можете да отворите Библията &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="836"/>
-        <location filename="bibleWindow.cpp" line="865"/>
-        <location filename="bibleWindow.cpp" line="873"/>
-        <location filename="bibleWindow.cpp" line="881"/>
-        <location filename="bibleWindow.cpp" line="885"/>
+        <location filename="bibleWindow.cpp" line="839"/>
+        <location filename="bibleWindow.cpp" line="868"/>
+        <location filename="bibleWindow.cpp" line="876"/>
+        <location filename="bibleWindow.cpp" line="884"/>
+        <location filename="bibleWindow.cpp" line="888"/>
         <source>Can&apos;t recognize reference %1</source>
         <translation>Не може да се разпознае препратката %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="856"/>
+        <location filename="bibleWindow.cpp" line="859"/>
         <source>Can&apos;t recognize book in reference %1</source>
         <translation>Не може да се разпознае името на книга в препратката %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="858"/>
+        <location filename="bibleWindow.cpp" line="861"/>
         <source>The case of reference like %1 is not programed.</source>
         <translation>Разпознаване на препратка като %1 не е програмирано.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="985"/>
+        <location filename="bibleWindow.cpp" line="988"/>
         <source>Error</source>
         <translation>Грешка</translation>
     </message>
@@ -328,8 +330,7 @@ Error: %1.</source>
         <translation>Грешка %1&lt;br&gt;%2</translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="128"/>
-        <location filename="fileDownloader.cpp" line="146"/>
+        <location filename="fileDownloader.cpp" line="147"/>
         <source>File has been downloaded and unziped. Now you can open %1.</source>
         <translation>Файлът беше изтеглен и разархивиран. Сега може да отворите %1.</translation>
     </message>
@@ -380,8 +381,8 @@ Error: %1.</source>
     <name>MainWindow</name>
     <message>
         <location filename="mainWindow.ui" line="14"/>
-        <source>Read the Bible 5</source>
-        <oldsource>CD Bible 5</oldsource>
+        <source>Read the Bible Free</source>
+        <oldsource>Read the Bible 5</oldsource>
         <translation>Компютърна Библия</translation>
     </message>
     <message>
@@ -495,32 +496,32 @@ Error: %1.</source>
         <translation>Панел за &amp;търсене</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="847"/>
+        <location filename="mainWindow.ui" line="868"/>
         <source>Next Chapter</source>
         <translation>Следваща глава</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="850"/>
+        <location filename="mainWindow.ui" line="871"/>
         <source>PgDown</source>
         <translation>PgDown</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="855"/>
+        <location filename="mainWindow.ui" line="876"/>
         <source>Previous Chapter</source>
         <translation>Предишна глава</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="858"/>
+        <location filename="mainWindow.ui" line="879"/>
         <source>PgUp</source>
         <translation>PgUp</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="869"/>
+        <location filename="mainWindow.ui" line="890"/>
         <source>Verse collectien toolbox</source>
         <translation>Прозорец за колекции от стихове</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="874"/>
+        <location filename="mainWindow.ui" line="895"/>
         <source>Clean &amp;Restart</source>
         <translation>Чисто рестартиране</translation>
     </message>
@@ -529,97 +530,97 @@ Error: %1.</source>
         <translation type="obsolete">Относно програмата</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="585"/>
+        <location filename="mainWindow.ui" line="588"/>
         <source>About Qt</source>
         <translation>Относно Qt</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="593"/>
+        <location filename="mainWindow.ui" line="596"/>
         <source>&amp;Next window</source>
         <translation>&amp;Следващ прозорец</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="596"/>
+        <location filename="mainWindow.ui" line="599"/>
         <source>Ctrl+`</source>
         <translation>Ctrl+`</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="709"/>
+        <location filename="mainWindow.ui" line="715"/>
         <source>&amp;Color preferences</source>
         <translation>Предпочитани &amp;цветове</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="717"/>
+        <location filename="mainWindow.ui" line="723"/>
         <source>Meta+,</source>
         <translation>Meta+,</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="725"/>
+        <location filename="mainWindow.ui" line="731"/>
         <source>Export as .&amp;txt</source>
         <translation>Експортиране в .&amp;txt файл</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="730"/>
+        <location filename="mainWindow.ui" line="739"/>
         <source>&amp;Styles</source>
         <translation>&amp;Стилове</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="735"/>
+        <location filename="mainWindow.ui" line="747"/>
         <source>Book</source>
         <translation>Книга</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="738"/>
+        <location filename="mainWindow.ui" line="750"/>
         <source>Alt+B</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="746"/>
+        <location filename="mainWindow.ui" line="758"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="754"/>
+        <location filename="mainWindow.ui" line="766"/>
         <source>Alt+V</source>
         <translation>Alt+V</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="759"/>
+        <location filename="mainWindow.ui" line="771"/>
         <source>Bigger font</source>
         <translation>По-едър шрифт</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="762"/>
+        <location filename="mainWindow.ui" line="774"/>
         <source>Ctrl+=</source>
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="767"/>
+        <location filename="mainWindow.ui" line="779"/>
         <source>Smaller font</source>
         <translation>По-дребен шрифт</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="770"/>
+        <location filename="mainWindow.ui" line="782"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="775"/>
+        <location filename="mainWindow.ui" line="787"/>
         <source>Help Content</source>
         <translation>Указания за работа</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="778"/>
+        <location filename="mainWindow.ui" line="790"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="783"/>
+        <location filename="mainWindow.ui" line="795"/>
         <source>Download again</source>
         <translation>Повторно изтегляне</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="791"/>
+        <location filename="mainWindow.ui" line="803"/>
         <source>Random Verse</source>
         <translation>Случайно избран стих</translation>
     </message>
@@ -628,22 +629,22 @@ Error: %1.</source>
         <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="799"/>
+        <location filename="mainWindow.ui" line="811"/>
         <source>Import &amp;links</source>
         <translation>Импортиране на препратки</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="839"/>
+        <location filename="mainWindow.ui" line="857"/>
         <source>&amp;Import from .txt</source>
         <translation>Импортиране от .txt</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="842"/>
+        <location filename="mainWindow.ui" line="860"/>
         <source>Ctrl+I</source>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="804"/>
+        <location filename="mainWindow.ui" line="819"/>
         <source>Open application &amp;folder</source>
         <translation>Отваряне папката на програмата</translation>
     </message>
@@ -653,37 +654,37 @@ Error: %1.</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="794"/>
+        <location filename="mainWindow.ui" line="806"/>
         <source>Ctrl+Shift+R</source>
         <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="807"/>
+        <location filename="mainWindow.ui" line="822"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="812"/>
+        <location filename="mainWindow.ui" line="830"/>
         <source>Readme file</source>
         <translation>Файл &quot;Прочети ме&quot;</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="820"/>
+        <location filename="mainWindow.ui" line="838"/>
         <source>Open again</source>
         <translation>Отваряне отново</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="823"/>
+        <location filename="mainWindow.ui" line="841"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="831"/>
+        <location filename="mainWindow.ui" line="849"/>
         <source>Stay on top</source>
         <translation>Стой отгоре</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="834"/>
+        <location filename="mainWindow.ui" line="852"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
@@ -696,22 +697,22 @@ Error: %1.</source>
         <translation type="obsolete">Записване като .html</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="604"/>
+        <location filename="mainWindow.ui" line="607"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="609"/>
+        <location filename="mainWindow.ui" line="615"/>
         <source>Close current</source>
         <translation>Затваряне текущия</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="612"/>
+        <location filename="mainWindow.ui" line="618"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="617"/>
+        <location filename="mainWindow.ui" line="623"/>
         <source>Стих</source>
         <translation>Стих</translation>
     </message>
@@ -725,23 +726,23 @@ Error: %1.</source>
         <translation type="obsolete">1</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="622"/>
+        <location filename="mainWindow.ui" line="628"/>
         <source>&amp;Web site</source>
         <translation>Интернет &amp;сайт</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="627"/>
+        <location filename="mainWindow.ui" line="633"/>
         <source>Check for &amp;updates</source>
         <translation>Проверка за нова &amp;
 версия</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="632"/>
+        <location filename="mainWindow.ui" line="638"/>
         <source>About Bible &amp;Version</source>
         <translation>Относно изданието на &amp;Библията</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="637"/>
+        <location filename="mainWindow.ui" line="643"/>
         <source>&amp;Quit</source>
         <translation>&amp;Изход</translation>
     </message>
@@ -752,31 +753,33 @@ Error: %1.</source>
     </message>
     <message>
         <location filename="mainWindow.ui" line="577"/>
-        <source>About Read the Bible 5</source>
-        <translation>Относно Компютърна Библия - версия 5</translation>
+        <location filename="mainWindow.ui" line="580"/>
+        <source>About Read the Bible Free</source>
+        <oldsource>About Read the Bible 5</oldsource>
+        <translation>Относно Компютърна Библия - Отворена версия</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="601"/>
+        <location filename="mainWindow.ui" line="604"/>
         <source>Export as .&amp;html</source>
         <translation>Експортиране в .&amp;html файл</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="648"/>
+        <location filename="mainWindow.ui" line="654"/>
         <source>Next Verse</source>
         <translation>Следващ стих</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="651"/>
+        <location filename="mainWindow.ui" line="657"/>
         <source>Alt+Down</source>
         <translation>Alt+Down</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="656"/>
+        <location filename="mainWindow.ui" line="662"/>
         <source>Previous Verse</source>
         <translation>Предишен стих</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="659"/>
+        <location filename="mainWindow.ui" line="665"/>
         <source>Alt+Up</source>
         <translation>Alt+Up</translation>
     </message>
@@ -791,19 +794,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="mainWindow.ui" line="252"/>
-        <location filename="mainWindow.ui" line="743"/>
+        <location filename="mainWindow.ui" line="755"/>
         <source>Chapter</source>
         <translation>Глава</translation>
     </message>
     <message>
         <location filename="mainWindow.ui" line="277"/>
-        <location filename="mainWindow.ui" line="751"/>
+        <location filename="mainWindow.ui" line="763"/>
         <source>Verse</source>
         <translation>Стих</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="664"/>
-        <location filename="mainWindow.ui" line="714"/>
+        <location filename="mainWindow.ui" line="670"/>
+        <location filename="mainWindow.ui" line="720"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Настройки</translation>
     </message>
@@ -812,7 +815,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Показване списък думи</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="667"/>
+        <location filename="mainWindow.ui" line="673"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
@@ -845,52 +848,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">100</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="672"/>
+        <location filename="mainWindow.ui" line="678"/>
         <source>CrossBgBible</source>
         <translation>CrossBgBible</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="677"/>
+        <location filename="mainWindow.ui" line="683"/>
         <source>&amp;Back</source>
         <translation>На&amp;зад</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="680"/>
+        <location filename="mainWindow.ui" line="686"/>
         <source>Alt+,</source>
         <translation>Alt+,</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="685"/>
+        <location filename="mainWindow.ui" line="691"/>
         <source>&amp;Forward</source>
         <translation>На&amp;пред</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="688"/>
+        <location filename="mainWindow.ui" line="694"/>
         <source>Alt+.</source>
         <translation>Alt+.</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="640"/>
+        <location filename="mainWindow.ui" line="646"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="693"/>
+        <location filename="mainWindow.ui" line="699"/>
         <source>Version 4.3</source>
         <translation>Версия 4.3</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="696"/>
+        <location filename="mainWindow.ui" line="702"/>
         <source>F4</source>
         <translation>F4</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="701"/>
+        <location filename="mainWindow.ui" line="707"/>
         <source>Verse for reading</source>
         <translation>Място на четене</translation>
     </message>
     <message>
-        <location filename="mainWindow.ui" line="704"/>
+        <location filename="mainWindow.ui" line="710"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
@@ -1125,7 +1128,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="webUpdater.cpp" line="122"/>
-        <source>CD Bible 5</source>
+        <source>Read the Bible Free</source>
+        <oldsource>CD Bible 5</oldsource>
         <translation>Компютърна Библия</translation>
     </message>
     <message>
