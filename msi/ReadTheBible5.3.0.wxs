@@ -6,16 +6,10 @@
         <Property Id="ARPPRODUCTICON" Value="BibleIcon" />
         <UI />
         <Media Id="1" Cabinet="Bible5.cab" EmbedCab="yes" />
-        <Property Id="ARPURLUPDATEINFO" Value="http://readthebible.sourceforge.net" />
-        <Property Id="ARPCONTACT" Value="+359 898 265530" />
-        <Property Id="PUBLISHER" Value=" Ваньо Георгиев" />
-        <Property Id="ARPHELPLINK" Value="ARPHELPLINK" />
-        <Property Id="ARPHELPTELEPHONE" Value="ARPHELPTELEPHONE" />
-        <Property Id="ARPREADME" Value="ARPREADME" />
-        <Property Id="ARPCONTACTS" Value="ARPCONTACTS" />
-        <Property Id="ARPURLINFOABOUT" Value="ARPURLINFOABOUT" />
+        <Property Id="ARPURLUPDATEINFO" Value="https://vanyog.com/index.php?pid=24" />
+        <Property Id="ARPURLINFOABOUT" Value="https://vanyog.com/index.php?pid=24" />
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramFiles64Folder">
+            <Directory Id="ProgramFilesFolder">
                 <Directory Id="INSTALLDIR" Name="ReadTheBibleFree">
                     <Component Id="MainExe" DiskId="1" Guid="9135597A-427B-4B38-A8AA-C6554362BF2C">
                         <File Id="BIBLE_EXE" Name="Bible5.exe" Source="..\build\rel\Bible5.exe"></File>
@@ -186,6 +180,12 @@
                             <File Id="QT_ZH_TW.QM" Name="qt_zh_TW.qm" Source="..\build\rel\translations\qt_zh_TW.qm" />
                         </Component>
                     </Directory>
+                    <Component Id="LIBCRYPTO_3_X64.DLL" DiskId="1" Guid="B3E40581-5012-4ECA-8FAD-81273056336C">
+                        <File Id="LIBCRYPTO_3_X64.DLL" Name="libcrypto-3-x64.dll" Source="..\..\..\..\..\..\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll" />
+                    </Component>
+                    <Component Id="LIBSSL_3_X64.DLL" DiskId="1" Guid="1C713B1F-B27F-45B1-8AAD-BDABCBB89DCA">
+                        <File Id="LIBSSL_3_X64.DLL" Name="libssl-3-x64.dll" Source="..\..\..\..\..\..\Program Files\OpenSSL-Win64\libssl-3-x64.dll" />
+                    </Component>
                 </Directory>
             </Directory>
             <Directory Id="ProgramMenuFolder">
@@ -258,6 +258,8 @@
             <ComponentRef Id="QT_ZH_TW.QM" />
             <ComponentRef Id="StartMenuShortcut" />
             <ComponentRef Id="DesktopShortcut" />
+            <ComponentRef Id="LIBCRYPTO_3_X64.DLL" />
+            <ComponentRef Id="LIBSSL_3_X64.DLL" />
         </Feature>
     </Product>
 </Wix>

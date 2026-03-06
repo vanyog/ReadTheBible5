@@ -6,6 +6,7 @@
 *.msi
 *.wixobj
 *.wixpdb
+*.log
 Bible.pro.user
 Bible5.pro.user
 Bible5.app
