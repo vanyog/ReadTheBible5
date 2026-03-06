@@ -632,6 +632,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Check for &amp;updates</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionAbout_Bible_Version">
    <property name="text">
@@ -677,6 +680,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>CrossBgBible</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_Back">
    <property name="text">
@@ -700,6 +706,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>F4</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionVerse_for_reading">

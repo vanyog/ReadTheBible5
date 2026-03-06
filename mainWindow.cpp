@@ -618,7 +618,7 @@ void BMainWindow::onHelpAboutBibleVersion(){
 };
 
 void BMainWindow::onHelpWebSite(){
-   myProcess->browse(progURL+interfaceLanguage());
+    QDesktopServices::openUrl(QUrl(progURL+interfaceLanguage()));
 };
 
 void BMainWindow::onHelpCheckForUpdate(){

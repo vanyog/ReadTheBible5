@@ -3,6 +3,9 @@
 .qtcreator
 .qmake.stash
 *.zip
+*.msi
+*.wixobj
+*.wixpdb
 Bible.pro.user
 Bible5.pro.user
 Bible5.app
