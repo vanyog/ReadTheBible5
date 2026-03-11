@@ -181,10 +181,10 @@
                         </Component>
                     </Directory>
                     <Component Id="LIBCRYPTO_3_X64.DLL" DiskId="1" Guid="B3E40581-5012-4ECA-8FAD-81273056336C">
-                        <File Id="LIBCRYPTO_3_X64.DLL" Name="libcrypto-3-x64.dll" Source="..\..\..\..\..\..\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll" />
+                        <File Id="LIBCRYPTO_3_X64.DLL" Name="libcrypto-3-x64.dll" Source="C:\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll" />
                     </Component>
                     <Component Id="LIBSSL_3_X64.DLL" DiskId="1" Guid="1C713B1F-B27F-45B1-8AAD-BDABCBB89DCA">
-                        <File Id="LIBSSL_3_X64.DLL" Name="libssl-3-x64.dll" Source="..\..\..\..\..\..\Program Files\OpenSSL-Win64\libssl-3-x64.dll" />
+                        <File Id="LIBSSL_3_X64.DLL" Name="libssl-3-x64.dll" Source="c:\Program Files\OpenSSL-Win64\libssl-3-x64.dll" />
                     </Component>
                 </Directory>
             </Directory>
