@@ -585,16 +585,18 @@ void BMainWindow::onChangeTextColor(const QColor &c){
 };
 
 void BMainWindow::onHelpContent(){
-    QString helpDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/help";
+    QString helpDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/ReadTheBibleFree/help";
     QString helpFile = helpDir + "/help.html";
     if(!QFileInfo::exists(helpFile)){
         QDir().mkpath(helpDir);
-        QFile::copy(":/htdocs/help/help.html", helpDir + "/help.html");
-        QDir imagesDir(":/htdocs/help/");
-        for (const QString &img : imagesDir.entryList(QDir::Files))
-            QFile::copy(":/htdocs/help/" + img, helpDir + "/" + img);
+        QFile::copy(":/htdocs/help/help.html", helpFile);
+         QDir imagesDir(":/htdocs/help/");
+        for (const QString &img : imagesDir.entryList(QDir::Files)){
+            QString imgDst = helpDir + "/" + img;
+            QFile::copy(":/htdocs/help/" + img, imgDst);
+        }
     }
-    QUrl url = QUrl::fromLocalFile(helpDir + "/help.html");
+    QUrl url = QUrl::fromLocalFile(helpFile);
     QDesktopServices::openUrl(url);
 };
 
@@ -825,7 +827,7 @@ void BMainWindow::readSettings(){
 void BMainWindow::createBActions(){
 //   styleFile = progDir() + "data/"+styleFile;
    QString fn = ":data/bibles/list-u.txt";
-   QString bibDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/bibles/";
+   QString bibDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/ReadTheBibleFree/bibles/";
    setBiblePath(bibDir);
    QString fc = fileContent(fn,"UTF-8"), lng = "";
    QStringList bs = fc.split("\n");
