@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSplashScreen>
 #include <QFileInfo>
 #include <QSettings>
+#include <QStandardPaths>
+#include <QDir>
+#include <QDebug>
 
 #include "mainWindow.h"
 #include "showMessage.h"
@@ -44,27 +47,23 @@ int main(int argc, char *argv[])
    Q_UNUSED(b)
    app.installTranslator(&translator);
 
-/*   QPixmap pm(":images/Logo_2a.png");
-   QSplashScreen spls(pm);
-   spls.show();
-   app.processEvents();*/
-
    BMainWindow window;
    if (window.doNotExec()){
         window.onFileAppFolder();
         return 0;
    }
+   if(prog_Version()=="5.3.1"){
+       QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+       if(dataDir.exists()) dataDir.removeRecursively();
+       dataDir.cdUp();
+       if (dataDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty()) dataDir.rmdir(dataDir.path());
+   }
    window.show();
-//   spls.raise();
    window.tileOrCascade();
-//   spls.finish(&window);
    
    int i = app.exec();
- /*   if(i==42){ showMessage(i);
-        QProcess::startDetached(QCoreApplication::applicationFilePath(), QCoreApplication::arguments());
-        return 0;
-    }*/
-    if (window.openAppFolder()) window.onFileAppFolder();
+
+   if (window.openAppFolder()) window.onFileAppFolder();
     return i;
 }
 

@@ -44,18 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QDesktopServices>
 #include <QStandardPaths>
 
-QString progVersion = "5.3.0";
+QString progVersion = "5.3.1";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString progEmail = "info@vanyog.com";
-/*#ifdef Q_WS_WIN
-   QString styleFile = "style-w.css";
-#else
-   #ifdef Q_WS_MAC
-     QString styleFile = "style.css";
-   #else
-     QString styleFile = "style-w.css";
-   #endif
-#endif*/
 
 BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
@@ -1056,4 +1047,8 @@ void BMainWindow::on_actionClean_Restart_triggered()
    QProcess::startDetached(program, args);
    QCoreApplication::quit();
 #endif
+}
+
+QString prog_Version(){
+    return progVersion;
 }

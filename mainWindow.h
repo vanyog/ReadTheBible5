@@ -155,6 +155,7 @@ private:
 
 void setInterfaceLanguage();
 QString interfaceLanguage();
+QString prog_Version();
 
 #endif
 
