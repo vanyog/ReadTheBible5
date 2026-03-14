@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int argc, char *argv[])
 {
    QApplication app(argc,argv);
+    app.setDesktopFileName("bible5");
+    app.setWindowIcon(QIcon(":/images/Logo_ikon_256x256.png"));
 
     QCoreApplication::setOrganizationName("VanyoG");
     QCoreApplication::setApplicationName("Read the Bible Free");
