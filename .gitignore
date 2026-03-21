@@ -17,6 +17,8 @@ build
 Makefile
 rel
 .vs
+dmg
+*.dmg
 data/bibles/Abrevs.txt
 data/bibles/BibleStructure.txt
 data/bibles/Bulgarian/
