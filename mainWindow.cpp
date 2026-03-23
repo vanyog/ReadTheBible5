@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "exportDialog.h"
 #include "webUpdater.h"
 #include "preferences.h"
-#include "process.h"
+//#include "process.h"
 #include "history.h"
 #include "fileDownloader.h"
 #include "concordance.h"
@@ -82,13 +82,13 @@ BMainWindow::BMainWindow(QWidget *parent)
    createBActions();
    readGlobalStructure();
    readSettings();
-   myProcess = new MyProcess( this );
+ //  myProcess = new MyProcess( this );
 
    connect(ui.actionExport_as_html, SIGNAL(triggered()), this, SLOT(onFileExportHtml()));
    connect(ui.actionExport_as_txt, SIGNAL(triggered()), this, SLOT(onFileExportTxt()));
    connect(ui.actionImport_from_txt, SIGNAL(triggered()), this, SLOT(onFileImportTxt()));
    connect(ui.action_Import_links, SIGNAL(triggered()), this, SLOT(onFileImportLinks()));
-   connect(ui.actionOpen_application_folder, SIGNAL(triggered()), this, SLOT(onFileAppFolder()));
+//   connect(ui.actionOpen_application_folder, SIGNAL(triggered()), this, SLOT(onFileAppFolder()));
    
    if (ui.menu_Bible_1->actions().size())
       connect(ui.menu_Bible_1, SIGNAL(triggered(QAction*)), this, SLOT(onBibleAction(QAction*)));
@@ -204,7 +204,7 @@ void BMainWindow::onFileImportLinks(){
 
 
 // Отваряне на директорията на програмата
-void BMainWindow::onFileAppFolder(){
+/*void BMainWindow::onFileAppFolder(){
    QString d = QApplication::applicationDirPath();
    QString c;
    QProcess *p = new QProcess();
@@ -225,7 +225,7 @@ void BMainWindow::onFileAppFolder(){
  #endif
 #endif
    p->start(c,a);
-};
+};*/
 
 // Изпълнява се при избор на библия от меню "Библия" - "Превод"
 void BMainWindow::onBibleAction(QAction *action){
@@ -253,7 +253,7 @@ void BMainWindow::onBibleDownloaded(const QString &bv){
 
 void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
     if ( !w ){
-        int sn = mdiArea->subWindowList().size(); // Брой на подпрозорците
+        qsizetype sn = mdiArea->subWindowList().size(); // Брой на подпрозорците
         if(sn==0){ // Ако няма повече прозорци с беблии се почистват падащите списъци
             ui.comboBox_2->clear(); // на книгите
             ui.comboBox_3->clear(); // главите и
@@ -524,12 +524,12 @@ void BMainWindow::onWindowsCrossBGBible(){
     showMessage(tr("Old function. Not used any more.")); return;
    QString p = preferences()->CrossBgBiblePath();
    QString d = QFileInfo(p).absolutePath();
-   myProcess->setWorkingDirectory(d);
+ //  myProcess->setWorkingDirectory(d);
 #ifdef Q_WS_MAC
    p = p + QDir::separator() + "Contents/MacOS/CrossBgBible";
 #else
 #endif
-   myProcess->start(p);
+//   myProcess->start(p);
 };
 
 void BMainWindow::onWindowsVersion43(){
@@ -538,9 +538,9 @@ void BMainWindow::onWindowsVersion43(){
    if (QFileInfo::exists(p)){
       QString d = QFileInfo(p).absolutePath();
       showMessage(tr("While your are working with version 4.3, the word lists in %1 of the same Bibles wil not be visible.").arg(progVersion));
-      myProcess->setWorkingDirectory(d);
-      myProcess->setParent(0);
-      myProcess->start(p);
+//      myProcess->setWorkingDirectory(d);
+//      myProcess->setParent(0);
+//      myProcess->start(p);
    }
    else downloadV43();
 #else
@@ -607,7 +607,7 @@ void BMainWindow::onHelpAboutBibleVersion(){
        showMessage(tr("Open a Bible, and then look for information about it."));
        return;
     }
-   ab->about(myProcess);
+   ab->about();
 };
 
 void BMainWindow::onHelpWebSite(){
@@ -874,7 +874,7 @@ void BMainWindow::setNumberComboBox(QComboBox *cb, int max, int curr){
     // активира отново прозореца, който последно е бил активен
     if (!aw){
        QList<QMdiSubWindow*> swl = mdiArea->subWindowList();
-       int i = swl.indexOf(oaw);
+        qsizetype i = swl.indexOf(oaw);
        if (i>-1){
           mdiArea->setActiveSubWindow(oaw);
           aw = mdiArea->activeSubWindow();
@@ -1033,13 +1033,15 @@ void BMainWindow::on_actionClean_Restart_triggered()
    settings.sync();
    // 2. Рестарт на програмата
 #ifdef Q_OS_MAC
+#ifdef Q_OS_IOS
+#else
    QString scr = QCoreApplication::applicationDirPath() + "/restart.sh";
    QString prg = QCoreApplication::applicationFilePath();
    QStringList ars;
    ars << scr << prg;
-   qDebug() << ars;
    QProcess::startDetached("/bin/bash", ars);
    exit(0);
+#endif
 #else
    // Windows / Linux
    QString program = QCoreApplication::applicationFilePath();

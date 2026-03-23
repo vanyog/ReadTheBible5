@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "language.h"
 #include "fileDownloader.h"
 #include "preferences.h"
-#include "process.h"
+//#include "process.h"
 #include "concordance.h"
 
 #include <QHash>
@@ -204,7 +204,7 @@ void BibleWindow::createLinksBin(){
          ps << m1;
       }
       vi0 = vi;
-      qint32 p = idf.pos()/2; ps << p;   // Записва указател в LinksP.bin
+      qint32 p = static_cast<qint32>(idf.pos()/2); ps << p;   // Записва указател в LinksP.bin
       if (vi*4!=ipf.pos()){ showMessage(ln); break; }
       QStringList ls = lks.at(1).trimmed().split(","); // Останалата част от реда съдържа препратки, разделени със запетая
       QList<quint16> ll;                 // Списък с локални индекси на стихове, към които има препратки от стих vi
@@ -241,7 +241,7 @@ void BibleWindow::createLinksBin(){
 void BibleWindow::import(const QString &fn){
    downloadProgressBar->setVisible(true);    // Показване на лентата за напредването на работата
    QStringList fc = fileContent(fn).split("\n"); // Прочитане текста на Библията от избрания файл
-   downloadProgressBar->setMaximum(fc.count());
+   downloadProgressBar->setMaximum(static_cast<int>(fc.count()));
    int i = 0;                                    // Номер на обработвания ред текст
    QStringList tx;                               // Списът с прочетените стихове
    QString chs = languageObject()->characters(language()); // Буквите на езика
@@ -295,7 +295,7 @@ void BibleWindow::import(const QString &fn){
           }
 
           // Проверява се дали има бележка под линия към стиха
-          int p = vt.indexOf("*");
+          qsizetype p = vt.indexOf("*");
           if (p>-1) { // Изпълнява се ако има бележка под линия
             QString ft = fc.at(i); i++; // Чете се следващия ред, който е бележка под линия
             ft = ft.right(ft.size()-1); // Премахва се първия символ *
@@ -306,7 +306,7 @@ void BibleWindow::import(const QString &fn){
           int j=1; // Номер на поредната група препратки
           QString ln = "(" + QString::number(j) + ") ";
           if (fc.at(i).startsWith(ln)){
-            int p1 = 0;
+            qsizetype p1 = 0;
             QString lt = fc.at(i); i++; // Чете се следващия ред, съдържащ препратки
             while (lt.startsWith(ln)){
               lt = lt.right(lt.size()-ln.size());  // Изтрива се номера на групата препратки
@@ -323,7 +323,7 @@ void BibleWindow::import(const QString &fn){
           // Добавяне на прочетения стих в списъка
           if (toAdd) tx << vt;
           else {
-             int k = tx.size()-1;
+              qsizetype k = tx.size()-1;
              tx[k] = tx.last()+"<br>"+vt;
              v--;
              showMessage(r+"\n"+tx.at(k));
@@ -333,7 +333,7 @@ void BibleWindow::import(const QString &fn){
      } // Край на цикъла за четене на главите от поредната книга
    } // Край на цикъла за четене на книгите
    downloadProgressBar->reset();
-   downloadProgressBar->setMaximum(tx.size());
+   downloadProgressBar->setMaximum(static_cast<int>(tx.size()));
       
    // Съставяне на списък от думите в Библията
    QStringList wl; // Списък на думите в Библията
@@ -364,7 +364,7 @@ void BibleWindow::import(const QString &fn){
    std::sort(wl.begin(), wl.end(), caseInsensitiveLessThan);
    
    // Изтриване на думите с главна буква, ако се срещат и с малка буква
-   for(int i=wl.count()-1; i>0; i--) if (wl.at(i).toLower()==wl.at(i-1).toLower()){
+   for(qsizetype i=wl.count()-1; i>0; i--) if (wl.at(i).toLower()==wl.at(i-1).toLower()){
       if (wl.at(i).at(0).isUpper()) wl.removeAt(i);
       if (wl.at(i-1).at(0).isUpper()) wl.removeAt(i-1);
    }
@@ -394,7 +394,7 @@ void BibleWindow::import(const QString &fn){
        QByteArray ba = tx.at(i).toUtf8();
        ts.writeRawData(ba.data(),c);
 //       ts << ba;
-       p = ct.pos();
+       p = static_cast<qint32>(ct.pos());
    }
    ct.close();
    cp.close();
@@ -438,7 +438,7 @@ void BibleWindow::import(const QString &fn){
                    cc[w] = l;
                }
                else l = cc[w];
-               int s = l->size();
+               qsizetype s = l->size();
                if ( !s || (l->at(s-1)!=i+1) ) l->append(i+1);
                inWord = false;
              }
@@ -452,7 +452,7 @@ void BibleWindow::import(const QString &fn){
               cc[w] = l;
           }
           else l = cc[w];
-          int s = l->size();
+          qsizetype s = l->size();
           if ( !s || (l->at(s-1)!=i+1) ) l->append(i+1);
        }
    }
@@ -469,7 +469,7 @@ void BibleWindow::import(const QString &fn){
        QList<int> *l = cc[w];
        if (!l) showMessage("Nil pointer");
        else {
-           qint32 p = ct.pos()/2;   countedMessage(QString::number(p));
+           qint32 p = static_cast<quint32>(ct.pos()/2);   countedMessage(QString::number(p));
            ps << p;
            qint16 q = l->size();
            ts << q;
@@ -488,7 +488,7 @@ void BibleWindow::import(const QString &fn){
    showMessage(tr("All done"));
 };
 
-void BibleWindow::onBDownloadDone(bool e){
+/*void BibleWindow::onBDownloadDone(bool e){
    if (e || fileDownloader->notDone){
      showMessage("download error");
      return;
@@ -501,15 +501,15 @@ void BibleWindow::onBDownloadDone(bool e){
    }
    process->setWorkingDirectory(QFileInfo(bZipFile).absolutePath());
    process->start("unzip",a);
-};
+};*/
 
-void BibleWindow::onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ){
+/*void BibleWindow::onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ){
    Q_UNUSED(exitCode); Q_UNUSED(exitStatus);
    showMessage( tr("Downloaging is finished. Now you can open the Bible %1.").arg(windowTitle()) );
    QFile( QFileInfo(bZipFile).absoluteFilePath() ).remove();
-};
+};*/
 
-// Приема сигнала, че е завършило разархивирането и изпраща сигнал, че библията е налично
+// Приема сигнала, че е завършило разархивирането и изпраща сигнал, че библията е налична
 void BibleWindow::onUnziped(){
     isDonloading = false;
     emit downloadFinished(bible_Version);
@@ -551,8 +551,8 @@ QString BibleWindow::verseText(int i){
 };
 
 QString between(const QString &s, const QString &e, const QString &st){
-   int p1 = st.indexOf(s)+s.size(); if (p1<0) p1 = 0;
-   int p2 = st.indexOf(e,p1); if (p2<p1) p2 = st.size()-1;
+   qsizetype p1 = st.indexOf(s)+s.size(); if (p1<0) p1 = 0;
+   qsizetype p2 = st.indexOf(e,p1); if (p2<p1) p2 = st.size()-1;
    return st.mid(p1,p2-p1);
 }
 
@@ -733,7 +733,7 @@ QString BibleWindow::toHtml(ExportDialog::Export e){
       // Ако се експортира само текущата книга
       if (b2==b1)
       r += "<h2>"+longTitles.value(b-1)+"</h2>\n\n";
-      int c1=1, c2=bible_Structure->value(b-1)->size()-1;
+      int c1=1, c2=static_cast<int>(bible_Structure->value(b-1)->size()-1);
       if (e==ExportDialog::Chapter){ c1=chapter(); c2=c1; ht = wordChapter(b)+" &nbsp; "+QString::number(c1);}
       for(int c=c1; c<=c2; c++){
          r += "<h3>"+wordChapter(b)+" &nbsp; "+QString::number(c)+"</h3>\n\n";
@@ -762,7 +762,7 @@ QString BibleWindow::toTxt(ExportDialog::Export e){
    r = windowTitle()+"\n\n";
    for(int b=b1; b<=b2; b++){
       r += longTitles.value(b-1)+"\n\n";
-      int c1=1, c2=bible_Structure->value(b-1)->size()-1;
+      int c1=1, c2=static_cast<int>(bible_Structure->value(b-1)->size()-1);
       if (e==ExportDialog::Chapter){ c1=chapter(); c2=c1; }
       for(int c=c1; c<=c2; c++){
          r += wordChapter(b)+" "+QString::number(c)+"\n\n";
@@ -777,7 +777,7 @@ QString BibleWindow::toTxt(ExportDialog::Export e){
    return r;
 };
 
-void BibleWindow::about(MyProcess *p){
+void BibleWindow::about(){
    QFile af( bDir+"about.html" );
    if (!af.exists()){
       showMessage( tr("There is no information about this Bible Version.") );
@@ -785,8 +785,7 @@ void BibleWindow::about(MyProcess *p){
    }
    QUrl url = QUrl::fromLocalFile(bDir+"about.html");
    QDesktopServices::openUrl(url);
-   p->browse( QFileInfo(af).absoluteFilePath() );
-};
+ };
 
 ConcordanceModel *BibleWindow::concordance(){
    setFileNOpened(false);
@@ -935,17 +934,17 @@ int BibleWindow::verse(){
 };
 
 int BibleWindow::bookCount(){
-   return bible_Structure->size();
+   return static_cast<int>(bible_Structure->size());
 };
 
 int BibleWindow::chapterCount(){
    if (!book()) return 0;
-   return bible_Structure->value(book()-1)->size()-1;
+   return static_cast<int>(bible_Structure->value(book()-1)->size()-1);
 };
 
 int BibleWindow::chapterCount(int b){
    if (!b) return 0;
-   return bible_Structure->value(b-1)->size()-1;
+   return static_cast<int>(bible_Structure->value(b-1)->size()-1);
 };
 
 int BibleWindow::verseCount(){
@@ -1224,7 +1223,6 @@ QString biblePath(){
 
 void setBiblePath(const QString &s){
   bible_Path = s;
-    qDebug() << s;
 };
 
 QStringList getReadPositions(){

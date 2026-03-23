@@ -55,8 +55,8 @@ private slots:
   void onDataReadProgress(qint64 d, qint64 t);
   void onRequestFinished();
   void onError(QNetworkReply::NetworkError code);
-  void onDownloadDone(bool e);
-  void onUnzipFinished(int ec, QProcess::ExitStatus es);
+//  void onDownloadDone(bool e);
+ // void onUnzipFinished(int ec, QProcess::ExitStatus es);
 
 signals:
   void unzipFinished();

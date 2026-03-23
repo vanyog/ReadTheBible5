@@ -120,7 +120,7 @@ bool extractDirOverwrite(const QString &zipFile, const QString &destDir) {
     return true;
 }
 
-void FileDownloader::onDownloadDone(bool e){
+/*void FileDownloader::onDownloadDone(bool e){
     if (e || notDone) return;
     QStringList a;
     a << "-o" << QFileInfo(zipFile).absoluteFilePath();
@@ -131,7 +131,7 @@ void FileDownloader::onDownloadDone(bool e){
     }
     zipProcess->setWorkingDirectory(QFileInfo(zipFile).absolutePath());
     zipProcess->start("unzip",a);
-};
+};*/
 
 void FileDownloader::unzipStep(){
     if(reply->error()) return;
@@ -142,10 +142,10 @@ void FileDownloader::unzipStep(){
  //   showMessage( tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage) );
 };
 
-void FileDownloader::onUnzipFinished(int ec, QProcess::ExitStatus es){
+/*void FileDownloader::onUnzipFinished(int ec, QProcess::ExitStatus es){
    Q_UNUSED(ec); Q_UNUSED(es);
    showMessage(tr("File has been downloaded and unziped. Now you can open %1.").arg(doneMessage));
-};
+};*/
 
 // Променлива, която запомня абсолютната директория, в която се намира програмата
 QString prog_Dir;

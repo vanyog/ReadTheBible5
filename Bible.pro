@@ -21,6 +21,10 @@ macx {
     restart.path = Contents/MacOS
 }
 
+ios {
+    CONFIG += code
+}
+
 CONFIG += release
 QT += network
 TEMPLATE = app
@@ -32,13 +36,13 @@ ICON = images/mac1.icns
 
 # Input
 HEADERS += mainWindow.h myFileRoutines.h myDecode.h showMessage.h bibleWindow.h exportDialog.h
-HEADERS += language.h fileDownloader.h webUpdater.h preferences.h process.h history.h
+HEADERS += language.h fileDownloader.h webUpdater.h preferences.h history.h
 HEADERS += concordance.h preferedColors.h filterDialog.h myListView.h verseCollection.h
 
 FORMS += mainWindow.ui exportDialog.ui preferences.ui preferedColors.ui filterDialog.ui
 
 SOURCES += main.cpp mainWindow.cpp myFileRoutines.cpp myDecode.cpp showMessage.cpp bibleWindow.cpp exportDialog.cpp
-SOURCES += language.cpp fileDownloader.cpp webUpdater.cpp preferences.cpp process.cpp history.cpp
+SOURCES += language.cpp fileDownloader.cpp webUpdater.cpp preferences.cpp history.cpp
 SOURCES += concordance.cpp preferedColors.cpp filterDialog.cpp myListView.cpp verseCollection.cpp
 
 TRANSLATIONS += Bible_bg.ts Bible_mk.ts

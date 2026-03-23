@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QDebug>
 
 #include "mainWindow.h"
-#include "showMessage.h"
+//#include "showMessage.h"
 #include "fileDownloader.h"
 
 int main(int argc, char *argv[])
@@ -50,10 +50,10 @@ int main(int argc, char *argv[])
    app.installTranslator(&translator);
 
    BMainWindow window;
-   if (window.doNotExec()){
+  /* if (window.doNotExec()){
         window.onFileAppFolder();
         return 0;
-   }
+   }*/
    if(prog_Version()=="5.3.1"){
        QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
        if(dataDir.exists()) dataDir.removeRecursively();
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
    
    int i = app.exec();
 
-   if (window.openAppFolder()) window.onFileAppFolder();
+ //  if (window.openAppFolder()) window.onFileAppFolder();
     return i;
 }
 

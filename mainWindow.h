@@ -27,7 +27,6 @@ class QMdiSubWindow;
 class BibleWindow;
 class ExportDialog;
 class WebUpdater;
-class MyProcess;
 class History;
 class FileDownloader;
 class Concordance;
@@ -52,7 +51,7 @@ signals:
    void refreshText();
 
 public slots:
-   void onFileAppFolder(); // Отваряне папката с програмата
+//   void onFileAppFolder(); // Отваряне папката с програмата
 
 protected:
    void closeEvent(QCloseEvent *event);
@@ -124,7 +123,7 @@ private:
    QHash<QString, QAction*> bAction;
    ExportDialog *exportDialog;
    WebUpdater *webUpdater;
-   MyProcess *myProcess;
+   //MyProcess *myProcess;
    History *history;
    FileDownloader *fileDownloader;
    Concordance *concordance;

@@ -103,7 +103,7 @@ QString ConcordanceModel::word(int i) const
 int ConcordanceModel::wordCount() const
 {
    if (fileNOpened) return 0;
-   else return QFileInfo(path+"WordPoint.bin").size() / 4;
+   else return static_cast<int>(QFileInfo(path+"WordPoint.bin").size() / 4);
 };
 
 int ConcordanceModel::count(int i) const
@@ -159,7 +159,7 @@ QList<int> *ConcordanceModel::verseIndexes(int i){
 
 QString colorWord(const QString &w, const QString &s){
    QString s0=s;
-   int p=-1;
+   qsizetype p=-1;
    do {
       p = s0.indexOf(w,p+1,Qt::CaseInsensitive);
       if ((p>-1)
@@ -298,7 +298,7 @@ void Concordance::onVLClicked(const QModelIndex &i){
 void Concordance::onEditTextChanged(const QString &t0){
    QString t = t0;
    QStringList sl = t0.split(" ");
-   int i = sl.size()-1;
+   int i = static_cast<int>(sl.size()-1);
    if (i>-1) t = sl.at(i);
    i = cModel->indexOf(t);
    QModelIndex in = cModel->index(i,0,QModelIndex());
@@ -322,7 +322,7 @@ void Concordance::onGlobalIndexChanged(BibleWindow *bw){
    int vi = cModel->bible->verseIndex();  // Локален индек на активния стих от Библията
    if (!vi) return; // Ако няма активен стих - изход
    int ni = -1;  // Номер на активния стих в списъка на намерените стихове
-   if (cModel && cModel->iArray) ni = cModel->iArray->indexOf(vi);
+   if (cModel && cModel->iArray) ni = static_cast<int>(cModel->iArray->indexOf(vi));
    if (ci==ni) return; // Ако стихът не е друг - изход
    QModelIndex in = vListView->model()->index(ni,0,QModelIndex()); // Моделов индекс на текущия стих
    vListView->setCurrentIndex(in); // Селектиране

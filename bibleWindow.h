@@ -37,7 +37,6 @@ class QFile;
 class QProgressBar;
 class QPushButton;
 class FileDownloader;
-class MyProcess;
 class ConcordanceModel;
 
 /* -------BibleStructure---------
@@ -137,7 +136,7 @@ public:
    void displayFreshText(); // Четене и показване на нов текст
    QString toHtml(ExportDialog::Export e); // Част от текста на Библията в html формат
    QString toTxt(ExportDialog::Export e); // Част от текста на Библията в txt формат
-   void about(MyProcess *p); // Отваря "Относно" информацията за Библията
+   void about(); // Отваря "Относно" информацията за Библията
    ConcordanceModel *concordance(); // Модел на списъка с думи. Използва се в конкорданса.
    int readPos(); // Връща номера на стиха, достигнат с последователно четене.
    void setReadPos(); // Запазва номера на стиха, достигнат с последователно четене.
@@ -160,9 +159,9 @@ protected:
    void closeEvent(QCloseEvent *event); // Функция, която се изпълнява при събитие затваряне на прозореца.
 
 private slots:
-   void onBDownloadDone(bool e); // Приема сигнал за край на тегленето от Интернет
-   void onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ); /* Приема сигнал, че е завършено разархивирането
-      на изтегления zip файл */
+ //  void onBDownloadDone(bool e); // Приема сигнал за край на тегленето от Интернет
+ //  void onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ); /* Приема сигнал, че е завършено разархивирането
+ //     на изтегления zip файл */
    void onUnziped();
 
 private:
