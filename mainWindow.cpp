@@ -604,8 +604,8 @@ Copyright (C) 2008–2026 Vanyo Georgiev<br>\
 <A HREF=%2>%2</A><br><br>\
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL), version 2 or later.<br><br>\
 This program is provided WITHOUT ANY WARRANTY. See the GPL for details.<br><br>\
-Full license: <A HREF=\"https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&_x_tr_tl=bg&_x_tr_hl=bg\">GNU Общ публичен лиценз, версия 2</A>").
-       arg(progVersion,progURL+interfaceLanguage(),progEmail) );
+Full license: <A HREF=\"https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&_x_tr_tl=%4&_x_tr_hl=%4\">%5</A>").
+                arg(progVersion,progURL+interfaceLanguage(),progEmail,interfaceLanguage(),tr("GNU General Public License, version 2")) );
 };
 
 void BMainWindow::onHelpAboutBibleVersion(){
