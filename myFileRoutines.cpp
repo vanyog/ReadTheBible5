@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 void removeExt(const QString &ex, QStringList *list){
-   int c = list->size()-1;
-   for(int i=c; i>=0; i--){
+   qsizetype c = list->size()-1;
+   for(qsizetype i=c; i>=0; i--){
       if (list->at(i).endsWith("."+ex) ){
          list->removeAt(i);
       }
@@ -44,7 +44,7 @@ QStringList otherFiles(const QString &fn){
    QString pn = QFileInfo(fn).absolutePath();
    QDir dir(pn);
    QStringList list = dir.entryList(QDir::Files);
-   int i = list.indexOf(QFileInfo(fn).fileName());
+    qsizetype i = list.indexOf(QFileInfo(fn).fileName());
    list.removeAt(i);
    removeExt("o",&list);
    return list;

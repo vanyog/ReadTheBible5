@@ -81,9 +81,13 @@ void FileDownloader::onReadyRead(){
 };
 
 // Показва напредъка на изтеглянето върху лента за напредък
-void FileDownloader::onDataReadProgress(qint64 d, qint64 t){
-    progressBar->setValue(progressBar->maximum()*t/d);
-};
+void FileDownloader::onDataReadProgress(qint64 d, qint64 t)
+{
+    if (t > 0) {
+        int value = static_cast<int>((d * progressBar->maximum()) / t);
+        progressBar->setValue(value);
+    }
+}
 
 // Изпълнява се след края на изтеглянето
 void FileDownloader::onRequestFinished(){
@@ -159,7 +163,7 @@ QString progDir(){
 // или текущата директория
 void setProgDir(){
     prog_Dir = qApp->applicationFilePath();
-    int l = QDir(prog_Dir).dirName().size();
+    qsizetype l = QDir(prog_Dir).dirName().size();
     Q_UNUSED(l);
 #ifdef Q_OS_MAC
     prog_Dir = prog_Dir.left(prog_Dir.size()-2*l-20);

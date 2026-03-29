@@ -38,6 +38,11 @@ int main(int argc, char *argv[])
     app.setDesktopFileName("bible5");
     app.setWindowIcon(QIcon(":/images/Logo_ikon_256x256.png"));
 
+#ifdef Q_OS_ANDROID
+    qputenv("QT_ANDROID_DISABLE_ACCESSIBILITY", "1");
+    qputenv("QT_OPENGL", "software");
+#endif
+
     QCoreApplication::setOrganizationName("VanyoG");
     QCoreApplication::setApplicationName("Read the Bible Free");
 
@@ -60,7 +65,11 @@ int main(int argc, char *argv[])
        dataDir.cdUp();
        if (dataDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty()) dataDir.rmdir(dataDir.path());
    }
+#ifdef Q_OS_ANDROID
+   window.showMaximized();
+#else
    window.show();
+#endif
    window.tileOrCascade();
    
    int i = app.exec();

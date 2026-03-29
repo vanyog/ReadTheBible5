@@ -23,6 +23,7 @@ macx {
 
 ios {
     CONFIG += code
+    QMAKE_ASSET_CATALOGS += Media.xcassets
 }
 
 CONFIG += release

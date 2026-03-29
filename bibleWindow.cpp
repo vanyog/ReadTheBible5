@@ -27,16 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include "process.h"
 #include "concordance.h"
 
-#include <QHash>
-#include <QFileInfo>
 #include <QApplication>
+#include <QDesktopServices>
+#include <QDir>
+#include <QFileInfo>
+#include <QHash>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QTextStream>
-#include <QDir>
-#include <QDesktopServices>
 
 QProgressBar  *downloadProgressBar = 0;
 QPushButton *dounloadCancelButton = 0;
@@ -63,6 +63,7 @@ VerseCorrection::VerseCorrection(const QStringList &cl){
 BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    :QTextBrowser(parent)
 {
+    setTextInteractionFlags(Qt::NoTextInteraction);
    setAttribute(Qt::WA_DeleteOnClose);
    bible_Version = bv;
    bZipFile = bv+".zip";

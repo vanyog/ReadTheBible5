@@ -43,8 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QRandomGenerator>
 #include <QDesktopServices>
 #include <QStandardPaths>
+#include <QScroller>
 
-QString progVersion = "5.3.1";
+QString progVersion = "5.3.2";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString progEmail = "info@vanyog.com";
 
@@ -597,7 +598,13 @@ void BMainWindow::onHelpReadme(){
 };
 
 void BMainWindow::onHelpAboutProgram(){
-   showMessage(tr("Read the Bible Free - v%1<br>Copyright (C) 2008  Vanyo Georgiev<br>&lt;<A HREF=mailto:%3>%3</A>&gt;<br><A HREF=%2>%2</A><br><br>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.<br><br>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br><br>You should have received a copy of the GNU General Public License along with this program; if not, write to the<br><br>Free Software Foundation, Inc.,<br>51 Franklin Street, Fifth Floor,<BR>Boston, MA  02110-1301, USA.").
+   showMessage(tr("Read the Bible Free - v%1<br>\
+Copyright (C) 2008–2026 Vanyo Georgiev<br>\
+&lt;<A HREF=mailto:%3>%3</A>&gt;<br>\
+<A HREF=%2>%2</A><br><br>\
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL), version 2 or later.<br><br>\
+This program is provided WITHOUT ANY WARRANTY. See the GPL for details.<br><br>\
+Full license: <A HREF=\"https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&_x_tr_tl=bg&_x_tr_hl=bg\">GNU Общ публичен лиценз, версия 2</A>").
        arg(progVersion,progURL+interfaceLanguage(),progEmail) );
 };
 
@@ -675,6 +682,7 @@ void BMainWindow::emitIndexChanged(BibleWindow *ab){
 BibleWindow *BMainWindow::openBible(const QString &bv){
    static int n = 0; // уникален номер на поредния създаден прозорец с Библия
    BibleWindow *bw = new BibleWindow(bv);
+   QScroller::grabGesture(bw->viewport(), QScroller::TouchGesture);
    if(bw->isDonloading)
        connect(bw, SIGNAL(downloadFinished(QString)), this, SLOT(onBibleDownloaded(QString)));
    if (!bw->longTitles.size()) return bw;

@@ -29,7 +29,7 @@ FilterDialog::FilterDialog(ConcordanceModel *cm, QWidget *parent, Qt::WindowFlag
    ui.setupUi(this);
    cModel = cm;
    firstNew = cModel->bible->book(51);
-   int bn = cModel->bible->shortTitles.size();
+    qsizetype bn = cModel->bible->shortTitles.size();
    for(int i=0; i<bn; i++){
      QCheckBox *cb = new QCheckBox(cModel->bible->shortTitles.at(i));
      cb->setChecked(cModel->searchIn.at(i));

@@ -37,7 +37,7 @@ public:
   void push(int i);
   int back();
   int forward();
-  int count();
+  qsizetype count();
   int index();
   
 private slots:

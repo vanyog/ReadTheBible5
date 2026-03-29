@@ -50,7 +50,7 @@ int History::forward(){
 
 };
 
-int History::count(){
+qsizetype History::count(){
     return list.size();
 }
 
