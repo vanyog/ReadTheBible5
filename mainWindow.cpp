@@ -83,7 +83,6 @@ BMainWindow::BMainWindow(QWidget *parent)
    createBActions();
    readGlobalStructure();
    readSettings();
- //  myProcess = new MyProcess( this );
 
    connect(ui.actionExport_as_html, SIGNAL(triggered()), this, SLOT(onFileExportHtml()));
    connect(ui.actionExport_as_txt, SIGNAL(triggered()), this, SLOT(onFileExportTxt()));
@@ -314,7 +313,9 @@ void BMainWindow::onBibleWindowDestroyed(QObject *obj){
 //   concordance->setModel(0);
 };
 
+// Изпълнява се при кликване върху линк в прозореца с текста на Библията
 void BMainWindow::onBibleAnchorClicked(const QUrl &link){
+    qDebug() << link;
    QString lf = link.fragment();
    int i = link.path().toInt();
    BibleWindow *ab = activeBible();
@@ -636,6 +637,13 @@ void BMainWindow::onVerseClick(BibleWindow *ab, int i){
    goByIndex(ab, i);
 };
 
+void BMainWindow::onGlobalIndexChange(int i){
+    BibleWindow *ab = setActiveBibleReference(true);
+    goByIndex(ab,i);
+    qDebug() << i;
+};
+
+
 // Намира индекса на текста, изписан в QComboBox
 // и прави този индекс текущ.
 void setIndexByText(QComboBox *cb){
@@ -692,6 +700,7 @@ BibleWindow *BMainWindow::openBible(const QString &bv){
    connect(bw, SIGNAL(closing(BibleWindow*)), this, SLOT(onBibleWindowClosing(BibleWindow*)));
    connect(bw, SIGNAL(destroyed(QObject*)), this, SLOT(onBibleWindowDestroyed(QObject*)));
    connect(bw, SIGNAL(anchorClicked(QUrl)), this, SLOT(onBibleAnchorClicked(QUrl)));
+   connect(bw, SIGNAL(globalIndexChaged(int)), this, SLOT(onGlobalIndexChange(int)));
    connect(preferences(), SIGNAL(optionChanged()), bw, SLOT(refreshText()));
    connect(preferedColor(), SIGNAL(toChangeOtherTextColor()), bw, SLOT(refreshText()));
    bw->setObjectName( "b"+QString::number(n) ); n++;

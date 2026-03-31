@@ -26,7 +26,7 @@ ios {
     QMAKE_ASSET_CATALOGS += Media.xcassets
 }
 
-CONFIG += release
+#CONFIG += release
 QT += network
 TEMPLATE = app
 TARGET = Bible5
@@ -52,7 +52,6 @@ RC_FILE = BibleIcon.rc
 
 RESOURCES += resources.qrc
 
-CONFIG += release
 MOC_DIR = build
 UI_DIR = build
 OBJECTS_DIR = build

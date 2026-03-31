@@ -111,6 +111,8 @@ private slots:
    void onMaxItemsChanged(int i);
    void onVerseClick(BibleWindow *ab, int i);
 
+   void onGlobalIndexChange(int i);
+
 private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;

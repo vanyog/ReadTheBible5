@@ -147,8 +147,9 @@ public:
    void createLinksBin(); // Създава файловете Links.bin и LinksP.bin
    void import(const QString &fn); // Импортиране на Библия от .txt файл.
 signals:
-   void closing(BibleWindow *bw); // Сигнал, който се излъчва при затваряне на прозореца.
+    void closing(BibleWindow *bw); // Сигнал, който се излъчва при затваряне на прозореца.
     void downloadFinished(const QString &bv);
+    void globalIndexChaged(int i); // Сигнал, който се изпраща, за да се промени текущия стих във всички прозорци.
 
 public slots:
    void onGlobalIndexChanged(BibleWindow *bw); // Слот, който прихваща промяната на текущия стих
@@ -163,9 +164,10 @@ private slots:
  //  void onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ); /* Приема сигнал, че е завършено разархивирането
  //     на изтегления zip файл */
    void onUnziped();
+   void onScroll(int value);
 
 private:
-   QString bible_Version, // Идентификатор на версията на Библията, който съвпада с името на директорията й.
+   QString bible_Version, // Идентификатор на версията на Библията, който съвпада с името на директорията ѝ.
      bDir, // Пълно име до директорията с файлове от дадената версия.
      bZipFile, // Пълно име на изтегления от Интернет zip файл
      css, // Стил (CSS)
@@ -177,7 +179,7 @@ private:
       vr, // Локален номер на текущия стих
       gch, // Глобален номер на текущата глава
       gvr, // Глобален номер на текущия стих
-      bkl, chl, vrl, // Променливи, в които се записват стойностите на bk, ch и vr след промяната им.
+      bkl, chl, vrl, // Променливи, в които се записват предишни стойностите на bk, ch и vr след промяната им.
          // Служат за откриване дали са настъпили промени в стойностите им.
       fCount; // Брой на бележките под линия към текущата глава.
    QHash<int, int> global_book,  // Хеш за бързо преминаване от локални към глобални номера на книгите.

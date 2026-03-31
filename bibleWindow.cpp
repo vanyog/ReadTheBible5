@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "language.h"
 #include "fileDownloader.h"
 #include "preferences.h"
-//#include "process.h"
 #include "concordance.h"
 
+#include <QAbstractTextDocumentLayout>
 #include <QApplication>
 #include <QDesktopServices>
 #include <QDir>
@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QTextStream>
+#include <QScrollBar>
 
 QProgressBar  *downloadProgressBar = 0;
 QPushButton *dounloadCancelButton = 0;
@@ -63,24 +64,16 @@ VerseCorrection::VerseCorrection(const QStringList &cl){
 BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    :QTextBrowser(parent)
 {
-    setTextInteractionFlags(Qt::NoTextInteraction);
+#ifdef QT_OS_IOS
+    setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+#endif
    setAttribute(Qt::WA_DeleteOnClose);
    bible_Version = bv;
    bZipFile = bv+".zip";
    setOpenLinks(false);
-#ifdef Q_WS_WIN
-   bDir = bible_Path+bv+"\\";
-#else
    bDir = bible_Path+bv+"/";
-#endif
    bZipFile = bDir+bZipFile;
-#ifdef Q_WS_MAC
-   QString sf = "style.css";
-#else
    QString sf = "style-w.css";
-#endif
-/*   if (QFileInfo::exists(bDir+sf)) css = fileContent(bDir+sf);
-   else css = defaultCss();*/
    process = 0;
    setWindowTitle( versionCaption(bv) );
    bkl=0; chl=0; vrl=0;  fileDownloader=0;
@@ -93,11 +86,6 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    bible_Structure = readStructure(bDir+"BibleStructure.csv");
    readCorrection();
    concordance_ = new ConcordanceModel(bDir, versionCodec(bv), this);
-/*   concordance_ = concordanceHash.value(bible_Version);
-   if (!concordance_){
-     concordance_ = new ConcordanceModel(dir, versionCodec(bv), this);
-     concordanceHash[bible_Version] = concordance_;
-   }*/
 };
 
 bool BibleWindow::readTitles(){
@@ -516,6 +504,22 @@ void BibleWindow::onUnziped(){
     emit downloadFinished(bible_Version);
 };
 
+// Приема сигнал че е извършен скрол
+void BibleWindow::onScroll(int value)
+{   // Текущият стих като блок текст
+    QTextBlock tb = document()->findBlockByNumber(vrl);
+    QAbstractTextDocumentLayout *layout = document()->documentLayout();
+    QRectF rect = layout->blockBoundingRect(tb);
+    // Вертикална позиция на текущия стих във вюпорта
+    qreal yInViewport = rect.top() - verticalScrollBar()->value();
+   // Ако излиза нагоре извън екрана, текущ става следващия стих
+    if(yInViewport<0){
+        qDebug() << value << " " << yInViewport << " " << globalVerseIndex();
+        emit globalIndexChaged(verseIndex() + 1);
+    }
+}
+
+
 void BibleWindow::globalToLocal(){
    ch = gch; vr = gvr;
    if (!correctionGL.size()) return;
@@ -523,9 +527,8 @@ void BibleWindow::globalToLocal(){
    while( (i<correctionGL.size()) && (correctionGL.at(i)->bk < bk) ) i++;
    while( (i<correctionGL.size()) && (correctionGL.at(i)->bk == bk) ){
       if ( (correctionGL.at(i)->ch0 == gch) && (correctionGL.at(i)->vr0 <= gvr) ){
-         ch = gch - correctionGL.at(i)->ch1;
-//         showMessage(bibleVersion()+" :: " + QString::number(correctionGL.at(i)->ch1)+" "+QString::number(correctionGL.at(i)->vr1));
-         vr = gvr - correctionGL.at(i)->vr1;
+        ch = gch - correctionGL.at(i)->ch1;
+        vr = gvr - correctionGL.at(i)->vr1;
       }
       i++;
    }
@@ -557,6 +560,7 @@ QString between(const QString &s, const QString &e, const QString &st){
    return st.mid(p1,p2-p1);
 }
 
+// Променя цвета на стих номер vr от цвят с има c1 на цвят с име c2
 void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
    QTextBlock tb = document()->findBlockByNumber( vr );
    QFont font = tb.charFormat().font();
@@ -597,13 +601,13 @@ QString BibleWindow::addTags(const QString &s0){
    for(i = 0; i<s.size(); i++){
       switch (s.at(i).unicode()){
       case 0x7B: // {
-         if (i>j1) r += s.mid( j1, i-j1-1 );
+          if (i>j1) r += QStringView(s).mid( j1, i-j1-1 );
          j1 = i+1;
          f2 = true;
          break;
       case 0x7C: // |
          if (f2) break;
-         r += s.mid( j1, i-j1 );
+         r +=  QStringView(s).mid( j1, i-j1 );
          if (f1) r += "<i>"; else r += "</i>"; 
          f1 = !f1;
          j1 = i+1;
@@ -626,7 +630,7 @@ QString BibleWindow::addTags(const QString &s0){
          break;
       }
    }
-   r += s.mid(j1,i-j1);
+   r +=  QStringView(s).mid(j1,i-j1);
    r = concordance_->colorWords(r);
    return r;
 };
@@ -677,11 +681,14 @@ QString BibleWindow::wordChapter(int b){
   else return languageObject()->chapter(ln);
 };
 
+// Актуализира текста в прозореца
 void BibleWindow::displayText(){
    if ((bk!=bkl)||(ch!=chl)||wordsChanged) displayFreshText();
    if (!verseCount()) return;
+   disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    setVerseColor(vrl, preferedColor()->activeVerseColor().name(), preferedColor()->bibleTextColor().name()  );
    setVerseColor(vr,  preferedColor()->bibleTextColor().name(),   preferedColor()->activeVerseColor().name());
+   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    vrl = vr;
 };
 
@@ -693,7 +700,7 @@ void BibleWindow::displayFreshText(){
    p.setColor(QPalette::Active, QPalette::Link, preferedColor()->footnoteColor());
    setPalette(p);
    bkl=bk;
-   if (book()==0){
+   if (book()==0){ // Няма книга
       setText(reference());
       return;
    }
@@ -900,9 +907,7 @@ void BibleWindow::setVerseByIndex(int i){
 
 void BibleWindow::globalIndexToLocal(){
    indexToRefrence(globalVerseIndex(), &bk, &gch, &gvr, globalStructure() );
-//   showMessage("Global:   "+bibleVersion()+" :: " + QString::number(bk)+":"+QString::number(gch)+":"+QString::number(gvr));
    globalToLocal();
-//   showMessage("Local:   "+bibleVersion()+" :: " + QString::number(bk)+":"+QString::number(ch)+":"+QString::number(vr));
 };
 
 int BibleWindow::localToGlobalIndex(){
@@ -994,6 +999,7 @@ QString BibleWindow::reference(int i, bool abr){
    }
 };
 
+// Приема сигнала, че е променен глобалния индекс на стих
 void BibleWindow::onGlobalIndexChanged(BibleWindow *bw){
    if (!synchronize) return;
    if (bw!=this) globalIndexToLocal();
