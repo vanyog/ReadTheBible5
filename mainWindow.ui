@@ -140,8 +140,8 @@
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Bible_1"/>
-   <addaction name="menu_View"/>
    <addaction name="menu_Go"/>
+   <addaction name="menu_View"/>
    <addaction name="menu_Windows"/>
    <addaction name="menuHelp"/>
   </widget>

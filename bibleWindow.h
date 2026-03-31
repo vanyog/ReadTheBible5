@@ -273,5 +273,6 @@ QStringList getReadPositions(); /* Връща във вид на списък с
 void setReadPositions(const QStringList &bl); /* Преобразува от стрингове в цели числа и запазва 
    в хеша read_pos локалните номера на стиховете, на местата на последователно четене.
    Тези две функции се използват от функциите writeSettings и readSettings. */
+void writeReadPositions(); // Запазва в QSettings местата за четене на отворените библии.
    
 #endif

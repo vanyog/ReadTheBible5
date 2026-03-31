@@ -315,7 +315,6 @@ void BMainWindow::onBibleWindowDestroyed(QObject *obj){
 
 // Изпълнява се при кликване върху линк в прозореца с текста на Библията
 void BMainWindow::onBibleAnchorClicked(const QUrl &link){
-    qDebug() << link;
    QString lf = link.fragment();
    int i = link.path().toInt();
    BibleWindow *ab = activeBible();
@@ -324,6 +323,7 @@ void BMainWindow::onBibleAnchorClicked(const QUrl &link){
    else goByIndex( ab, i );
 };
 
+// Смяна на книга от падащия списък
 void BMainWindow::onBookChanged(int i){
    Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference();
@@ -334,6 +334,7 @@ void BMainWindow::onBookChanged(int i){
    emitIndexChanged(ab);
 };
 
+// Смяна на глава от падащия списък
 void BMainWindow::onChapterChanged(int i){
    Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference();
@@ -359,7 +360,6 @@ void BMainWindow::onGoNextVerse(){
    if (i<ab->verseTotalCount()) i++;
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
- //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoPreviousVerse(){
@@ -368,7 +368,6 @@ void BMainWindow::onGoPreviousVerse(){
    int i = ab->verseIndex();
    if (i>1) i--;
    goByIndex(ab,i);
- //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoNextChapter(){
@@ -640,9 +639,9 @@ void BMainWindow::onVerseClick(BibleWindow *ab, int i){
 void BMainWindow::onGlobalIndexChange(int i){
     BibleWindow *ab = setActiveBibleReference(true);
     goByIndex(ab,i);
-    qDebug() << i;
+    ab->setReadPos();
+    writeReadPositions();
 };
-
 
 // Намира индекса на текста, изписан в QComboBox
 // и прави този индекс текущ.
@@ -758,8 +757,7 @@ void BMainWindow::writeSettings(){
    QMdiSubWindow *aw = mdiArea->activeSubWindow();
    if (aw) s.setValue("activeMaximized", aw->windowState().testFlag(Qt::WindowMaximized) );
    s.setValue("updateFile",webUpdater->downloadedFile());
-   bl = getReadPositions();
-   if (bl.size()) s.setValue("readPositions",bl);
+   writeReadPositions();
    s.setValue("lastVersion",lastVersion);
 };
 
@@ -913,7 +911,6 @@ void BMainWindow::tileOrCascade(){
       }
       return;
    }
-//   showMessage("T or C");
    if (doTile){
        mdiArea->tileSubWindows();
    }
@@ -968,6 +965,7 @@ void BMainWindow::goByIndex(BibleWindow *ab, int i){
     updateControls(ab);
 };
 
+// Отиване до глобален номер на стих i
 void BMainWindow::goByGlobalIndex(int i){
   if (i<0) return;
   BibleWindow *bw = activeBible();

@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QHash>
 #include <QProgressBar>
 #include <QPushButton>
+#include <QSettings>
 #include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QTextStream>
@@ -64,7 +65,7 @@ VerseCorrection::VerseCorrection(const QStringList &cl){
 BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    :QTextBrowser(parent)
 {
-#ifdef QT_OS_IOS
+#ifdef Q_OS_IOS
     setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 #endif
    setAttribute(Qt::WA_DeleteOnClose);
@@ -511,10 +512,11 @@ void BibleWindow::onScroll(int value)
     QAbstractTextDocumentLayout *layout = document()->documentLayout();
     QRectF rect = layout->blockBoundingRect(tb);
     // Вертикална позиция на текущия стих във вюпорта
-    qreal yInViewport = rect.top() - verticalScrollBar()->value();
-   // Ако излиза нагоре извън екрана, текущ става следващия стих
-    if(yInViewport<0){
-        qDebug() << value << " " << yInViewport << " " << globalVerseIndex();
+    qreal yInViewport = rect.top() - value;
+   // Ако излиза нагоре извън екрана, текущ се прави следващия стих
+    qDebug() << verse() << " " << verseCount();
+    if( (yInViewport<0) && (verse()<verseCount()) ){
+//        disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
         emit globalIndexChaged(verseIndex() + 1);
     }
 }
@@ -592,6 +594,7 @@ QString BibleWindow::wordChapter(){
   return wordChapter(book());
 };
 
+// Вмъква html такове в суровия текст s0
 QString BibleWindow::addTags(const QString &s0){
    int i; int j1 = 0;
    bool f1 = true, f2 = false;
@@ -685,11 +688,10 @@ QString BibleWindow::wordChapter(int b){
 void BibleWindow::displayText(){
    if ((bk!=bkl)||(ch!=chl)||wordsChanged) displayFreshText();
    if (!verseCount()) return;
-   disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    setVerseColor(vrl, preferedColor()->activeVerseColor().name(), preferedColor()->bibleTextColor().name()  );
    setVerseColor(vr,  preferedColor()->bibleTextColor().name(),   preferedColor()->activeVerseColor().name());
-   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    vrl = vr;
+//   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
 };
 
 void BibleWindow::displayFreshText(){
@@ -722,6 +724,11 @@ void BibleWindow::displayFreshText(){
    }
    if (links.size()) links = "<hr width=\"50%\">"+links;
    if (footnotes.size()) footnotes = "<hr>"+footnotes;
+   QString nexC = ""; /*<p><a href=\""+QString::number(i-1)+"\">"+
+                  tr("Previous Capter")+"</a> <span style=\"float:right;\">"+
+                  "<a href=\""+QString::number(i+verseCount())+"\">"+
+                  tr("Next Capter")+"</a></span></p>";
+   qDebug() << nexC;*/
    setHtml(tx+footnotes+links+"</body></html>");
    wordsChanged=false;
 };
@@ -1232,11 +1239,18 @@ void setBiblePath(const QString &s){
   bible_Path = s;
 };
 
+// Обръща QHash<QString, int> read_pos в QStringList, за да може да се запази в QSettings;
 QStringList getReadPositions(){
    QStringList k = read_pos.keys();
    QStringList r;
    for(int i=0; i<k.size(); i++) r << k.at(i) + "=" + QString::number( read_pos.value(k.at(i)) );
    return r;
+};
+
+// Запазва в QSettings местата за четене на отворените библии.
+void writeReadPositions(){
+    QSettings s;
+    s.setValue("readPositions",getReadPositions());
 };
 
 void setReadPositions(const QStringList &bl){
