@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "exportDialog.h"
 #include "webUpdater.h"
 #include "preferences.h"
-//#include "process.h"
 #include "history.h"
 #include "fileDownloader.h"
 #include "concordance.h"
@@ -279,7 +278,6 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
 
       // Установяване на конкорданса
       ConcordanceModel *cm = bw->concordance(); // Нов конкорданс
-//      concordance->setModel(cm); 
       if (cm!=cModel0)
       { // Ако новия конкорданс е различен от стария
         concordance->setModel(cm); 
@@ -287,7 +285,7 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
       }
 
       // Излъчва се сигнал за смяна активния стих
-      emitIndexChanged(bw);
+//      emitIndexChanged(bw);
 
       // Актуализират се падащите списъци
       ui.comboBox_2->clear();
@@ -310,7 +308,6 @@ void BMainWindow::onBibleWindowDestroyed(QObject *obj){
    Q_UNUSED(obj);
    tileOrCascade();
    ui.listView_2->setModel(0);
-//   concordance->setModel(0);
 };
 
 // Изпълнява се при кликване върху линк в прозореца с текста на Библията
@@ -424,11 +421,7 @@ void BMainWindow::onGoVerseList(){
 void BMainWindow::onGoRandomVerse(){
   BibleWindow *ab = activeBible();
   if (!ab) return;
-  static int r = 1;
-  if (r) { srand((unsigned)time(0)); r = 0; }
-  int i = QRandomGenerator::global()->generate();
-//  int i = arc4random();
-  i = i % ab->verseTotalCount();
+  int i = QRandomGenerator::global()->bounded(1, ab->verseTotalCount() + 1);
   goByIndex(ab,i);
 };
 
@@ -706,9 +699,9 @@ BibleWindow *BMainWindow::openBible(const QString &bv){
    mdiArea->addSubWindow(bw);
    bibleWindow.insert(bw->objectName(), bw);
    bw->globalIndexToLocal();
+   bw->freshTextAndVerse();
    bw->show();
    bw->resize(600,400);
-   bw->displayText();
    return bw;
 };
 
@@ -763,19 +756,15 @@ void BMainWindow::writeSettings(){
 
 void BMainWindow::readSettings(){
    do_Not_Exec = false;
-   
-//   setDefaultCss(fileContent(styleFile));
 
    QSettings s;
 
    QString st; // Сринг, който ще се използва за проверка на различни запазени стрингови стойности
    
-   if (progVersion!=s.value("version").toString()) newVersion();
-   else{
-     st = s.value("biblePath").toString();
-     // Задава стойността, която се чете с biblePath() - път до директорията с библии
-     //if (st.size()) setBiblePath(st);
-   }
+   if (progVersion!=s.value("version").toString())
+       newVersion();
+   else
+       st = s.value("biblePath").toString();
 
    // Стойността "downloadSite" се въвежда ръчно, ако е необходимо сайта за изтeгляне да е различен от подразбиращия се
    st = s.value("downloadSite").toString();
@@ -787,11 +776,6 @@ void BMainWindow::readSettings(){
    QByteArray ws = s.value("windowState").toByteArray();
    if (!ws.isEmpty()) restoreState( ws );
    else return;
-
-   // Позиция на десния край на панела за търсене
-//   ui.splitter->restoreState( s.value("docSplitterState").toByteArray() );
-   
-//   ui.action_Searching_toolbox->setChecked( !ui.dockWidget->isHidden() );
 
    // Глобален номер на текущия стих
    setGlobalVerseIndex(s.value("globalVerseIndex",globalVerseIndex()).toInt());

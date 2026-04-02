@@ -133,7 +133,8 @@ public:
    QString reference(int i, bool abr = false); // Връща припратка към стих с локален индекс i. Когато abr=true името на книгата е съкратено
    QString verseText(int i); // Връща текста на i-ия стих.
    void displayText(); // Опресняване на текста в прозореца
-   void displayFreshText(); // Четене и показване на нов текст
+   void displayFreshText(); // Четене и зарежда нов текст
+   void freshTextAndVerse(); // Зарежда текст и оцветява текущия стих
    QString toHtml(ExportDialog::Export e); // Част от текста на Библията в html формат
    QString toTxt(ExportDialog::Export e); // Част от текста на Библията в txt формат
    void about(); // Отваря "Относно" информацията за Библията
@@ -158,6 +159,7 @@ public slots:
 
 protected:
    void closeEvent(QCloseEvent *event); // Функция, която се изпълнява при събитие затваряне на прозореца.
+   void mousePressEvent(QMouseEvent *event) override; // Прихваща кликванията на мишката
 
 private slots:
  //  void onBDownloadDone(bool e); // Приема сигнал за край на тегленето от Интернет
@@ -190,14 +192,13 @@ private:
    VerseCorrectionList correctionLG, // Списък на корекциите от локални към глабални означения
       correctionGL; // Списък на корекциите от глобални към локални означения
    FileDownloader *fileDownloader; // Обект, който изтигля файл от Интернет
-   QProcess *process;
    ConcordanceModel *concordance_;
 
    bool readTitles(); // Четене на заглавията от файл BibleTitles.txt
    void readCorrection(); // Четене на корекциите от файл _Diff_.txt
    void globalToLocal(); // Пресмята стойности на gch и gvr, съответстващи не текущите стойности на ch и vr.
    void localToGlobal(); // Пресмята стойности на ch и vr, съответстващи не текущите стойности на gch и gvr.
-   void setVerseColor(int vr, const QString &c1, const QString &c2); // Оцветява i-я стих във цвят c (цвета се задава като в html формат)
+   void setVerseColor(int vr, const QString &c2); // Оцветява i-я стих във цвят c (цвета се задава като в html формат)
    QStringList *verseTexts(int i, int c); // Чете текста на c стихове, започвайки от i-ия.
    QString wordChapter(); // Връща думите "Глава" или "Псалом" на съответния език
    QString wordChapter(int b); // Връща думите "Глава" или "Псалом" на съответния език

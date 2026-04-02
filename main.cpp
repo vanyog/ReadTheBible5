@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSplashScreen>
 #include <QFileInfo>
 #include <QSettings>
+#include <QTimer>
 #include <QStandardPaths>
 #include <QDir>
 #include <QDebug>
@@ -55,26 +56,23 @@ int main(int argc, char *argv[])
    app.installTranslator(&translator);
 
    BMainWindow window;
-  /* if (window.doNotExec()){
-        window.onFileAppFolder();
-        return 0;
-   }*/
+
    if(prog_Version()=="5.3.1"){
        QDir dataDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
        if(dataDir.exists()) dataDir.removeRecursively();
        dataDir.cdUp();
        if (dataDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty()) dataDir.rmdir(dataDir.path());
    }
+
 #ifdef Q_OS_ANDROID
    window.showMaximized();
 #else
    window.show();
 #endif
-   window.tileOrCascade();
-   
-   int i = app.exec();
 
- //  if (window.openAppFolder()) window.onFileAppFolder();
-    return i;
+   QTimer::singleShot(0, [&window]() { window.tileOrCascade(); } );
+
+   int i = app.exec();
+   return i;
 }
 

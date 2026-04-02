@@ -75,7 +75,6 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    bDir = bible_Path+bv+"/";
    bZipFile = bDir+bZipFile;
    QString sf = "style-w.css";
-   process = 0;
    setWindowTitle( versionCaption(bv) );
    bkl=0; chl=0; vrl=0;  fileDownloader=0;
    synchronize = true;
@@ -478,27 +477,6 @@ void BibleWindow::import(const QString &fn){
    showMessage(tr("All done"));
 };
 
-/*void BibleWindow::onBDownloadDone(bool e){
-   if (e || fileDownloader->notDone){
-     showMessage("download error");
-     return;
-   }
-   QStringList a;
-   a << "-o" << QFileInfo(bZipFile).absoluteFilePath();
-   if (!process){
-      process = new QProcess(this);
-      connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(onUnzipFinished(int,QProcess::ExitStatus)));
-   }
-   process->setWorkingDirectory(QFileInfo(bZipFile).absolutePath());
-   process->start("unzip",a);
-};*/
-
-/*void BibleWindow::onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ){
-   Q_UNUSED(exitCode); Q_UNUSED(exitStatus);
-   showMessage( tr("Downloaging is finished. Now you can open the Bible %1.").arg(windowTitle()) );
-   QFile( QFileInfo(bZipFile).absoluteFilePath() ).remove();
-};*/
-
 // Приема сигнала, че е завършило разархивирането и изпраща сигнал, че библията е налична
 void BibleWindow::onUnziped(){
     isDonloading = false;
@@ -514,9 +492,8 @@ void BibleWindow::onScroll(int value)
     // Вертикална позиция на текущия стих във вюпорта
     qreal yInViewport = rect.top() - value;
    // Ако излиза нагоре извън екрана, текущ се прави следващия стих
-    qDebug() << verse() << " " << verseCount();
     if( (yInViewport<0) && (verse()<verseCount()) ){
-//        disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+        disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
         emit globalIndexChaged(verseIndex() + 1);
     }
 }
@@ -563,7 +540,7 @@ QString between(const QString &s, const QString &e, const QString &st){
 }
 
 // Променя цвета на стих номер vr от цвят с има c1 на цвят с име c2
-void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
+/*void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
    QTextBlock tb = document()->findBlockByNumber( vr );
    QFont font = tb.charFormat().font();
    setFont(font);
@@ -582,7 +559,24 @@ void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
    if (up) setTextCursor(tc);
    tc.movePosition(QTextCursor::StartOfBlock,QTextCursor::MoveAnchor);
    setTextCursor(tc);
-};
+};*/
+// Функцията е пренаписана от ChatGPT
+void BibleWindow::setVerseColor(int vr, const QString &c2)
+{
+    QTextBlock tb = document()->findBlockByNumber(vr);
+    if (!tb.isValid()) return;
+    QTextCursor cursor(tb);
+    cursor.select(QTextCursor::BlockUnderCursor);
+    QTextEdit::ExtraSelection sel;
+    sel.cursor = cursor;
+    sel.format.setProperty(QTextFormat::FullWidthSelection, true);
+    sel.format.setForeground(QColor(c2));
+    QList<QTextEdit::ExtraSelection> sels;
+    sels.append(sel);
+    setExtraSelections(sels);
+ //   repaint();
+    scrollToActiveVerse();
+}
 
 QStringList *BibleWindow::verseTexts(int i, int c){
    int p = pointer(i-1, bDir+"CompactPoint.bin");
@@ -686,12 +680,15 @@ QString BibleWindow::wordChapter(int b){
 
 // Актуализира текста в прозореца
 void BibleWindow::displayText(){
-   if ((bk!=bkl)||(ch!=chl)||wordsChanged) displayFreshText();
-   if (!verseCount()) return;
-   setVerseColor(vrl, preferedColor()->activeVerseColor().name(), preferedColor()->bibleTextColor().name()  );
-   setVerseColor(vr,  preferedColor()->bibleTextColor().name(),   preferedColor()->activeVerseColor().name());
+    if ((bk!=bkl)||(ch!=chl)||wordsChanged){
+        displayFreshText();
+        if (!verseCount()) return;
+    }
+    else
+        setVerseColor(vrl, preferedColor()->bibleTextColor().name()  );
+   setVerseColor(vr, preferedColor()->activeVerseColor().name());
    vrl = vr;
-//   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
 };
 
 void BibleWindow::displayFreshText(){
@@ -730,7 +727,14 @@ void BibleWindow::displayFreshText(){
                   tr("Next Capter")+"</a></span></p>";
    qDebug() << nexC;*/
    setHtml(tx+footnotes+links+"</body></html>");
+ //  repaint();
    wordsChanged=false;
+};
+
+// Зарежда текст и оцветява текущия стих
+void BibleWindow::freshTextAndVerse(){
+    displayFreshText();
+    setVerseColor(vr,  preferedColor()->activeVerseColor().name());
 };
 
 // Генерира html код за експортиране
@@ -1021,11 +1025,12 @@ void BibleWindow::scrollToActiveVerse(){
    setTextCursor(tc);
    tc.movePosition(QTextCursor::EndOfBlock,QTextCursor::MoveAnchor);
    setTextCursor(tc);
+   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
 };
 
 void BibleWindow::refreshText(){
    displayFreshText();
-   setVerseColor(vr,preferedColor()->bibleTextColor().name(), preferedColor()->activeVerseColor().name());
+   setVerseColor(vr, preferedColor()->activeVerseColor().name());
    scrollToActiveVerse();
 };
 
@@ -1034,6 +1039,22 @@ void BibleWindow::closeEvent(QCloseEvent *event){
    writeSettings();
    emit closing(this);
 };
+
+void BibleWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        QPoint pos = event->pos();
+        qDebug() << "Click at:" << pos;
+
+        // Ако искаш и позиция в текста:
+        QTextCursor cursor = cursorForPosition(pos);
+        qDebug() << "Text position:" << cursor.position();
+    }
+
+    // Важно: извикваш базовия клас
+    QTextBrowser::mousePressEvent(event);
+}
 
 //------------------------------------------------------
 
@@ -1248,7 +1269,7 @@ QStringList getReadPositions(){
 };
 
 // Запазва в QSettings местата за четене на отворените библии.
-void writeReadPositions(){
+void writeReadPositions(){ return;
     QSettings s;
     s.setValue("readPositions",getReadPositions());
 };

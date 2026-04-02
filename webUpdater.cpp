@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "webUpdater.h"
 #include "showMessage.h"
 #include "fileDownloader.h"
-//#include "process.h"
 
 #include <QApplication>
 #include <QStringList>
