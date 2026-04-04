@@ -103,7 +103,8 @@ public:
    */
    bool synchronize,  // Определя дали прозорецът да се синхронизира с активния стих
        wordsChanged, // Става истина при смяна на думите за търсене
-       isDonloading = false; // Истина, ако е започнало изтегляне на библията от Интернет
+       isDonloading = false, // Истина, ако е започнало изтегляне на библията от Интернет
+       firstClick = true; // Първо кликване върху прозореца
 
    BibleWindow( const QString &bv, QWidget *parent = 0); // Конструктор на класа. bv е идентификатор на версия на Библията
 
@@ -140,7 +141,7 @@ public:
    void about(); // Отваря "Относно" информацията за Библията
    ConcordanceModel *concordance(); // Модел на списъка с думи. Използва се в конкорданса.
    int readPos(); // Връща номера на стиха, достигнат с последователно четене.
-   void setReadPos(); // Запазва номера на стиха, достигнат с последователно четене.
+   void setReadPos(bool force = false); // Запазва номера на стиха, достигнат с последователно четене.
    QString language(); // Връща иентификатор на езика
    void downloadBible(const QString &bv); // Изтегля от Интернет и разархивира Библия bv
    void writeSettings(); // Записва настройките
@@ -156,17 +157,19 @@ public slots:
    void onGlobalIndexChanged(BibleWindow *bw); // Слот, който прихваща промяната на текущия стих
    void scrollToActiveVerse(); // "Превърта" прозореца така че да се вижда активния стих
    void refreshText(); // Показва отново текста в прозореца след промяна на опция, засягаща нечина на показване
+   void onScroll(int value);
 
 protected:
    void closeEvent(QCloseEvent *event); // Функция, която се изпълнява при събитие затваряне на прозореца.
    void mousePressEvent(QMouseEvent *event) override; // Прихваща кликванията на мишката
+   void mouseMoveEvent(QMouseEvent *event) override; // Хваща преместване на мишката
+   void mouseReleaseEvent(QMouseEvent *event) override; // Освобождаване бутона на мишката
 
 private slots:
  //  void onBDownloadDone(bool e); // Приема сигнал за край на тегленето от Интернет
  //  void onUnzipFinished( int exitCode, QProcess::ExitStatus exitStatus ); /* Приема сигнал, че е завършено разархивирането
  //     на изтегления zip файл */
    void onUnziped();
-   void onScroll(int value);
 
 private:
    QString bible_Version, // Идентификатор на версията на Библията, който съвпада с името на директорията ѝ.
@@ -184,6 +187,10 @@ private:
       bkl, chl, vrl, // Променливи, в които се записват предишни стойностите на bk, ch и vr след промяната им.
          // Служат за откриване дали са настъпили промени в стойностите им.
       fCount; // Брой на бележките под линия към текущата глава.
+   QPoint pressPos; // Позиция на курсора при кликване с левия бутон на мишката.
+   bool isDragging; // Става истина ако е извършено влачене с мишката
+   bool force_Set_ReadPos;
+
    QHash<int, int> global_book,  // Хеш за бързо преминаване от локални към глобални номера на книгите.
       local_book;  // Хеш за бързо преминаване от глобални към локални номера на книгите.
          // Информацията за това съответствие е в първия ред на файл BibleTitles.txt

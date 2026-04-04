@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QSettings>
 #include <QMdiSubWindow>
 #include <QDir>
-//#include <QThread>
 #include <QTimer>
 #include <QCloseEvent>
 #include <QTime>
@@ -43,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QDesktopServices>
 #include <QStandardPaths>
 #include <QScroller>
+#include <QScrollBar>
 
 QString progVersion = "5.3.2";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
@@ -52,6 +52,13 @@ BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
 {
    ui.setupUi(this);
+#ifdef Q_OS_MAC
+   ui.actionNext_Chapter->setShortcut(QKeySequence("Shift+Meta+Down"));
+   ui.actionPrevious_Chapter->setShortcut(QKeySequence("Shift+Meta+up"));
+#else
+   ui.actionNext_Chapter->setShortcut(QKeySequence("Shift+PgDown"));
+   ui.actionPrevious_Chapter->setShortcut(QKeySequence("Shift+PgUp"));
+#endif
    ui.progressBar->hide();
    ui.pushButton->hide();
    ui.dockWidget_2->setTitleBarWidget(new QWidget());
@@ -65,7 +72,6 @@ BMainWindow::BMainWindow(QWidget *parent)
    history = new History();
    webUpdater = new WebUpdater( downloadSite(), this, ui.progressBar );
    fileDownloader = 0;
-   do_Not_Exec = false;
 
    concordance = new Concordance(this, ui.comboBox, ui.listView, ui.listView_2, ui.pushButton_2);
    connect(concordance, SIGNAL(verseClicked(BibleWindow*,int)), this, SLOT(onVerseClick(BibleWindow*,int)));
@@ -141,10 +147,6 @@ BMainWindow::BMainWindow(QWidget *parent)
    connect(ui.actionAbout_Bible_Version, SIGNAL(triggered()), this, SLOT(onHelpAboutBibleVersion()));
    connect(ui.action_Web_site, SIGNAL(triggered()), this, SLOT(onHelpWebSite()));
    connect(ui.actionCheck_for_updates, SIGNAL(triggered()), this, SLOT(onHelpCheckForUpdate()));
-};
-
-bool BMainWindow::doNotExec(){
-   return do_Not_Exec;
 };
 
 bool BMainWindow::openAppFolder(){
@@ -273,8 +275,10 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
       QAction *ba = bAction.value(bw->bibleVersion());
       if (ba) ba->setChecked(true);
 
-      // Установяване на променливата synhronize във всеки прозорец с Библия
+      // Установяване на променливата synhronize и firstClick във всеки прозорец с Библия
       setSynchronization(bw);
+
+      bw->scrollToActiveVerse();
 
       // Установяване на конкорданса
       ConcordanceModel *cm = bw->concordance(); // Нов конкорданс
@@ -283,9 +287,6 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
         concordance->setModel(cm); 
         cModel0 = cm;
       }
-
-      // Излъчва се сигнал за смяна активния стих
-//      emitIndexChanged(bw);
 
       // Актуализират се падащите списъци
       ui.comboBox_2->clear();
@@ -374,7 +375,7 @@ void BMainWindow::onGoNextChapter(){
    if (i<ab->verseTotalCount()) i += ui.comboBox_4->count()-ui.comboBox_4->currentIndex();
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
-   ui.comboBox_4->setFocus();
+ //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoPreviousChapter(){
@@ -383,15 +384,26 @@ void BMainWindow::onGoPreviousChapter(){
    int i = ab->verseIndex();
    if (i>1) i -= ui.comboBox_4->currentIndex() + 1;
    goByIndex(ab,i);
-   ui.comboBox_4->setFocus();
+ //  ui.comboBox_4->setFocus();
 };
 
 void BMainWindow::onGoVerseForReadieng(){
    BibleWindow *ab = activeBible();
    if (!ab) return;
-   goByIndex(ab, ab->readPos());
-   ui.comboBox_4->setFocus();
+   disconnect(ab->verticalScrollBar(), &QScrollBar::valueChanged, ab, &BibleWindow::onScroll);
+   int i = ab->readPos();
+
+   goByIndex(ab, i);
 };
+
+void BMainWindow::on_actionSet_Place_for_Reading_triggered()
+{
+    BibleWindow *ab = activeBible();
+    if (!ab) return;
+    if(yesNo(tr("Do you really want to set the current verse for a place to continue reading of this Bible?"))==YES)
+        ab->setReadPos(true);
+}
+
 
 void BMainWindow::onGoBack(){
     int i = history->back();
@@ -422,6 +434,7 @@ void BMainWindow::onGoRandomVerse(){
   BibleWindow *ab = activeBible();
   if (!ab) return;
   int i = QRandomGenerator::global()->bounded(1, ab->verseTotalCount() + 1);
+  ab->firstClick = true;
   goByIndex(ab,i);
 };
 
@@ -674,7 +687,7 @@ void BMainWindow::emitIndexChanged(BibleWindow *ab){
     }
    setGlobalVerseIndex(gi);     // Новия става текущ
    emit globalIndexChanged(ab); // Изпращане на сигнал
-   ab->setReadPos();
+ //  ab->setReadPos();
    updateNavButtons();
 };
 
@@ -755,7 +768,6 @@ void BMainWindow::writeSettings(){
 };
 
 void BMainWindow::readSettings(){
-   do_Not_Exec = false;
 
    QSettings s;
 
@@ -803,9 +815,6 @@ void BMainWindow::readSettings(){
    QByteArray geom = s.value("windowGeometry").toByteArray();
    if (!geom.isEmpty()){ restoreGeometry(geom); }
 
-   // Ако е запазено име на файл, съдържащ нова версия, се стартира програмата за актуализиране
-   do_Not_Exec = webUpdater->updateFromFile( s.value("updateFile").toString() );
-   
    // Последно отворения превод на Библията, използва се за "Отвори отново"
    lastVersion = s.value("lastVersion").toString();
 
@@ -964,6 +973,7 @@ void BMainWindow::setSynchronization(BibleWindow *ab){
    for(int i=0; i<sw.size(); i++){
       BibleWindow *bw = bibleWindow.value( sw.at(i)->widget()->objectName() );
       if (bw){
+          bw->firstClick = true;
         if (ab->bibleVersion()==bw->bibleVersion()) bw->synchronize = (bw==ab);
       }
    }
@@ -1053,3 +1063,4 @@ void BMainWindow::on_actionClean_Restart_triggered()
 QString prog_Version(){
     return progVersion;
 }
+

@@ -8,6 +8,7 @@
 *.wixpdb
 *.log
 *.AppImage
+asset_catalog_compiler.Info.plist
 Bible.pro.user
 Bible5.pro.user
 Bible5.app

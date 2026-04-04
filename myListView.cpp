@@ -1,9 +1,23 @@
 #include "myListView.h"
-#include "showMessage.h"
+
+#include <QStyledItemDelegate>
+
+class FastDelegate : public QStyledItemDelegate {
+    int m_height;
+public:
+    FastDelegate(int h) : m_height(h) {}
+
+    QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const override {
+        return QSize(0, m_height);
+    }
+};
 
 MyListView::MyListView(QWidget *parent)
     : QListView(parent)
 {
+    setUniformItemSizes(true);
+    setItemDelegate(new FastDelegate(30));
+
     // Създаване на изскачащо меню
     ppm = new QMenu(this);
     a1 = new QAction(tr("Copy list"), this);

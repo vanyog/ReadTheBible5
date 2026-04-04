@@ -38,13 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QTextStream>
+#include <QTimer>
 #include <QScrollBar>
 
 QProgressBar  *downloadProgressBar = 0;
 QPushButton *dounloadCancelButton = 0;
 QString bible_Path = "not set";
 QHash<QString, int> read_pos;
-//QHash<QString, ConcordanceModel*> concordanceHash;
 
 bool caseInsensitiveLessThan(const QString &s1, const QString &s2){
   return s1.toLower() < s2.toLower();
@@ -79,6 +79,7 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
    bkl=0; chl=0; vrl=0;  fileDownloader=0;
    synchronize = true;
    wordsChanged = false;
+   force_Set_ReadPos = false;
    if (!readTitles()){
       downloadBible(bv);
       return;
@@ -477,7 +478,7 @@ void BibleWindow::import(const QString &fn){
    showMessage(tr("All done"));
 };
 
-// Приема сигнала, че е завършило разархивирането и изпраща сигнал, че библията е налична
+// Приема сигнала, че е завършило разархивирането и изпраща сигнал, че Библията е налична
 void BibleWindow::onUnziped(){
     isDonloading = false;
     emit downloadFinished(bible_Version);
@@ -485,19 +486,17 @@ void BibleWindow::onUnziped(){
 
 // Приема сигнал че е извършен скрол
 void BibleWindow::onScroll(int value)
-{   // Текущият стих като блок текст
-    QTextBlock tb = document()->findBlockByNumber(vrl);
-    QAbstractTextDocumentLayout *layout = document()->documentLayout();
-    QRectF rect = layout->blockBoundingRect(tb);
-    // Вертикална позиция на текущия стих във вюпорта
-    qreal yInViewport = rect.top() - value;
-   // Ако излиза нагоре извън екрана, текущ се прави следващия стих
-    if( (yInViewport<0) && (verse()<verseCount()) ){
-        disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
-        emit globalIndexChaged(verseIndex() + 1);
-    }
+{   Q_UNUSED(value);
+    QTextCursor cursor = cursorForPosition(QPoint(10, 10));
+    QTextBlock block = cursor.block();
+    int vrn = block.text().section('.', 0, 0).toInt();
+//    qDebug() << vrl << vrn << verseCount();
+    if( (vrn>0) && (vrn>vrl) && (vrn<=verseCount()) ){
+            disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+            force_Set_ReadPos = true;
+            emit globalIndexChaged(verseIndex() + vrn - vrl);
+        }
 }
-
 
 void BibleWindow::globalToLocal(){
    ch = gch; vr = gvr;
@@ -539,27 +538,7 @@ QString between(const QString &s, const QString &e, const QString &st){
    return st.mid(p1,p2-p1);
 }
 
-// Променя цвета на стих номер vr от цвят с има c1 на цвят с име c2
-/*void BibleWindow::setVerseColor(int vr, const QString &c1, const QString &c2){
-   QTextBlock tb = document()->findBlockByNumber( vr );
-   QFont font = tb.charFormat().font();
-   setFont(font);
-   int p = tb.position();
-   if (!p) return;
-   QTextCursor tc = textCursor();
-   bool up = p>tc.position();
-   tc.setPosition(p);
-   tc.movePosition(QTextCursor::EndOfBlock,QTextCursor::KeepAnchor);
-   QString h = tc.selection().toHtml();
-   h = between("<!--StartFragment-->","<!--EndFragment-->",h);
-   h = h.replace("color:"+c1+";","color:"+c2+";");
-   h.replace("text-decoration: underline","text-decoration: none");
-   QString nt = "<font color=\""+c2+"\">"+h+"</font>";
-   tc.insertHtml(nt);
-   if (up) setTextCursor(tc);
-   tc.movePosition(QTextCursor::StartOfBlock,QTextCursor::MoveAnchor);
-   setTextCursor(tc);
-};*/
+// Променя цвета на стих номер vr на цвят с име c2
 // Функцията е пренаписана от ChatGPT
 void BibleWindow::setVerseColor(int vr, const QString &c2)
 {
@@ -574,7 +553,6 @@ void BibleWindow::setVerseColor(int vr, const QString &c2)
     QList<QTextEdit::ExtraSelection> sels;
     sels.append(sel);
     setExtraSelections(sels);
- //   repaint();
     scrollToActiveVerse();
 }
 
@@ -688,7 +666,6 @@ void BibleWindow::displayText(){
         setVerseColor(vrl, preferedColor()->bibleTextColor().name()  );
    setVerseColor(vr, preferedColor()->activeVerseColor().name());
    vrl = vr;
-   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
 };
 
 void BibleWindow::displayFreshText(){
@@ -735,6 +712,7 @@ void BibleWindow::displayFreshText(){
 void BibleWindow::freshTextAndVerse(){
     displayFreshText();
     setVerseColor(vr,  preferedColor()->activeVerseColor().name());
+    vrl = vr;
 };
 
 // Генерира html код за експортиране
@@ -817,8 +795,10 @@ int BibleWindow::readPos(){
    else return r;
 };
 
-void BibleWindow::setReadPos(){
-   if (verseIndex()==readPos()+1) read_pos[bibleVersion()] = verseIndex();
+void BibleWindow::setReadPos(bool force){
+    if( (verseIndex()==readPos()+1) || force_Set_ReadPos || force)
+        read_pos[bibleVersion()] = verseIndex();
+    force_Set_ReadPos = false;
 };
 
 QString BibleWindow::language(){
@@ -1025,7 +1005,9 @@ void BibleWindow::scrollToActiveVerse(){
    setTextCursor(tc);
    tc.movePosition(QTextCursor::EndOfBlock,QTextCursor::MoveAnchor);
    setTextCursor(tc);
-   connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+   QTimer::singleShot(10, [this]() {
+       connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+   });
 };
 
 void BibleWindow::refreshText(){
@@ -1044,18 +1026,43 @@ void BibleWindow::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        QPoint pos = event->pos();
-        qDebug() << "Click at:" << pos;
-
-        // Ако искаш и позиция в текста:
-        QTextCursor cursor = cursorForPosition(pos);
-        qDebug() << "Text position:" << cursor.position();
+        pressPos = event->pos();
+        isDragging = false;
     }
-
-    // Важно: извикваш базовия клас
     QTextBrowser::mousePressEvent(event);
 }
 
+void BibleWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if ((event->pos() - pressPos).manhattanLength() > 2)
+    {
+        isDragging = true; // започнал е scroll
+    }
+
+    QTextBrowser::mouseMoveEvent(event);
+}
+
+void BibleWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (!isDragging && event->button() == Qt::LeftButton)
+    {
+        if (firstClick) {
+            firstClick = false;
+            return;
+        }
+        firstClick = false;
+
+        int half = viewport()->height() / 2;
+        QScrollBar *sb = verticalScrollBar();
+
+        if (pressPos.y() < half)
+            sb->triggerAction(QAbstractSlider::SliderPageStepSub); // PgUp
+        else
+            sb->triggerAction(QAbstractSlider::SliderPageStepAdd); // PgDown
+    }
+
+    QTextBrowser::mouseReleaseEvent(event);
+}
 //------------------------------------------------------
 
 int global_Verse_index = 1;
@@ -1269,7 +1276,7 @@ QStringList getReadPositions(){
 };
 
 // Запазва в QSettings местата за четене на отворените библии.
-void writeReadPositions(){ return;
+void writeReadPositions(){
     QSettings s;
     s.setValue("readPositions",getReadPositions());
 };
@@ -1280,3 +1287,4 @@ void setReadPositions(const QStringList &bl){
        read_pos[l.at(0)] = l.at(1).toInt();
    }
 };
+

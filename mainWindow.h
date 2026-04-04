@@ -73,9 +73,10 @@ private slots:
    void onVerseChanged(int i);
    void onGoNextVerse();
    void onGoPreviousVerse();
+   void onGoVerseForReadieng();
+   void on_actionSet_Place_for_Reading_triggered();
    void onGoNextChapter();
    void onGoPreviousChapter();
-   void onGoVerseForReadieng();
    void onGoBack();
    void onGoForward();
    void onGoBookList();
@@ -113,14 +114,13 @@ private slots:
 
    void onGlobalIndexChange(int i);
 
-private:
+   private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;
    QHash<QString, BibleWindow*> bibleWindow;
    // Флагове
    bool doTile, // Дали да се пренаредят прозорците с текст
-      activeBibleMaximized, // Дали активната библия е максимизирана на цял екран
-      do_Not_Exec // Да се прекрати програмата, ако се избере да се инсталира нова версия
+      activeBibleMaximized // Дали активната библия е максимизирана на цял екран
       ;
    QHash<QString, QAction*> bAction;
    ExportDialog *exportDialog;
