@@ -265,9 +265,10 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
    static QMdiSubWindow *w0 = 0; // Статична променлива, която съхранява указатл към последния активиран прозорец
    if (w==w0) return; // Функцията се прекратява ако прозорецът вече е бил активиран
    w0 = w; // Запаметява се последния активиран прозорец
-   QString bv = w->widget()->objectName();
-   BibleWindow *bw = bibleWindow.value( bv );
+   BibleWindow *bw = bibleWindowFromMdi(w);
    if (bw){
+
+       bw->doNotClose = true;
       // Запомня се версията на Библията, за да може да се отвори повторно с "Отвори отново"
       lastVersion = bw->bibleVersion();
 
@@ -278,7 +279,7 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
       // Установяване на променливата synhronize и firstClick във всеки прозорец с Библия
       setSynchronization(bw);
 
-      bw->scrollToActiveVerse();
+      //bw->scrollToActiveVerse();
 
       // Установяване на конкорданса
       ConcordanceModel *cm = bw->concordance(); // Нов конкорданс
@@ -294,8 +295,16 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
       if (bw->book()) ui.comboBox_2->setCurrentIndex(bw->book()-1);
       else ui.comboBox_2->setCurrentIndex(-1);
       setNumberComboBox(ui.comboBox_3, bw->chapterCount(), bw->chapter() );
-      setNumberComboBox(ui.comboBox_4, bw->verseCount(), bw->verse() );
+      setNumberComboBox(ui.comboBox_4, bw->verseCount(),   bw->verse() );
    }
+};
+
+BibleWindow *BMainWindow::bibleWindowFromMdi(QMdiSubWindow *w){
+    if(!w) return nullptr;
+    QWidget *inner = w->widget();
+    if (!inner) return nullptr;
+    BibleWindow *bw = qobject_cast<BibleWindow*>(inner);
+    return bw;
 };
 
 void BMainWindow::onBibleWindowClosing(BibleWindow *bw){
@@ -322,8 +331,7 @@ void BMainWindow::onBibleAnchorClicked(const QUrl &link){
 };
 
 // Смяна на книга от падащия списък
-void BMainWindow::onBookChanged(int i){
-   Q_UNUSED(i);
+void BMainWindow::onBookChanged(int i){ Q_UNUSED(i);
    BibleWindow *ab = setActiveBibleReference();
    if (!ab) return;
    setNumberComboBox(ui.comboBox_3, ab->chapterCount(), ab->chapter() );
@@ -407,11 +415,13 @@ void BMainWindow::on_actionSet_Place_for_Reading_triggered()
 
 void BMainWindow::onGoBack(){
     int i = history->back();
+    saveHistory = false;
     goByGlobalIndex(i);
 };
 
 void BMainWindow::onGoForward(){
     int i = history->forward();
+    saveHistory = false;
     goByGlobalIndex(i);
 };
 
@@ -604,14 +614,20 @@ void BMainWindow::onHelpReadme(){
 };
 
 void BMainWindow::onHelpAboutProgram(){
-   showMessage(tr("Read the Bible Free - v%1<br>\
+    QString html = tr("Read the Bible Free - v%1<br>\
 Copyright (C) 2008–2026 Vanyo Georgiev<br>\
 &lt;<A HREF=mailto:%3>%3</A>&gt;<br>\
 <A HREF=%2>%2</A><br><br>\
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL), version 2 or later.<br><br>\
 This program is provided WITHOUT ANY WARRANTY. See the GPL for details.<br><br>\
 Full license: <A HREF=\"https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&_x_tr_tl=%4&_x_tr_hl=%4\">%5</A>").
-                arg(progVersion,progURL+interfaceLanguage(),progEmail,interfaceLanguage(),tr("GNU General Public License, version 2")) );
+                   arg(progVersion,progURL+interfaceLanguage(),progEmail,interfaceLanguage(),tr("GNU General Public License, version 2"));
+#ifdef Q_OS_IOS
+    QTextDocument doc;
+    doc.setHtml(html);
+    html = doc.toPlainText();
+#endif
+   showMessage(html);
 };
 
 void BMainWindow::onHelpAboutBibleVersion(){
@@ -681,11 +697,15 @@ BibleWindow * BMainWindow::setActiveBibleReference(bool si){
 
 // Изпращане на сигнал, че е променен активния стих
 void BMainWindow::emitIndexChanged(BibleWindow *ab){
-   int gi = ab->localToGlobalIndex(); // Глобален индекс на активния сих от активната библия
-    if (gi!=globalVerseIndex()){ // Записване в историята, ако е различен от текущия
-        history->push(gi);
+    int gi = ab->localToGlobalIndex(); // Глобален индекс на активния сих от активната библия
+    if(saveHistory){
+        int gil = globalVerseIndex();
+        if (gi!=gil){ // Записване в историята, ако е различен от текущия
+            history->push(gi);
+        }
     }
    setGlobalVerseIndex(gi);     // Новия става текущ
+    saveHistory = true;
    emit globalIndexChanged(ab); // Изпращане на сигнал
  //  ab->setReadPos();
    updateNavButtons();
@@ -909,7 +929,7 @@ void BMainWindow::tileOrCascade(){
    }
    else
        mdiArea->cascadeSubWindows();
-   emit scrollToActiveVerse();
+//   emit scrollToActiveVerse();
 };
 
 // Прави активни бутоните за навигация "Напред" и "Назад"
@@ -922,7 +942,7 @@ void BMainWindow::updateNavButtons(){
  //   if(p4) ui.pushButton_4->setFocus();
 }
 
-// Ъпдейтва контролите при смяна на текущия стих
+// Ъпдейтва контролите да показват книга,глава и стих на текущия стих
 void BMainWindow::updateControls(BibleWindow *ab){
    int b = ab->book()-1;
    if ( b != ui.comboBox_2->currentIndex() ){

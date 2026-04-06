@@ -38,7 +38,8 @@ class BMainWindow : public QMainWindow
    Q_OBJECT
 
 public:
-   BMainWindow(QWidget *parent = 0);
+    BMainWindow(QWidget *parent = 0);
+    BibleWindow *bibleWindowFromMdi(QMdiSubWindow *w);
 
    void writeSettings();
    void tileOrCascade();
@@ -114,13 +115,14 @@ private slots:
 
    void onGlobalIndexChange(int i);
 
-   private:
+private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;
    QHash<QString, BibleWindow*> bibleWindow;
    // Флагове
    bool doTile, // Дали да се пренаредят прозорците с текст
-      activeBibleMaximized // Дали активната библия е максимизирана на цял екран
+       activeBibleMaximized, // Дали активната библия е максимизирана на цял екран
+       saveHistory = true // Дали да се запазва историята при смяна на активния стих
       ;
    QHash<QString, QAction*> bAction;
    ExportDialog *exportDialog;

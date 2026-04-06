@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "history.h"
-//#include "showMessage.h"
+
+#include <QDebug>
 
 History::History(){
   c_i=-1; m_i=-1;
@@ -47,7 +48,6 @@ int History::forward(){
       r = list.value(c_i);
    }
    return r;
-
 };
 
 qsizetype History::count(){

@@ -490,7 +490,6 @@ void BibleWindow::onScroll(int value)
     QTextCursor cursor = cursorForPosition(QPoint(10, 10));
     QTextBlock block = cursor.block();
     int vrn = block.text().section('.', 0, 0).toInt();
-//    qDebug() << vrl << vrn << verseCount();
     if( (vrn>0) && (vrn>vrl) && (vrn<=verseCount()) ){
             disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
             force_Set_ReadPos = true;
@@ -702,7 +701,7 @@ void BibleWindow::displayFreshText(){
                   tr("Previous Capter")+"</a> <span style=\"float:right;\">"+
                   "<a href=\""+QString::number(i+verseCount())+"\">"+
                   tr("Next Capter")+"</a></span></p>";
-   qDebug() << nexC;*/
+   */
    setHtml(tx+footnotes+links+"</body></html>");
  //  repaint();
    wordsChanged=false;
@@ -1018,8 +1017,14 @@ void BibleWindow::refreshText(){
 
 void BibleWindow::closeEvent(QCloseEvent *event){
    Q_UNUSED(event);
+ /*  if(doNotClose){
+       doNotClose = false;
+       event->ignore();
+       return;
+   }*/
    writeSettings();
    emit closing(this);
+   QTextBrowser::close();
 };
 
 void BibleWindow::mousePressEvent(QMouseEvent *event)

@@ -50,7 +50,7 @@
     <message>
         <location filename="mainWindow.cpp" line="402"/>
         <source>Do you really want to set the current verse for a place to continue reading of this Bible?</source>
-        <translation type="unfinished"></translation>
+        <translation>Дали навистина сакате да го поставите тековниот стих за место за продолжување на читањето на оваа Библија?</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="468"/>
@@ -511,7 +511,7 @@ Error: %1.</source>
     <message>
         <location filename="mainWindow.ui" line="723"/>
         <source>Open Place for reading</source>
-        <translation type="unfinished"></translation>
+        <translation>Отворете го местото за читање</translation>
     </message>
     <message>
         <location filename="mainWindow.ui" line="873"/>
@@ -526,7 +526,7 @@ Error: %1.</source>
     <message>
         <location filename="mainWindow.ui" line="910"/>
         <source>Set Place for Reading</source>
-        <translation type="unfinished"></translation>
+        <translation>Одредете место за читање</translation>
     </message>
     <message>
         <source>PgDown</source>

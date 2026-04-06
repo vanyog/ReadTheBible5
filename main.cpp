@@ -70,9 +70,7 @@ int main(int argc, char *argv[])
    window.show();
 #endif
 
-//   QTimer::singleShot(0, [&window]() { window.tileOrCascade(); } );
    QTimer::singleShot(0, [&window]() { window.tileOrCascade(); } );
-
    int i = app.exec();
    return i;
 }

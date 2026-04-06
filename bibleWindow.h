@@ -104,7 +104,8 @@ public:
    bool synchronize,  // Определя дали прозорецът да се синхронизира с активния стих
        wordsChanged, // Става истина при смяна на думите за търсене
        isDonloading = false, // Истина, ако е започнало изтегляне на библията от Интернет
-       firstClick = true; // Първо кликване върху прозореца
+       firstClick = true, // Първо кликване върху прозореца
+       doNotClose = false; // Да не се затваря прозореца, веднага след активиране
 
    BibleWindow( const QString &bv, QWidget *parent = 0); // Конструктор на класа. bv е идентификатор на версия на Библията
 
@@ -148,6 +149,7 @@ public:
    void readSettings(); // Чете настройките
    void createLinksBin(); // Създава файловете Links.bin и LinksP.bin
    void import(const QString &fn); // Импортиране на Библия от .txt файл.
+
 signals:
     void closing(BibleWindow *bw); // Сигнал, който се излъчва при затваряне на прозореца.
     void downloadFinished(const QString &bv);
@@ -160,7 +162,7 @@ public slots:
    void onScroll(int value);
 
 protected:
-   void closeEvent(QCloseEvent *event); // Функция, която се изпълнява при събитие затваряне на прозореца.
+   void closeEvent(QCloseEvent *event) override; // Функция, която се изпълнява при събитие затваряне на прозореца.
    void mousePressEvent(QMouseEvent *event) override; // Прихваща кликванията на мишката
    void mouseMoveEvent(QMouseEvent *event) override; // Хваща преместване на мишката
    void mouseReleaseEvent(QMouseEvent *event) override; // Освобождаване бутона на мишката
