@@ -106,6 +106,7 @@
     <addaction name="separator"/>
     <addaction name="actionImport_from_txt"/>
     <addaction name="action_Import_links"/>
+    <addaction name="actionBuild_Bible"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_application_folder"/>
     <addaction name="separator"/>
@@ -125,11 +126,11 @@
     <addaction name="actionNext_Verse"/>
     <addaction name="actionPrevious_Verse"/>
     <addaction name="separator"/>
-    <addaction name="actionVerse_for_reading"/>
-    <addaction name="actionSet_Place_for_Reading"/>
-    <addaction name="separator"/>
     <addaction name="actionNext_Chapter"/>
     <addaction name="actionPrevious_Chapter"/>
+    <addaction name="separator"/>
+    <addaction name="actionVerse_for_reading"/>
+    <addaction name="actionSet_Place_for_Reading"/>
     <addaction name="separator"/>
     <addaction name="action_Back"/>
     <addaction name="action_Forward"/>
@@ -424,9 +425,6 @@ p, li { white-space: pre-wrap; }
         <property name="selectionMode">
          <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
         </property>
-        <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
-        </property>
        </widget>
       </widget>
      </item>
@@ -646,6 +644,12 @@ p, li { white-space: pre-wrap; }
   <action name="actionAbout_Bible_Version">
    <property name="text">
     <string>About Bible &amp;Version</string>
+   </property>
+   <property name="toolTip">
+    <string>About Bible Version</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
   <action name="action_Quit">
@@ -883,10 +887,16 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Next Chapter</string>
    </property>
+   <property name="shortcut">
+    <string>Meta+Alt+Down</string>
+   </property>
   </action>
   <action name="actionPrevious_Chapter">
    <property name="text">
     <string>Previous Chapter</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Alt+Up</string>
    </property>
   </action>
   <action name="actionVerse_collectien_toolbox">
@@ -908,6 +918,17 @@ p, li { white-space: pre-wrap; }
   <action name="actionSet_Place_for_Reading">
    <property name="text">
     <string>Set Place for Reading</string>
+   </property>
+  </action>
+  <action name="actionBuild_Bible">
+   <property name="text">
+    <string>Build Bible</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
  </widget>

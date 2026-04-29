@@ -115,7 +115,11 @@ private slots:
 
    void onGlobalIndexChange(int i);
 
-private:
+#ifdef ADMIN_BUILD
+   void on_actionBuild_Bible_triggered();
+#endif
+
+   private:
    Ui::MainWindow ui;
    QMdiArea *mdiArea;
    QHash<QString, BibleWindow*> bibleWindow;

@@ -20,6 +20,7 @@ MyListView::MyListView(QWidget *parent)
 
     // Създаване на изскачащо меню
     ppm = new QMenu(this);
+#ifndef Q_OS_IOS
     a1 = new QAction(tr("Copy list"), this);
     a2 = new QAction(tr("Copy verses"), this);
     ppm->addAction(a1);
@@ -27,7 +28,9 @@ MyListView::MyListView(QWidget *parent)
 
     connect(a1, SIGNAL(triggered()), this, SLOT(onCopyList()));
     connect(a2, SIGNAL(triggered()), this, SLOT(onCopyVerses()));
-
+#else
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+#endif
 }
 
 QModelIndexList MyListView::selectedIndexes() const {

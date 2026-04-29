@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QDir>
 #include <QFileInfo>
 #include <QHash>
+#include <QMdiSubWindow>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QSettings>
@@ -487,13 +488,16 @@ void BibleWindow::onUnziped(){
 // Приема сигнал че е извършен скрол
 void BibleWindow::onScroll(int value)
 {   Q_UNUSED(value);
+    if (notOnScroll){
+        return;
+    }
     QTextCursor cursor = cursorForPosition(QPoint(10, 10));
     QTextBlock block = cursor.block();
     int vrn = block.text().section('.', 0, 0).toInt();
     if( (vrn>0) && (vrn>vrl) && (vrn<=verseCount()) ){
             disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
             force_Set_ReadPos = true;
-            emit globalIndexChaged(verseIndex() + vrn - vrl);
+            if(isActiveMdiWindow()) emit globalIndexChaged(verseIndex() + vrn - vrl);
         }
 }
 
@@ -554,6 +558,19 @@ void BibleWindow::setVerseColor(int vr, const QString &c2)
     setExtraSelections(sels);
     scrollToActiveVerse();
 }
+
+// Активира се стихът, върху който се кликва
+bool BibleWindow::activateOnClicked(){
+    QTextCursor cursor = cursorForPosition(pressPos);
+    QTextBlock block = cursor.block();
+    int vrn = block.text().section('.', 0, 0).toInt();
+    bool result = vrn && !((vrn - vrl) == 0);
+    if (result){
+        force_Set_ReadPos = abs(verseIndex() - readPos()) < verseCount();
+        emit globalIndexChaged(verseIndex() + vrn - vrl);
+    }
+    return result;
+};
 
 QStringList *BibleWindow::verseTexts(int i, int c){
    int p = pointer(i-1, bDir+"CompactPoint.bin");
@@ -646,6 +663,12 @@ QString BibleWindow::addLinks(int i, int v){
       return lnk;
    };
    return "";    
+};
+
+ // Определя дали е активен прозорец
+bool BibleWindow::isActiveMdiWindow(){
+    QString awon = this->parentWidget()->parentWidget()->parentWidget()->focusWidget()->objectName();
+    return awon==objectName();
 };
 
 QString BibleWindow::wordChapter(int b){
@@ -795,7 +818,7 @@ int BibleWindow::readPos(){
 };
 
 void BibleWindow::setReadPos(bool force){
-    if( (verseIndex()==readPos()+1) || force_Set_ReadPos || force)
+    if( (verseIndex()==readPos()+1) || (force_Set_ReadPos && (verseIndex()>readPos())) || force)
         read_pos[bibleVersion()] = verseIndex();
     force_Set_ReadPos = false;
 };
@@ -1032,6 +1055,8 @@ void BibleWindow::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         pressPos = event->pos();
+        QString link = anchorAt(pressPos);
+        isLink = !link.isEmpty();
         isDragging = false;
     }
     QTextBrowser::mousePressEvent(event);
@@ -1049,21 +1074,30 @@ void BibleWindow::mouseMoveEvent(QMouseEvent *event)
 
 void BibleWindow::mouseReleaseEvent(QMouseEvent *event)
 {
+    if(isLink){
+        QTextBrowser::mouseReleaseEvent(event);
+        return;
+    }
     if (!isDragging && event->button() == Qt::LeftButton)
     {
-        if (firstClick) {
-            firstClick = false;
+        if (!isActiveMdiWindow()) return;
+
+        if (activateOnClicked()){
+            QTextBrowser::mouseReleaseEvent(event);
             return;
         }
-        firstClick = false;
 
         int half = viewport()->height() / 2;
         QScrollBar *sb = verticalScrollBar();
 
-        if (pressPos.y() < half)
+        if (pressPos.y() < half){
             sb->triggerAction(QAbstractSlider::SliderPageStepSub); // PgUp
-        else
+            return;
+
+        } else {
             sb->triggerAction(QAbstractSlider::SliderPageStepAdd); // PgDown
+            return;
+        }
     }
 
     QTextBrowser::mouseReleaseEvent(event);

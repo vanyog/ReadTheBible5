@@ -113,6 +113,9 @@ void Preferences::onFontChange(){
 };
 
 void Preferences::onColorButtonPressed(){
+#ifdef Q_OS_IOS
+    preferedColor()->setWindowState(Qt::WindowFullScreen);
+#endif
    preferedColor()->exec();
 };
 

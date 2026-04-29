@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QScroller>
 #include <QScrollBar>
 
-QString progVersion = "5.3.2";
+QString progVersion = "5.3.3";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString progEmail = "info@vanyog.com";
 
@@ -52,12 +52,17 @@ BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
 {
    ui.setupUi(this);
-#ifdef Q_OS_MAC
-   ui.actionNext_Chapter->setShortcut(QKeySequence("Shift+Meta+Down"));
-   ui.actionPrevious_Chapter->setShortcut(QKeySequence("Shift+Meta+up"));
-#else
+#ifdef Q_OS_IOS
+   ui.actionBook->setVisible(false);
+   ui.actionChapter->setVisible(false);
+   ui.actionVerse->setVisible(false);
+#endif
+#ifndef Q_OS_MAC
    ui.actionNext_Chapter->setShortcut(QKeySequence("Shift+PgDown"));
    ui.actionPrevious_Chapter->setShortcut(QKeySequence("Shift+PgUp"));
+#endif
+#ifdef ADMIN_BUILD
+   ui.actionBuild_Bible->setVisible(true);
 #endif
    ui.progressBar->hide();
    ui.pushButton->hide();
@@ -291,7 +296,11 @@ void BMainWindow::onBibleWindowActivated(QMdiSubWindow *w){
 
       // Актуализират се падащите списъци
       ui.comboBox_2->clear();
+#ifdef Q_OS_IOS
+      ui.comboBox_2->addItems( bw->abrevs );
+#else
       ui.comboBox_2->addItems( bw->shortTitles );
+#endif
       if (bw->book()) ui.comboBox_2->setCurrentIndex(bw->book()-1);
       else ui.comboBox_2->setCurrentIndex(-1);
       setNumberComboBox(ui.comboBox_3, bw->chapterCount(), bw->chapter() );
@@ -427,24 +436,23 @@ void BMainWindow::onGoForward(){
 
 void BMainWindow::onGoBookList(){
   ui.comboBox_2->setFocus(Qt::MouseFocusReason);
-  ui.comboBox_2->lineEdit()->selectAll();
+//  ui.comboBox_2->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoChapterList(){
   ui.comboBox_3->setFocus(Qt::MouseFocusReason);
-  ui.comboBox_3->lineEdit()->selectAll();
+//  ui.comboBox_3->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoVerseList(){
   ui.comboBox_4->setFocus(Qt::MouseFocusReason);
-  ui.comboBox_4->lineEdit()->selectAll();
+ // ui.comboBox_4->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoRandomVerse(){
   BibleWindow *ab = activeBible();
   if (!ab) return;
   int i = QRandomGenerator::global()->bounded(1, ab->verseTotalCount() + 1);
-  ab->firstClick = true;
   goByIndex(ab,i);
 };
 
@@ -472,6 +480,9 @@ void BMainWindow::onViewStayOnTop(){
 };
 
 void BMainWindow::onViewColorPreferences(){
+#ifdef Q_OS_IOS
+    preferedColor()->setWindowState(Qt::WindowFullScreen);
+#endif
    preferedColor()->exec();
 };
 
@@ -566,6 +577,9 @@ void BMainWindow::onWindowsVersion43(){
 };
 
 void BMainWindow::onWindowsPreferences(){
+#ifdef Q_OS_IOS
+    preferences()->setWindowState(Qt::WindowFullScreen);
+#endif
    preferences()->exec();
 };
 
@@ -655,7 +669,9 @@ void BMainWindow::onMaxItemsChanged(int i){
 };
 
 void BMainWindow::onVerseClick(BibleWindow *ab, int i){
-   goByIndex(ab, i);
+    ab->notOnScroll = true;
+    goByIndex(ab, i);
+    QTimer::singleShot(0, [ab]() { if(ab) ab->notOnScroll = false; } );
 };
 
 void BMainWindow::onGlobalIndexChange(int i){
@@ -993,7 +1009,6 @@ void BMainWindow::setSynchronization(BibleWindow *ab){
    for(int i=0; i<sw.size(); i++){
       BibleWindow *bw = bibleWindow.value( sw.at(i)->widget()->objectName() );
       if (bw){
-          bw->firstClick = true;
         if (ab->bibleVersion()==bw->bibleVersion()) bw->synchronize = (bw==ab);
       }
    }
@@ -1083,4 +1098,29 @@ void BMainWindow::on_actionClean_Restart_triggered()
 QString prog_Version(){
     return progVersion;
 }
+
+#ifdef ADMIN_BUILD
+void BMainWindow::on_actionBuild_Bible_triggered()
+{
+    BibleWindow *bw = activeBible();
+    if(!bw) return;
+    if (yesNo( "Файловете за текущата Библия ще бъдат презаписани от списъка файлове files.txt, който трябва да посочите." )!=YES) return;
+    QSettings s;
+    QString pname = bw->bibleVersion() + "_source_file";
+    QString spath = s.value(pname).toString();
+    if(spath.isEmpty()) spath = QDir::homePath();
+    QString file = QFileDialog::getOpenFileName(
+        this,
+        "Избери файл",
+        spath,
+        "TXT файлове (*.txt)"
+        );
+    if (!file.isEmpty()) {
+        s.setValue(pname, file);
+        QString fcontent = fileContent(file, "UTF-8");
+        QStringList fnames = fcontent.split(QRegularExpression("\\r?\\n"), Qt::SkipEmptyParts);
+        qDebug() << fnames.count();
+    }
+}
+#endif
 

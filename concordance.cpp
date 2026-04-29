@@ -113,13 +113,22 @@ int ConcordanceModel::count(int i) const
    return r;
 };
 
+class ReadOnlyStringListModel : public QStringListModel {
+public:
+    using QStringListModel::QStringListModel;
+    Qt::ItemFlags flags(const QModelIndex &index) const override {
+        return QStringListModel::flags(index) & ~Qt::ItemIsEditable;
+    }
+};
+
 QStringListModel *ConcordanceModel::verseModel(){
    QStringList sl;
    for(int i=0; i<iArray->size(); i++){
       QString rf = bible->reference(iArray->at(i));
       sl << rf;
    }
-   return new QStringListModel(sl);
+   QStringListModel *slm = new ReadOnlyStringListModel(sl);
+   return slm;
 };
 
 int ConcordanceModel::indexOf(const QString &w){
