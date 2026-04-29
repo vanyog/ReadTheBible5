@@ -58,8 +58,8 @@ BMainWindow::BMainWindow(QWidget *parent)
    ui.actionVerse->setVisible(false);
 #endif
 #ifndef Q_OS_MAC
-   ui.actionNext_Chapter->setShortcut(QKeySequence("Shift+PgDown"));
-   ui.actionPrevious_Chapter->setShortcut(QKeySequence("Shift+PgUp"));
+   ui.actionNext_Chapter->setShortcut(QKeySequence("Alt+PgDown"));
+   ui.actionPrevious_Chapter->setShortcut(QKeySequence("Alt+PgUp"));
 #endif
 #ifdef ADMIN_BUILD
    ui.actionBuild_Bible->setVisible(true);
@@ -375,6 +375,7 @@ void BMainWindow::onGoNextVerse(){
    if (i<ab->verseTotalCount()) i++;
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
+   ab->setReadPos();
 };
 
 void BMainWindow::onGoPreviousVerse(){
@@ -392,7 +393,7 @@ void BMainWindow::onGoNextChapter(){
    if (i<ab->verseTotalCount()) i += ui.comboBox_4->count()-ui.comboBox_4->currentIndex();
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
- //  ui.comboBox_4->setFocus();
+   ab->setReadPos();
 };
 
 void BMainWindow::onGoPreviousChapter(){
@@ -723,7 +724,6 @@ void BMainWindow::emitIndexChanged(BibleWindow *ab){
    setGlobalVerseIndex(gi);     // Новия става текущ
     saveHistory = true;
    emit globalIndexChanged(ab); // Изпращане на сигнал
- //  ab->setReadPos();
    updateNavButtons();
 };
 

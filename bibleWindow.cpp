@@ -818,8 +818,10 @@ int BibleWindow::readPos(){
 };
 
 void BibleWindow::setReadPos(bool force){
-    if( (verseIndex()==readPos()+1) || (force_Set_ReadPos && (verseIndex()>readPos())) || force)
-        read_pos[bibleVersion()] = verseIndex();
+    int vi = verseIndex();
+    int rp = readPos();
+    if( (vi==rp+1) || (force_Set_ReadPos && (vi>rp)) || force)
+        read_pos[bibleVersion()] = vi;
     force_Set_ReadPos = false;
 };
 
