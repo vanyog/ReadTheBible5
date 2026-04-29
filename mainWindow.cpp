@@ -57,6 +57,12 @@ BMainWindow::BMainWindow(QWidget *parent)
    ui.actionChapter->setVisible(false);
    ui.actionVerse->setVisible(false);
 #endif
+    // Задаване някои клавишни комбинации да работят, както с латинска, така и с БДС клавиатура
+    ui.action_Back->setShortcuts({ QKeySequence("Alt+,"), QKeySequence(QString::fromUtf8("Alt+Р")) });
+    ui.action_Forward->setShortcuts({ QKeySequence("Alt+."), QKeySequence(QString::fromUtf8("Alt+Л")) });
+    ui.actionBook->setShortcuts({ QKeySequence("Alt+B"), QKeySequence(QString::fromUtf8("Alt+Ф")) });
+    ui.actionChapter->setShortcuts({ QKeySequence("Alt+C"), QKeySequence(QString::fromUtf8("Alt+Ъ")) });
+    ui.actionVerse->setShortcuts({ QKeySequence("Alt+V"), QKeySequence(QString::fromUtf8("Alt+Э")) });
 #ifndef Q_OS_MAC
    ui.actionNext_Chapter->setShortcut(QKeySequence("Alt+PgDown"));
    ui.actionPrevious_Chapter->setShortcut(QKeySequence("Alt+PgUp"));

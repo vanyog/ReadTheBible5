@@ -766,9 +766,6 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Book</string>
    </property>
-   <property name="shortcut">
-    <string>Alt+B</string>
-   </property>
   </action>
   <action name="actionChapter">
    <property name="text">

@@ -4,21 +4,22 @@
         <file>Bible_mk.qm</file>
         <file>Bible_bg.qm</file>
         <file>images/Logo_2a.png</file>
-        <file>htdocs/help/help_html_47a88fec.png</file>
-        <file>htdocs/help/help_html_68800cb2.png</file>
-        <file>htdocs/help/help_html_m4bad47e5.png</file>
-        <file>htdocs/help/help_html_m6a90a0f2.png</file>
         <file>htdocs/help/help_html_m61aaaada.png</file>
-        <file>htdocs/help/help_html_m567f9918.png</file>
-        <file>htdocs/help/help_html_m745e167c.png</file>
-        <file>htdocs/help/help_html_m50671bb2.png</file>
-        <file>htdocs/help/help_html_mcb3f14d.png</file>
         <file>htdocs/help/help.html</file>
-        <file>htdocs/help/help_html_m65d361ce.png</file>
-        <file>htdocs/help/help_html_794fa5f3.png</file>
-        <file>htdocs/help/help_html_465859d5.png</file>
-        <file>htdocs/help/help_html_m56f76bce.png</file>
         <file>data/bibles/Bible_Structure.txt</file>
         <file>images/Logo_ikon_256x256.png</file>
+        <file>htdocs/help/help_html_89487d70.png</file>
+        <file>htdocs/help/help_html_9a8269e6.png</file>
+        <file>htdocs/help/help_html_9a5f1ea6.png</file>
+        <file>htdocs/help/help_html_5a537ccb.png</file>
+        <file>htdocs/help/help_html_2dbbb08d.png</file>
+        <file>htdocs/help/help_html_d425a074.png</file>
+        <file>htdocs/help/help_html_2464d851.png</file>
+        <file>htdocs/help/help_html_98fdbb96.png</file>
+        <file>htdocs/help/help_html_680c24c8.png</file>
+        <file>htdocs/help/help_html_bfbe9c4e.png</file>
+        <file>htdocs/help/help_html_a027447f.png</file>
+        <file>htdocs/help/help_html_cb750ee7.png</file>
+        <file>htdocs/help/help_html_4311a872.png</file>
     </qresource>
 </RCC>
