@@ -614,10 +614,17 @@ void BMainWindow::onChangeTextColor(const QColor &c){
 };
 
 void BMainWindow::onHelpContent(){
-    QString helpDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/ReadTheBibleFree/help";
+    QString helpDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
+                      + "/ReadTheBibleFree/help";
     QString helpFile = helpDir + "/help.html";
-    if(!QFileInfo::exists(helpFile)){
+    QString versionFile = helpDir + "/version.txt";
+    QString version;
+    if(QFileInfo::exists(versionFile)) version = fileContent(versionFile);
+    if(!QFileInfo::exists(helpFile) || version.isEmpty() || !(version == progVersion)){
+        QDir hd(helpDir);
+        qDebug() << hd.removeRecursively();
         QDir().mkpath(helpDir);
+        saveToFile(versionFile, progVersion);
         QFile::copy(":/htdocs/help/help.html", helpFile);
          QDir imagesDir(":/htdocs/help/");
         for (const QString &img : imagesDir.entryList(QDir::Files)){
