@@ -464,11 +464,11 @@ void BMainWindow::onGoRandomVerse(){
 };
 
 void BMainWindow::onViewSearchingTool(){
-//   showMessage(ui.action_Searching_toolbox->isChecked());
    ui.dockWidget->disconnect(SIGNAL(visibilityChanged(bool)));
-   ui.action_Searching_toolbox->setChecked(true);
-   ui.dockWidget->setVisible( ui.action_Searching_toolbox->isChecked() );
-   connect(ui.dockWidget, SIGNAL(visibilityChanged(bool)), this, SLOT(onDWVChanged(bool)));
+//   ui.action_Searching_toolbox->setChecked(true);
+   bool vzbl = ui.action_Searching_toolbox->isChecked();
+   ui.dockWidget->setVisible( vzbl );
+   if(vzbl) connect(ui.dockWidget, SIGNAL(visibilityChanged(bool)), this, SLOT(onDWVChanged(bool)));
    if (ui.dockWidget->isVisible()) ui.comboBox->setFocus(Qt::TabFocusReason); 
 };
 
