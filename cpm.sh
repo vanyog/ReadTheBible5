@@ -8,17 +8,12 @@ if [ "$answer" != "y" ]; then
     exit 1
 fi
 
-ZIPF="Bible5.3.1-mac.zip"
-
-rm -f "$ZIPF"
 rm -rf rel
 
 mkdir rel
 
-cp -R Bible5.app rel
-~/Qt/6.10.2/macos/bin/macdeployqt rel/Bible5.app
-
-cd rel
-zip -rq -9 ../"$ZIPF" .
+cp -R build/Qt_6_11_0_for_macOS-Release/Bible5.app rel
+~/Qt/6.11.0/macos/bin/macdeployqt rel/Bible5.app
 
 echo "All done"
+exit

@@ -1092,7 +1092,9 @@ void BMainWindow::on_actionClean_Restart_triggered()
 #ifdef Q_OS_MAC
 #ifdef Q_OS_IOS
 #else
-   QString scr = QCoreApplication::applicationDirPath() + "/restart.sh";
+   QDir dir(QCoreApplication::applicationDirPath());
+   dir.cdUp();
+   QString scr = dir.filePath("Resources/restart.sh");
    QString prg = QCoreApplication::applicationFilePath();
    QStringList ars;
    ars << scr << prg;

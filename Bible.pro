@@ -20,7 +20,7 @@ Qt += core
 macx {
     QMAKE_BUNDLE_DATA += restart
     restart.files = restart.sh
-    restart.path = Contents/MacOS
+    restart.path = Contents/Resources
 }
 
 ios {
