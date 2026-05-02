@@ -405,10 +405,11 @@ void BMainWindow::onGoNextChapter(){
 void BMainWindow::onGoPreviousChapter(){
    BibleWindow *ab = activeBible();
    if (!ab) return;
+   ab->notOnScroll = true;
    int i = ab->verseIndex();
    if (i>1) i -= ui.comboBox_4->currentIndex() + 1;
    goByIndex(ab,i);
- //  ui.comboBox_4->setFocus();
+   QTimer::singleShot(0, [ab]() { ab->notOnScroll = false; } );
 };
 
 void BMainWindow::onGoVerseForReadieng(){
