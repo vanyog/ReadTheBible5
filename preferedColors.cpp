@@ -33,23 +33,24 @@ PreferedColor::PreferedColor(QWidget *parent, Qt::WindowFlags f)
    connect(ui.pushButton_6, SIGNAL(pressed()), this, SLOT(onFoundWordColorPressed()));
 };
 
-const QColor &PreferedColor::baseColor() const{
-   return ui.lineEdit->palette().color(QPalette::Active,QPalette::Base);
+QColor PreferedColor::baseColor() const{
+    return ui.lineEdit->palette().color(QPalette::Base);
+ //  return ui.lineEdit->palette().color(QPalette::Active,QPalette::Base);
 };
 
-const QColor &PreferedColor::bibleTextColor() const{
+QColor PreferedColor::bibleTextColor() const{
    return ui.lineEdit_2->palette().color(QPalette::Active,QPalette::Text);
 };
 
-const QColor &PreferedColor::activeVerseColor() const{
-   return ui.lineEdit_3->palette().color(QPalette::Active,QPalette::Text);
-};
+QColor PreferedColor::activeVerseColor() const{
+    auto p = ui.lineEdit_3->palette();
+    return p.color(p.currentColorGroup(), QPalette::Text);};
 
-const QColor &PreferedColor::footnoteColor() const{
+QColor PreferedColor::footnoteColor() const{
    return ui.lineEdit_4->palette().color(QPalette::Active,QPalette::Text);
 };
 
-const QColor &PreferedColor::foundWordColor() const{
+QColor PreferedColor::foundWordColor() const{
    return ui.lineEdit_5->palette().color(QPalette::Active,QPalette::Text);
 };
 
@@ -94,27 +95,63 @@ void PreferedColor::onBibleTextColorPressed(){
 };
 
 void PreferedColor::onActiveVerseColorPressed(){
-  QColor c=QColorDialog::getColor(bibleTextColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c=QColorDialog::getColor(activeVerseColor(),this,ui.lineEdit->text(),cdOptions());
   setActiveVerseColor(c);
 };
 
 void PreferedColor::onFootnoteColorPressed(){
-  QColor c=QColorDialog::getColor(bibleTextColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c=QColorDialog::getColor(footnoteColor(),this,ui.lineEdit->text(),cdOptions());
   setFootnoteColor(c);
 };
 
 void PreferedColor::onFoundWordColorPressed(){
-  QColor c=QColorDialog::getColor(bibleTextColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c=QColorDialog::getColor(foundWordColor(),this,ui.lineEdit->text(),cdOptions());
   setFoundWordColor(c);
 };
 
-void PreferedColor::setColorTo(QWidget *le, QPalette::ColorRole r, const QColor &c){
+QColor adaptColorForDarkMode(const QColor &c)
+{
+    if (!c.isValid()) return c;
+    // Конвертиране в HSL
+    float h, s, l, a;
+    c.getHslF(&h, &s, &l, &a);
+    // Инверсия на светлината
+    l = 1.0 - l;
+    // Малка корекция – иначе стават прекалено "кисели"
+    l = std::clamp(l * 0.85 + 0.1, 0.0, 1.0);
+    // По желание: леко намаляване на saturation
+    s *= 0.9;
+    QColor result;
+    result.setHslF(h, s, l, a);
+    return result;
+}
+
+bool isDarkMode()
+{
+    QColor bg = qApp->palette().color(QPalette::Window);
+    return bg.lightness() < 128;
+}
+
+void PreferedColor::setColorTo(QWidget *le, QPalette::ColorRole r, const QColor &c)
+{
+    if (!c.isValid()) return;
+    QColor finalColor = c;
+    if (isDarkMode()) {
+        finalColor = adaptColorForDarkMode(c);
+    }
+    QPalette p = le->palette();
+    p.setColor(QPalette::Active, r, finalColor);
+    p.setColor(QPalette::Inactive, r, finalColor);
+    le->setPalette(p);
+}
+
+/*void PreferedColor::setColorTo(QWidget *le, QPalette::ColorRole r, const QColor &c){
    if (!c.isValid()) return;
    QPalette p = le->palette();
    p.setColor(QPalette::Active, r, c);
    p.setColor(QPalette::Inactive, r, c);
    le->setPalette(p);
-};
+};*/
 
 void PreferedColor::writeSettings(QSettings *s){
    s->setValue("preferedColorGeometry",saveGeometry());

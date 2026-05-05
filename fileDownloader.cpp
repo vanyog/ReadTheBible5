@@ -41,7 +41,7 @@ FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButto
    :QObject(parent)
 {
   progressBar=pbar; pushButton=button;
-  file=0; getID=0; notDone=false; doneMessage=""; zipFile=""; zipProcess=0;
+  file=0; getID=0; notDone=false; doneMessage=""; zipFile="";
   if (!netAManager) netAManager = new QNetworkAccessManager;
 };
 

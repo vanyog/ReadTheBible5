@@ -33,11 +33,11 @@ class PreferedColor: public QDialog
 
 public:
   PreferedColor(QWidget *parent = 0, Qt::WindowFlags f=Qt::WindowFlags());
-  const QColor &baseColor() const;
-  const QColor &bibleTextColor() const;
-  const QColor &activeVerseColor() const;
-  const QColor &footnoteColor() const;
-  const QColor &foundWordColor() const;
+    QColor baseColor() const;
+    QColor bibleTextColor() const;
+    QColor activeVerseColor() const;
+    QColor footnoteColor() const;
+    QColor foundWordColor() const;
   void setBaseColor(const QColor &c);
   void setBibleTextColor(const QColor &c);
   void setActiveVerseColor(const QColor &c);

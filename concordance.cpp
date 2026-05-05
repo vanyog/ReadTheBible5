@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "concordance.h"
 #include "myListView.h"
 #include "myDecode.h"
-#include "showMessage.h"
+//#include "showMessage.h"
 #include "preferences.h"
 #include "filterDialog.h"
 

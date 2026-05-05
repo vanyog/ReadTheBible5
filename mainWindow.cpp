@@ -43,26 +43,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QStandardPaths>
 #include <QScroller>
 #include <QScrollBar>
+#include <QStyleHints>
 
-QString progVersion = "5.3.3";
+QString progVersion = "5.3.4";
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
+QString helpURL = "https://vanyog.com/index.php?pid=121&lang=";
 QString progEmail = "info@vanyog.com";
+
+// header или анонимен namespace
+void stripShortcuts(QObject *root)
+{
+    if (!root) return;
+    const auto actions = root->findChildren<QAction *>();
+    for (QAction *action : actions) {
+        // 1. Премахва shortcut-а
+        action->setShortcut(QKeySequence());
+        // 2. Опит да скрие визуализацията (няма ефект навсякъде, но не пречи)
+        action->setShortcutVisibleInContextMenu(false);
+        // 3. Премахва "\tCtrl+X" от текста
+        QString text = action->text();
+        int tabIndex = text.indexOf('\t');
+        if (tabIndex != -1) {
+            action->setText(text.left(tabIndex));
+        }
+        // 4. За всеки случай — tooltip и status tip
+        QString toolTip = action->toolTip();
+        if (toolTip.contains('\t'))
+            action->setToolTip(toolTip.section('\t', 0, 0));
+        QString statusTip = action->statusTip();
+        if (statusTip.contains('\t'))
+            action->setStatusTip(statusTip.section('\t', 0, 0));
+    }
+}
 
 BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
 {
    ui.setupUi(this);
 #ifdef Q_OS_IOS
+   stripShortcuts(this);
    ui.actionBook->setVisible(false);
    ui.actionChapter->setVisible(false);
    ui.actionVerse->setVisible(false);
-#endif
+#else
     // Задаване някои клавишни комбинации да работят, както с латинска, така и с БДС клавиатура
     ui.action_Back->setShortcuts({ QKeySequence("Alt+,"), QKeySequence(QString::fromUtf8("Alt+Р")) });
     ui.action_Forward->setShortcuts({ QKeySequence("Alt+."), QKeySequence(QString::fromUtf8("Alt+Л")) });
     ui.actionBook->setShortcuts({ QKeySequence("Alt+B"), QKeySequence(QString::fromUtf8("Alt+Ф")) });
     ui.actionChapter->setShortcuts({ QKeySequence("Alt+C"), QKeySequence(QString::fromUtf8("Alt+Ъ")) });
     ui.actionVerse->setShortcuts({ QKeySequence("Alt+V"), QKeySequence(QString::fromUtf8("Alt+Э")) });
+#endif
 #ifndef Q_OS_MAC
    ui.actionNext_Chapter->setShortcut(QKeySequence("Alt+PgDown"));
    ui.actionPrevious_Chapter->setShortcut(QKeySequence("Alt+PgUp"));
@@ -158,6 +188,8 @@ BMainWindow::BMainWindow(QWidget *parent)
    connect(ui.actionAbout_Bible_Version, SIGNAL(triggered()), this, SLOT(onHelpAboutBibleVersion()));
    connect(ui.action_Web_site, SIGNAL(triggered()), this, SLOT(onHelpWebSite()));
    connect(ui.actionCheck_for_updates, SIGNAL(triggered()), this, SLOT(onHelpCheckForUpdate()));
+
+   connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, [](){ emit preferedColor()->toChangeOtherTextColor();});
 };
 
 bool BMainWindow::openAppFolder(){
@@ -168,6 +200,15 @@ void BMainWindow::closeEvent(QCloseEvent *event){
    writeSettings();
    event->accept();
 };
+
+void BMainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    if(tileAfterClosing){
+        tileOrCascade();
+        tileAfterClosing = false;
+    }
+}
 
 void BMainWindow::fileExport(const QString &ex){
    BibleWindow *bw = activeBible();
@@ -322,6 +363,7 @@ BibleWindow *BMainWindow::bibleWindowFromMdi(QMdiSubWindow *w){
     return bw;
 };
 
+// Изпълнява се при затваряне на прозорец с библия
 void BMainWindow::onBibleWindowClosing(BibleWindow *bw){
    if (!bw) return;
    QAction *ba = bAction.value(bw->bibleVersion());
@@ -333,6 +375,7 @@ void BMainWindow::onBibleWindowDestroyed(QObject *obj){
    Q_UNUSED(obj);
    tileOrCascade();
    ui.listView_2->setModel(0);
+   tileAfterClosing = true;
 };
 
 // Изпълнява се при кликване върху линк в прозореца с текста на Библията
@@ -341,8 +384,17 @@ void BMainWindow::onBibleAnchorClicked(const QUrl &link){
    int i = link.path().toInt();
    BibleWindow *ab = activeBible();
    if (!ab) return;
-   if (lf.size()) ab->setSource("#"+lf);
-   else goByIndex( ab, i );
+   if (lf.size()){
+       history->frag = lf;
+       updateNavButtons();
+       ab->notOnScroll = true;
+       ab->setSource("#"+lf);
+       ab->notOnScroll = false;
+   }
+   else{
+       goByIndex( ab, i );
+       emit ab->scrollToActiveVerse();
+   }
 };
 
 // Смяна на книга от падащия списък
@@ -353,6 +405,7 @@ void BMainWindow::onBookChanged(int i){ Q_UNUSED(i);
    setNumberComboBox(ui.comboBox_4, ab->verseCount(), ab->verse() );
    setActiveBibleReference(true);
    emitIndexChanged(ab);
+   emit scrollToActiveVerse();
 };
 
 // Смяна на глава от падащия списък
@@ -363,6 +416,7 @@ void BMainWindow::onChapterChanged(int i){
    setNumberComboBox(ui.comboBox_4, ab->verseCount(), ab->verse() );
    setActiveBibleReference(true);
    emitIndexChanged(ab);
+   emit scrollToActiveVerse();
 };
 
 // Смяна на стиха оп падащия списък
@@ -371,6 +425,7 @@ void BMainWindow::onVerseChanged(int i){
    BibleWindow *ab = setActiveBibleReference(true);
    if (!ab) return;
    emitIndexChanged(ab);
+   emit scrollToActiveVerse();
 };
 
 // При команда следващ стих
@@ -382,6 +437,7 @@ void BMainWindow::onGoNextVerse(){
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
    ab->setReadPos();
+   emit scrollToActiveVerse();
 };
 
 void BMainWindow::onGoPreviousVerse(){
@@ -390,6 +446,7 @@ void BMainWindow::onGoPreviousVerse(){
    int i = ab->verseIndex();
    if (i>1) i--;
    goByIndex(ab,i);
+   emit scrollToActiveVerse();
 };
 
 void BMainWindow::onGoNextChapter(){
@@ -400,6 +457,7 @@ void BMainWindow::onGoNextChapter(){
    else showMessage(tr("Last verse is reached %1.").arg(ab->verseTotalCount()));
    goByIndex(ab,i);
    ab->setReadPos();
+   emit scrollToActiveVerse();
 };
 
 void BMainWindow::onGoPreviousChapter(){
@@ -410,6 +468,7 @@ void BMainWindow::onGoPreviousChapter(){
    if (i>1) i -= ui.comboBox_4->currentIndex() + 1;
    goByIndex(ab,i);
    QTimer::singleShot(0, [ab]() { ab->notOnScroll = false; } );
+   emit scrollToActiveVerse();
 };
 
 void BMainWindow::onGoVerseForReadieng(){
@@ -417,8 +476,9 @@ void BMainWindow::onGoVerseForReadieng(){
    if (!ab) return;
    disconnect(ab->verticalScrollBar(), &QScrollBar::valueChanged, ab, &BibleWindow::onScroll);
    int i = ab->readPos();
-
    goByIndex(ab, i);
+   emit scrollToActiveVerse();
+
 };
 
 void BMainWindow::on_actionSet_Place_for_Reading_triggered()
@@ -434,12 +494,15 @@ void BMainWindow::onGoBack(){
     int i = history->back();
     saveHistory = false;
     goByGlobalIndex(i);
+    emit scrollToActiveVerse();
+    updateNavButtons();
 };
 
 void BMainWindow::onGoForward(){
     int i = history->forward();
     saveHistory = false;
     goByGlobalIndex(i);
+    emit scrollToActiveVerse();
 };
 
 void BMainWindow::onGoBookList(){
@@ -462,15 +525,17 @@ void BMainWindow::onGoRandomVerse(){
   if (!ab) return;
   int i = QRandomGenerator::global()->bounded(1, ab->verseTotalCount() + 1);
   goByIndex(ab,i);
+  emit scrollToActiveVerse();
 };
 
 void BMainWindow::onViewSearchingTool(){
    ui.dockWidget->disconnect(SIGNAL(visibilityChanged(bool)));
-//   ui.action_Searching_toolbox->setChecked(true);
    bool vzbl = ui.action_Searching_toolbox->isChecked();
    ui.dockWidget->setVisible( vzbl );
    if(vzbl) connect(ui.dockWidget, SIGNAL(visibilityChanged(bool)), this, SLOT(onDWVChanged(bool)));
-   if (ui.dockWidget->isVisible()) ui.comboBox->setFocus(Qt::TabFocusReason); 
+#ifndef Q_OS_IOS
+   if (ui.dockWidget->isVisible()) ui.comboBox->setFocus(Qt::TabFocusReason);
+#endif
 };
 
 void BMainWindow::onViewVerseCollection(){
@@ -593,48 +658,33 @@ void BMainWindow::onWindowsPreferences(){
 
 void BMainWindow::onChangeBaseColor(const QColor &c){
    QPalette::ColorRole r = QPalette::Base;
-   preferedColor()->setColorTo(ui.comboBox, r, c);
+/*   preferedColor()->setColorTo(ui.comboBox, r, c);
    preferedColor()->setColorTo(ui.comboBox_2, r, c);
    preferedColor()->setColorTo(ui.comboBox_3, r, c);
    preferedColor()->setColorTo(ui.comboBox_4, r, c);
    preferedColor()->setColorTo(ui.listView, r, c);
-   preferedColor()->setColorTo(ui.listView_2, r, c);
+   preferedColor()->setColorTo(ui.listView_2, r, c);*/
    QList<QMdiSubWindow *> swl = mdiArea->subWindowList();
    for(int i=0; i<swl.size(); i++) preferedColor()->setColorTo(swl.at(i)->widget(), r, c);
 };
 
 void BMainWindow::onChangeTextColor(const QColor &c){
    QPalette::ColorRole r = QPalette::Text;
-   preferedColor()->setColorTo(ui.comboBox, r, c);
+/*   preferedColor()->setColorTo(ui.comboBox, r, c);
    preferedColor()->setColorTo(ui.comboBox_2, r, c);
    preferedColor()->setColorTo(ui.comboBox_3, r, c);
    preferedColor()->setColorTo(ui.comboBox_4, r, c);
    preferedColor()->setColorTo(ui.listView, r, c);
-   preferedColor()->setColorTo(ui.listView_2, r, c);
+   preferedColor()->setColorTo(ui.listView_2, r, c);*/
    emit refreshText();
 };
 
 void BMainWindow::onHelpContent(){
     QString helpDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
                       + "/ReadTheBibleFree/help";
-    QString helpFile = helpDir + "/help.html";
-    QString versionFile = helpDir + "/version.txt";
-    QString version;
-    if(QFileInfo::exists(versionFile)) version = fileContent(versionFile);
-    if(!QFileInfo::exists(helpFile) || version.isEmpty() || !(version == progVersion)){
-        QDir hd(helpDir);
-        qDebug() << hd.removeRecursively();
-        QDir().mkpath(helpDir);
-        saveToFile(versionFile, progVersion);
-        QFile::copy(":/htdocs/help/help.html", helpFile);
-         QDir imagesDir(":/htdocs/help/");
-        for (const QString &img : imagesDir.entryList(QDir::Files)){
-            QString imgDst = helpDir + "/" + img;
-            QFile::copy(":/htdocs/help/" + img, imgDst);
-        }
-    }
-    QUrl url = QUrl::fromLocalFile(helpFile);
-    QDesktopServices::openUrl(url);
+    QDir hd(helpDir);
+    hd.removeRecursively();
+    QDesktopServices::openUrl(QUrl(helpURL));
 };
 
 void BMainWindow::onHelpReadme(){
@@ -686,6 +736,7 @@ void BMainWindow::onMaxItemsChanged(int i){
 void BMainWindow::onVerseClick(BibleWindow *ab, int i){
     ab->notOnScroll = true;
     goByIndex(ab, i);
+    emit ab->scrollToActiveVerse();
     QTimer::singleShot(0, [ab]() { if(ab) ab->notOnScroll = false; } );
 };
 
@@ -694,6 +745,7 @@ void BMainWindow::onGlobalIndexChange(int i){
     goByIndex(ab,i);
     ab->setReadPos();
     writeReadPositions();
+    emit scrollToActiveVerse();
 };
 
 // Намира индекса на текста, изписан в QComboBox
@@ -758,6 +810,7 @@ BibleWindow *BMainWindow::openBible(const QString &bv){
    connect(bw, SIGNAL(globalIndexChaged(int)), this, SLOT(onGlobalIndexChange(int)));
    connect(preferences(), SIGNAL(optionChanged()), bw, SLOT(refreshText()));
    connect(preferedColor(), SIGNAL(toChangeOtherTextColor()), bw, SLOT(refreshText()));
+//   connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, [this](){ emit preferedColor()->toChangeOtherTextColor();});
    bw->setObjectName( "b"+QString::number(n) ); n++;
    mdiArea->addSubWindow(bw);
    bibleWindow.insert(bw->objectName(), bw);
@@ -959,17 +1012,15 @@ void BMainWindow::tileOrCascade(){
    }
    else
        mdiArea->cascadeSubWindows();
-//   emit scrollToActiveVerse();
+   emit scrollToActiveVerse();
 };
 
 // Прави активни бутоните за навигация "Напред" и "Назад"
 void BMainWindow::updateNavButtons(){
-    bool p3 = history->index()>0;
+    bool p3 = (history->index()>0) || !history->frag.isEmpty();
     bool p4 = history->index() < history->count()-1;
     ui.pushButton_3->setEnabled(p3);
- //   if(p3) ui.pushButton_3->setFocus();
     ui.pushButton_4->setEnabled(p4);
- //   if(p4) ui.pushButton_4->setFocus();
 }
 
 // Ъпдейтва контролите да показват книга,глава и стих на текущия стих
@@ -1092,6 +1143,7 @@ void BMainWindow::on_actionClean_Restart_triggered()
    // 2. Рестарт на програмата
 #ifdef Q_OS_MAC
 #ifdef Q_OS_IOS
+   showMessage( tr("Settings have been reset. Swipe your finger across the screen from the bottom to the middle of the screen and to the right. You will see the windows of the open applications. Slide the Read th Bible Free window up to close it. Then open it again."));
 #else
    QDir dir(QCoreApplication::applicationDirPath());
    dir.cdUp();
@@ -1139,4 +1191,5 @@ void BMainWindow::on_actionBuild_Bible_triggered()
     }
 }
 #endif
+
 

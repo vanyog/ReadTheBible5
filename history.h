@@ -39,6 +39,7 @@ public:
   int forward();
   qsizetype count();
   int index();
+  QString frag;
   
 private slots:
 

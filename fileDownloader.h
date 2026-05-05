@@ -68,7 +68,7 @@ private:
     QFile *file;
     int getID;
     QString doneMessage, zipFile, zipDir;
-    QProcess *zipProcess;
+//   QProcess *zipProcess;
     void unzipStep(); // Разархивиране на изтеглен zip файл
 };
 

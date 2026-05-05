@@ -35,9 +35,12 @@ void History::push(int i){
 int History::back(){
    int r = -1;
    if (c_i>0){
-      c_i--;
+       if(frag.isEmpty()){
+           c_i--;
+       }
       r = list.value(c_i);
    }
+   frag = "";
 //   qDebug() << c_i << list << r;
    return r;
 };

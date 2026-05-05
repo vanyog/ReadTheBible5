@@ -121,7 +121,7 @@
      </font>
     </property>
     <property name="title">
-     <string>&amp;Go</string>
+     <string>&amp;Go to</string>
     </property>
     <addaction name="actionNext_Verse"/>
     <addaction name="actionPrevious_Verse"/>
@@ -699,16 +699,10 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>&amp;Back</string>
    </property>
-   <property name="shortcut">
-    <string>Alt+,</string>
-   </property>
   </action>
   <action name="action_Forward">
    <property name="text">
     <string>&amp;Forward</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+.</string>
    </property>
   </action>
   <action name="actionVersion_4_3">
@@ -724,7 +718,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionVerse_for_reading">
    <property name="text">
-    <string>Open Place for reading</string>
+    <string>Reading Place</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -914,7 +908,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSet_Place_for_Reading">
    <property name="text">
-    <string>Set Place for Reading</string>
+    <string>Set the Reading Place</string>
    </property>
   </action>
   <action name="actionBuild_Bible">

@@ -495,9 +495,11 @@ void BibleWindow::onScroll(int value)
     QTextBlock block = cursor.block();
     int vrn = block.text().section('.', 0, 0).toInt();
     if( (vrn>0) && (vrn>vrl) && (vrn<=verseCount()) ){
-            disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
-            force_Set_ReadPos = true;
-            if(isActiveMdiWindow()) emit globalIndexChaged(verseIndex() + vrn - vrl);
+         //   disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+        force_Set_ReadPos = true;
+         if(isActiveMdiWindow()){
+            emit globalIndexChaged(verseIndex() + vrn - vrl);
+         }
         }
 }
 
@@ -556,7 +558,6 @@ void BibleWindow::setVerseColor(int vr, const QString &c2)
     QList<QTextEdit::ExtraSelection> sels;
     sels.append(sel);
     setExtraSelections(sels);
-    scrollToActiveVerse();
 }
 
 // Активира се стихът, върху който се кликва
@@ -568,6 +569,7 @@ bool BibleWindow::activateOnClicked(){
     if (result){
         force_Set_ReadPos = abs(verseIndex() - readPos()) < verseCount();
         emit globalIndexChaged(verseIndex() + vrn - vrl);
+        emit scrollToActiveVerse();
     }
     return result;
 };
@@ -692,11 +694,11 @@ void BibleWindow::displayText(){
 
 void BibleWindow::displayFreshText(){
    clear();
-   QPalette p = palette();
+/*   QPalette p = palette();
    p.setColor(QPalette::Active, QPalette::Base, preferedColor()->baseColor());
    p.setColor(QPalette::Active, QPalette::Text, preferedColor()->bibleTextColor());
    p.setColor(QPalette::Active, QPalette::Link, preferedColor()->footnoteColor());
-   setPalette(p);
+   setPalette(p);*/
    bkl=bk;
    if (book()==0){ // Няма книга
       setText(reference());
@@ -1029,7 +1031,7 @@ void BibleWindow::scrollToActiveVerse(){
    setTextCursor(tc);
    tc.movePosition(QTextCursor::EndOfBlock,QTextCursor::MoveAnchor);
    setTextCursor(tc);
-   QTimer::singleShot(10, [this]() {
+   QTimer::singleShot(0, [this]() {
        connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    });
 };

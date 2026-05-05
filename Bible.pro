@@ -5,6 +5,8 @@
 # Флаг, който включва компилиране на допълнителни фенкции за администриране на Библиите
 #DEFINES += ADMIN_BUILD
 
+QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
+
 !win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
 QT += widgets printsupport
 CONFIG += c++17
