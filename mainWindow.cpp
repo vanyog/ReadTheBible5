@@ -190,7 +190,7 @@ BMainWindow::BMainWindow(QWidget *parent)
    connect(ui.action_Web_site, SIGNAL(triggered()), this, SLOT(onHelpWebSite()));
    connect(ui.actionCheck_for_updates, SIGNAL(triggered()), this, SLOT(onHelpCheckForUpdate()));
 
-   connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, [](){ emit preferedColor()->toChangeOtherTextColor();});
+//   connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, [](){ emit preferedColor()->toChangeOtherTextColor();});
 };
 
 bool BMainWindow::openAppFolder(){
