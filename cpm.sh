@@ -15,5 +15,5 @@ mkdir rel
 cp -R build/Qt_6_11_0_for_macOS-Release/Bible5.app rel
 ~/Qt/6.11.0/macos/bin/macdeployqt rel/Bible5.app
 
-echo "All done"
+echo "Изпълнено."
 exit

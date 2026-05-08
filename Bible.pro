@@ -40,13 +40,15 @@ QMAKE_BUNDLE_DATA += icons
 ICON = images/mac1.icns
 
 # Input
-HEADERS += mainWindow.h myFileRoutines.h myDecode.h showMessage.h bibleWindow.h exportDialog.h
+HEADERS += mainWindow.h myFileRoutines.h myDecode.h showMessage.h bibleWindow.h exportDialog.h \
+    myMdiArea.h
 HEADERS += language.h fileDownloader.h webUpdater.h preferences.h history.h
 HEADERS += concordance.h preferedColors.h filterDialog.h myListView.h verseCollection.h
 
 FORMS += mainWindow.ui exportDialog.ui preferences.ui preferedColors.ui filterDialog.ui
 
-SOURCES += main.cpp mainWindow.cpp myFileRoutines.cpp myDecode.cpp showMessage.cpp bibleWindow.cpp exportDialog.cpp
+SOURCES += main.cpp mainWindow.cpp myFileRoutines.cpp myDecode.cpp showMessage.cpp bibleWindow.cpp exportDialog.cpp \
+    myMdiArea.cpp
 SOURCES += language.cpp fileDownloader.cpp webUpdater.cpp preferences.cpp history.cpp
 SOURCES += concordance.cpp preferedColors.cpp filterDialog.cpp myListView.cpp verseCollection.cpp
 

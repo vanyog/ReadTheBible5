@@ -560,7 +560,7 @@ void BibleWindow::setVerseColor(int vr, const QString &c2)
     setExtraSelections(sels);
 }
 
-// Активира се стихът, върху който се кликва
+// Активиране на стиха, върху който се кликва. Връща true, ако е задействано активиране.
 bool BibleWindow::activateOnClicked(){
     QTextCursor cursor = cursorForPosition(pressPos);
     QTextBlock block = cursor.block();
@@ -570,6 +570,12 @@ bool BibleWindow::activateOnClicked(){
         force_Set_ReadPos = abs(verseIndex() - readPos()) < verseCount();
         emit globalIndexChaged(verseIndex() + vrn - vrl);
         emit scrollToActiveVerse();
+        return true;
+    }
+    if ( vrn && (vrn==vrl) && (vrn==verseCount()) ){
+        emit globalIndexChaged(verseIndex() + 1);
+        emit scrollToActiveVerse();
+        return true;
     }
     return result;
 };
@@ -970,6 +976,7 @@ int BibleWindow::chapterCount(int b){
    return static_cast<int>(bible_Structure->value(b-1)->size()-1);
 };
 
+// Брой на стиховете в текущата глава
 int BibleWindow::verseCount(){
    if (!book()) return 0;
    return bible_Structure->value(book()-1)->value(chapter());
@@ -1085,25 +1092,20 @@ void BibleWindow::mouseReleaseEvent(QMouseEvent *event)
     if (!isDragging && event->button() == Qt::LeftButton)
     {
         if (!isActiveMdiWindow()) return;
-
         if (activateOnClicked()){
             QTextBrowser::mouseReleaseEvent(event);
             return;
         }
-
         int half = viewport()->height() / 2;
         QScrollBar *sb = verticalScrollBar();
-
         if (pressPos.y() < half){
             sb->triggerAction(QAbstractSlider::SliderPageStepSub); // PgUp
             return;
-
         } else {
             sb->triggerAction(QAbstractSlider::SliderPageStepAdd); // PgDown
             return;
         }
     }
-
     QTextBrowser::mouseReleaseEvent(event);
 }
 //------------------------------------------------------

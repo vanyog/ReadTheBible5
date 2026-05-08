@@ -80,6 +80,7 @@ BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
 {
    ui.setupUi(this);
+   ui.dockWidget->setVisible( ui.action_Searching_toolbox->isChecked() );
 #ifdef Q_OS_IOS
    stripShortcuts(this);
    ui.actionBook->setVisible(false);
