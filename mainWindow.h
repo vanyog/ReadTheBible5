@@ -56,7 +56,9 @@ public slots:
 
 protected:
    void closeEvent(QCloseEvent *event);
+#ifndef Q_OS_IOS
    void resizeEvent(QResizeEvent *event) override;
+#endif
 
 private slots:
    void onFileExportHtml();

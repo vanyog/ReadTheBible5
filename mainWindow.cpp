@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QCloseEvent>
 #include <QTime>
 #include <QFileDialog>
+#include <QPointer>
 #include <QRandomGenerator>
 #include <QDesktopServices>
 #include <QStandardPaths>
@@ -202,6 +203,7 @@ void BMainWindow::closeEvent(QCloseEvent *event){
    event->accept();
 };
 
+#ifndef Q_OS_IOS
 void BMainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
@@ -210,6 +212,7 @@ void BMainWindow::resizeEvent(QResizeEvent *event)
         tileAfterClosing = false;
     }
 }
+#endif
 
 void BMainWindow::fileExport(const QString &ex){
    BibleWindow *bw = activeBible();
@@ -371,6 +374,7 @@ void BMainWindow::onBibleWindowClosing(BibleWindow *bw){
    if ( ba && ( windowCount(bw->bibleVersion())<2 ) ) ba->setChecked(false);
    checkMaximization();
 };
+
 
 void BMainWindow::onBibleWindowDestroyed(QObject *obj){
    Q_UNUSED(obj);
@@ -606,20 +610,53 @@ void BMainWindow::onWindowsCascade(){
 };
 
 void BMainWindow::onWindowsCloseAll(){
-   mdiArea->closeAllSubWindows();
+    const QList<QMdiSubWindow*> list = mdiArea->subWindowList();
+    for (QMdiSubWindow *w : list)
+    {
+        if (!w) continue;
+        QPointer<QMdiSubWindow> guard(w);
+        w->close();
+        QCoreApplication::processEvents();
+        if (!guard) qDebug() << "window deleted safely";
+    }
 };
 
-void BMainWindow::onWindowsCloseOthers(){
+void BMainWindow::onWindowsCloseOthers()
+{
+    QMdiSubWindow *active = ui.mdiArea->activeSubWindow();
+    const QList<QMdiSubWindow*> windows = ui.mdiArea->subWindowList();
+    for (QMdiSubWindow *subWindow : windows)
+    {
+        if (!subWindow || subWindow == active) continue;
+
+        // Ако вече е унищожен по време на предишни сигнали
+        QPointer<QMdiSubWindow> guard(subWindow);
+        // Затваряне
+        subWindow->close();
+        // Ако close() е предизвикал deleteLater()
+        // обработваме всички pending събития/сигнали
+        while (guard)
+        {
+            QCoreApplication::processEvents(QEventLoop::AllEvents);
+            // ако прозорецът още съществува, но е скрит,
+            // приемаме че затварянето е приключило
+            if (guard && !guard->isVisible())
+                break;
+        }
+    }
+}
+
+/*void BMainWindow::onWindowsCloseOthers(){
    QMdiSubWindow *cw = mdiArea->activeSubWindow();
    while(mdiArea->subWindowList().size()>1){
       mdiArea->activateNextSubWindow();
       if (mdiArea->activeSubWindow()!=cw) mdiArea->closeActiveSubWindow();
    }
-   tileOrCascade();
-};
+//   QTimer::singleShot(0, [this]() { this->tileOrCascade(); } );
+};*/
 
 void BMainWindow::onWindowsCloseActive(){
-   mdiArea->closeActiveSubWindow();
+    mdiArea->closeActiveSubWindow();
 };
 
 void BMainWindow::onWindowsCrossBGBible(){
@@ -685,7 +722,7 @@ void BMainWindow::onHelpContent(){
                       + "/ReadTheBibleFree/help";
     QDir hd(helpDir);
     hd.removeRecursively();
-    QDesktopServices::openUrl(QUrl(helpURL));
+    QDesktopServices::openUrl(QUrl(helpURL + interfaceLanguage()));
 };
 
 void BMainWindow::onHelpReadme(){

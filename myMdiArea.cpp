@@ -23,6 +23,6 @@ void MyMdiArea::paintEvent(QPaintEvent *event)
                    tr("Select a Bible translation\nf"
                       "rom the Bible menu.\n"
                       "If it is not available, confirm\n"
-                      "that you want to download itr."));
+                      "that you want to download it."));
     }
 }

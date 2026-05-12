@@ -5,7 +5,9 @@
 # Флаг, който включва компилиране на допълнителни фенкции за администриране на Библиите
 #DEFINES += ADMIN_BUILD
 
-QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
+#QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
+
+VERSION = 5.3.5
 
 !win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
 QT += widgets printsupport
@@ -33,7 +35,7 @@ ios {
 #CONFIG += release
 QT += network
 TEMPLATE = app
-TARGET = Bible5
+TARGET = ReadBible5
 DEPENDPATH += .
 INCLUDEPATH += .
 QMAKE_BUNDLE_DATA += icons

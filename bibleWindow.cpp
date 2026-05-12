@@ -1051,11 +1051,6 @@ void BibleWindow::refreshText(){
 
 void BibleWindow::closeEvent(QCloseEvent *event){
    Q_UNUSED(event);
- /*  if(doNotClose){
-       doNotClose = false;
-       event->ignore();
-       return;
-   }*/
    writeSettings();
    emit closing(this);
    QTextBrowser::close();

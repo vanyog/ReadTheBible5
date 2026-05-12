@@ -142,7 +142,7 @@
 <context>
     <name>BibleWindow</name>
     <message>
-        <location filename="bibleWindow.cpp" line="999"/>
+        <location filename="bibleWindow.cpp" line="1006"/>
         <source>No such book in this version.</source>
         <translation>Не постои таква книга во оваа Библија.</translation>
     </message>
@@ -155,7 +155,7 @@
         <translation type="obsolete">Изтеглянето завърши. Можете да отворите тази Библия.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="804"/>
+        <location filename="bibleWindow.cpp" line="810"/>
         <source>There is no information about this Bible Version.</source>
         <translation>Не е најдена информација за овој превод на Библијата.</translation>
     </message>
@@ -188,7 +188,7 @@
     </message>
     <message>
         <location filename="bibleWindow.cpp" line="216"/>
-        <location filename="bibleWindow.cpp" line="870"/>
+        <location filename="bibleWindow.cpp" line="876"/>
         <source>Can&apos;t recognize verse number in reference %1</source>
         <translation>Не може да се распознае бројот на стихот во референцата %1</translation>
     </message>
@@ -217,26 +217,26 @@
         <translation type="vanished">Симнувањето заврши. Може да ја отворите Библијата &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="863"/>
-        <location filename="bibleWindow.cpp" line="892"/>
-        <location filename="bibleWindow.cpp" line="900"/>
-        <location filename="bibleWindow.cpp" line="908"/>
-        <location filename="bibleWindow.cpp" line="912"/>
+        <location filename="bibleWindow.cpp" line="869"/>
+        <location filename="bibleWindow.cpp" line="898"/>
+        <location filename="bibleWindow.cpp" line="906"/>
+        <location filename="bibleWindow.cpp" line="914"/>
+        <location filename="bibleWindow.cpp" line="918"/>
         <source>Can&apos;t recognize reference %1</source>
         <translation>Не може да биде распознаена референцата %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="883"/>
+        <location filename="bibleWindow.cpp" line="889"/>
         <source>Can&apos;t recognize book in reference %1</source>
         <translation>Не може да биде распознаено името на книгата во референцата %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="885"/>
+        <location filename="bibleWindow.cpp" line="891"/>
         <source>The case of reference like %1 is not programed.</source>
         <translation>Разпознавањето на референцата како %1 не е програмирано.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="1010"/>
+        <location filename="bibleWindow.cpp" line="1017"/>
         <source>Error</source>
         <translation>Грешка</translation>
     </message>
@@ -973,7 +973,11 @@ p, li { white-space: pre-wrap; }
         <source>Select a Bible translation
 from the Bible menu.
 If it is not available, confirm
-that you want to download it from the Internet.</source>
+that you want to download it.</source>
+        <oldsource>Select a Bible translation
+from the Bible menu.
+If it is not available, confirm
+that you want to download it from the Internet.</oldsource>
         <translation>Изберете превод на Библијата
 од менито Библија.
 Ако не е достапен, потврдете

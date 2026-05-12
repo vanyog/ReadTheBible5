@@ -33,10 +33,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include "showMessage.h"
 #include "fileDownloader.h"
 
+/*void myMessageOutput(QtMsgType type,
+                     const QMessageLogContext &context,
+                     const QString &msg)
+{
+    fprintf(stderr, "%s\n", msg.toLocal8Bit().constData());
+    fflush(stderr);
+}*/
+
 int main(int argc, char *argv[])
 {
+    //qInstallMessageHandler(myMessageOutput);
+
    QApplication app(argc,argv);
-    app.setDesktopFileName("bible5");
+    app.setDesktopFileName("ReadBible5");
     app.setWindowIcon(QIcon(":/images/Logo_ikon_256x256.png"));
 
 #ifdef Q_OS_ANDROID
