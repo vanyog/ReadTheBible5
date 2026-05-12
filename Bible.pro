@@ -7,7 +7,8 @@
 
 #QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
 
-VERSION = 5.3.5
+VERSION = 5.3.6
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 !win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
 QT += widgets printsupport

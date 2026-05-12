@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QScrollBar>
 #include <QStyleHints>
 
-QString progVersion = "5.3.5";
+QString progVersion = APP_VERSION;
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString helpURL = "https://vanyog.com/index.php?pid=121&lang=";
 QString progEmail = "info@vanyog.com";
