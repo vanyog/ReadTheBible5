@@ -12,8 +12,8 @@ rm -rf rel
 
 mkdir rel
 
-cp -R build/Qt_6_11_0_for_macOS-Release/Bible5.app rel
-~/Qt/6.11.0/macos/bin/macdeployqt rel/Bible5.app
+cp -R build/Qt_6_11_0_for_macOS-Release/ReadBible5.app rel
+~/Qt/6.11.0/macos/bin/macdeployqt rel/ReadBible5.app
 
 echo "Изпълнено."
 exit
