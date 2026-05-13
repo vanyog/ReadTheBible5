@@ -1,5 +1,5 @@
 set "INSTALL_DIR=C:\Program Files (x86)\VanyoG\ReadTheBibleFree"
-set "RELEASE_DIR=D:\ReadTheBible5\build\rel"
+set "RELEASE_DIR=C:\Users\Suny Cat\source\repos\ReadTheBible5\build\rel"
 
 rmdir /s/q "%INSTALL_DIR%"
 mkdir "%INSTALL_DIR%"

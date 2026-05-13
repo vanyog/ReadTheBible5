@@ -13,11 +13,11 @@ if "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
 rmdir /s/q %OUTDIR%
 
 mkdir %OUTDIR%
-copy build\Release\Bible5.exe %OUTDIR%
+copy build\Release\ReadBible5.exe %OUTDIR%
 copy 3rdparty\zlib\build\Release\z.dll %OUTDIR%
 
 cd %OUTDIR%
-%QTDIR%\bin\windeployqt Bible5.exe
+%QTDIR%\bin\windeployqt ReadBible5.exe
 
 endlocal
 echo All done
