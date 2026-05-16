@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
+
+
 #include <JlCompress.h>
 
 QNetworkAccessManager *netAManager = 0;
@@ -43,12 +45,16 @@ FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButto
   progressBar=pbar; pushButton=button;
   file=0; getID=0; notDone=false; doneMessage=""; zipFile="";
   if (!netAManager) netAManager = new QNetworkAccessManager;
+  qDebug() << QSslSocket::availableBackends();
+  qDebug() << QSslSocket::activeBackend();
+  qDebug() << QSslSocket::supportsSsl();
 };
 
 void FileDownloader::downloadFile(const QString &of, const QString &lf){
     zipFile = lf;
     QUrl url(of);
     QNetworkRequest req(url);
+    req.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
     reply = netAManager->get(req);
     QFileInfo info(lf);
     zipDir = info.absoluteDir().path();

@@ -7,6 +7,14 @@
 
 #QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
 
+ANDROID_PACKAGE_NAME = com.vanyog.ReadBible5
+ANDROID_EXTRA_LIBS += \
+    $$PWD/android/libs/arm64-v8a/libcrypto_3.so \
+    $$PWD/android/libs/arm64-v8a/libssl_3.so
+QTPLUGIN += qopensslbackend
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+ANDROID_VERSION_CODE = 2
+
 VERSION = 5.3.6
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
@@ -44,7 +52,7 @@ ICON = images/mac1.icns
 
 # Input
 HEADERS += mainWindow.h myFileRoutines.h myDecode.h showMessage.h bibleWindow.h exportDialog.h \
-    myMdiArea.h
+    mymdiarea.h
 HEADERS += language.h fileDownloader.h webUpdater.h preferences.h history.h
 HEADERS += concordance.h preferedColors.h filterDialog.h myListView.h verseCollection.h
 
@@ -68,4 +76,9 @@ OBJECTS_DIR = build
 CONFIG += no_moc_predefs
 
 DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/res/values/libs.xml \
+    android/res/xml/qtprovider_paths.xml \
     restart.sh
+

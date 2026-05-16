@@ -74,11 +74,11 @@ int main(int argc, char *argv[])
        if (dataDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty()) dataDir.rmdir(dataDir.path());
    }
 
-#ifdef Q_OS_ANDROID
-   window.showMaximized();
-#else
+//#ifdef Q_OS_ANDROID
+ //  window.showMaximized();
+//#else
    window.show();
-#endif
+//#endif
 
    QTimer::singleShot(0, [&window]() { window.tileOrCascade(); } );
    int i = app.exec();

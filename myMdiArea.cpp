@@ -1,4 +1,4 @@
-#include "myMdiArea.h"
+#include "mymdiarea.h"
 
 #include <QPainter>
 

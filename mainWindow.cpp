@@ -80,7 +80,10 @@ void stripShortcuts(QObject *root)
 BMainWindow::BMainWindow(QWidget *parent)
    : QMainWindow(parent)
 {
-   ui.setupUi(this);
+    ui.setupUi(this);
+#ifdef Q_OS_ANDROID
+    ui.menubar->setNativeMenuBar(false);
+#endif
    ui.dockWidget->setVisible( ui.action_Searching_toolbox->isChecked() );
 #ifdef Q_OS_IOS
    stripShortcuts(this);
@@ -1036,22 +1039,22 @@ void BMainWindow::setNumberComboBox(QComboBox *cb, int max, int curr){
     return bw;
  };
 
-void BMainWindow::tileOrCascade(){
-   if (activeBibleMaximized){
-      QMdiSubWindow *aw = mdiArea->activeSubWindow();
-      if (aw){
-         aw->setWindowState(Qt::WindowMaximized | Qt::WindowActive);
-         aw->show();
-      }
-      return;
-   }
-   if (doTile){
-       mdiArea->tileSubWindows();
-   }
-   else
-       mdiArea->cascadeSubWindows();
-   emit scrollToActiveVerse();
-};
+ void BMainWindow::tileOrCascade(){
+     if (activeBibleMaximized){
+         QMdiSubWindow *aw = mdiArea->activeSubWindow();
+         if (aw){
+             aw->setWindowState(Qt::WindowMaximized | Qt::WindowActive);
+             aw->show();
+         }
+         return;
+     }
+     if (doTile){
+         mdiArea->tileSubWindows();
+     }
+     else
+         mdiArea->cascadeSubWindows();
+     emit scrollToActiveVerse();
+ };
 
 // Прави активни бутоните за навигация "Напред" и "Назад"
 void BMainWindow::updateNavButtons(){

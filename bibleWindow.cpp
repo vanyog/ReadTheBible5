@@ -69,6 +69,10 @@ BibleWindow::BibleWindow(const QString &bv,  QWidget *parent)
 #ifdef Q_OS_IOS
     setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 #endif
+#ifdef Q_OS_ANDROID
+    setTextInteractionFlags(Qt::TextSelectableByKeyboard);
+    setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+#endif
    setAttribute(Qt::WA_DeleteOnClose);
    bible_Version = bv;
    bZipFile = bv+".zip";
