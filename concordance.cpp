@@ -341,7 +341,16 @@ void Concordance::onGlobalIndexChanged(BibleWindow *bw){
 void Concordance::onPushButton(){
    if (!cModel) return;
    FilterDialog *fd = new FilterDialog(cModel,pushButton);
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+   fd->setWindowState(Qt::WindowFullScreen);
+#else
+   QSettings settings;
+   fd->restoreGeometry(settings.value("FilterDialog/geometry").toByteArray());
+#endif
    fd->exec();
+#if !defined(Q_OS_IOS) && !defined(Q_OS_ANDROID)
+   settings.setValue("FilterDialog/geometry",fd->saveGeometry());
+#endif
 };
 
 // Изпълнява се при затваряне на Библията

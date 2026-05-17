@@ -113,7 +113,7 @@ void Preferences::onFontChange(){
 };
 
 void Preferences::onColorButtonPressed(){
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     preferedColor()->setWindowState(Qt::WindowFullScreen);
 #endif
    preferedColor()->exec();

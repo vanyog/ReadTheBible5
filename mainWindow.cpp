@@ -85,7 +85,7 @@ BMainWindow::BMainWindow(QWidget *parent)
     ui.menubar->setNativeMenuBar(false);
 #endif
    ui.dockWidget->setVisible( ui.action_Searching_toolbox->isChecked() );
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
    stripShortcuts(this);
    ui.actionBook->setVisible(false);
    ui.actionChapter->setVisible(false);
@@ -98,7 +98,7 @@ BMainWindow::BMainWindow(QWidget *parent)
     ui.actionChapter->setShortcuts({ QKeySequence("Alt+C"), QKeySequence(QString::fromUtf8("Alt+Ъ")) });
     ui.actionVerse->setShortcuts({ QKeySequence("Alt+V"), QKeySequence(QString::fromUtf8("Alt+Э")) });
 #endif
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_MAC) && !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
    ui.actionNext_Chapter->setShortcut(QKeySequence("Alt+PgDown"));
    ui.actionPrevious_Chapter->setShortcut(QKeySequence("Alt+PgUp"));
 #endif
@@ -561,7 +561,7 @@ void BMainWindow::onViewStayOnTop(){
 };
 
 void BMainWindow::onViewColorPreferences(){
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     preferedColor()->setWindowState(Qt::WindowFullScreen);
 #endif
    preferedColor()->exec();
@@ -573,19 +573,34 @@ void BMainWindow::onViewStyles(){
 //   p->edit(styleFile);
 };
 
-void changeFontSize(int i){
+/*void changeFontSize(int i){
    QFont font = qApp->font();
    int ps = font.pointSize()+i;
    font.setPointSize(ps);
    qApp->setFont(font);
-};
+};*/
+
+void changeFontSize(int i)
+{
+    QFont font = qApp->font();
+    int ps = font.pixelSize();
+    qDebug() << "font.pixelSize" << ps;
+//    showMessage(QString::number(ps));
+    if (ps <= 0)
+        ps = 16; // начална стойност
+    ps += i;
+    if (ps < 8)
+        ps = 8;
+    font.setPixelSize(ps);
+    qApp->setFont(font);
+}
 
 void BMainWindow::onViewBiggerFont(){
-   changeFontSize(1);
+   changeFontSize(2);
 };
 
 void BMainWindow::onViewSmallerFont(){
-   changeFontSize(-1);
+   changeFontSize(-2);
 };
 
 void BMainWindow::onDWVChanged(bool b){
@@ -691,7 +706,7 @@ void BMainWindow::onWindowsVersion43(){
 };
 
 void BMainWindow::onWindowsPreferences(){
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     preferences()->setWindowState(Qt::WindowFullScreen);
 #endif
    preferences()->exec();

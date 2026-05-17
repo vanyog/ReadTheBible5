@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "filterDialog.h"
 #include "concordance.h"
-#include "showMessage.h"
 
 FilterDialog::FilterDialog(ConcordanceModel *cm, QWidget *parent, Qt::WindowFlags f)
 :QDialog(parent,f)

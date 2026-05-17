@@ -15,7 +15,7 @@ QTPLUGIN += qopensslbackend
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ANDROID_VERSION_CODE = 2
 
-VERSION = 5.3.6
+VERSION = 5.3.7
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 !win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
