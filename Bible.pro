@@ -7,15 +7,11 @@
 
 #QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
 
-ANDROID_PACKAGE_NAME = com.vanyog.ReadBible5
-ANDROID_EXTRA_LIBS += \
-    $$PWD/android/libs/arm64-v8a/libcrypto_3.so \
-    $$PWD/android/libs/arm64-v8a/libssl_3.so
 QTPLUGIN += qopensslbackend
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-ANDROID_VERSION_CODE = 2
+ANDROID_VERSION_CODE = 3
 
-VERSION = 5.3.7
+VERSION = 5.4.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 !win32:QMAKE_CXXFLAGS += -Wno-inconsistent-missing-override
@@ -39,6 +35,8 @@ macx {
 ios {
     CONFIG += code
     QMAKE_ASSET_CATALOGS += Media.xcassets
+    QMAKE_BUNDLE_IDENTIFIER = com.vanyog.readthebiblefree
+    QMAKE_TARGET_BUNDLE_PREFIX = com.vanyog
 }
 
 #CONFIG += release
@@ -81,4 +79,16 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/res/xml/qtprovider_paths.xml \
     restart.sh
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/android/libs/armeabi-v7a/libssl_3.so \
+        $$PWD/android/libs/armeabi-v7a/libcrypto_3.so
+}
+
+contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/android/libs/arm64-v8a/libcrypto_3.so \
+        $$PWD/android/libs/arm64-v8a/libssl_3.so \
+}
 
