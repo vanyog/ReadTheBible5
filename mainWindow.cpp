@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "DialogUtils.h"
 #include "mainWindow.h"
 #include "myFileRoutines.h"
 #include "showMessage.h"
@@ -181,6 +182,8 @@ BMainWindow::BMainWindow(QWidget *parent)
    connect(ui.actionClose_all, SIGNAL(triggered()), this, SLOT(onWindowsCloseAll()));
    connect(ui.actionClose_others, SIGNAL(triggered()), this, SLOT(onWindowsCloseOthers()));
    connect(ui.actionClose_current, SIGNAL(triggered()), this, SLOT(onWindowsCloseActive()));
+   connect(ui.actionMaximize_current, SIGNAL(triggered()), this, SLOT(onWindowsMaximizeCurrent()));
+   connect(ui.actionNormalize_current, SIGNAL(triggered()), this, SLOT(onWindowsNormalizeCurrent()));
    connect(ui.actionCrossBGBible, SIGNAL(triggered()), this, SLOT(onWindowsCrossBGBible()));
    connect(ui.actionVersion_4_3, SIGNAL(triggered()), this, SLOT(onWindowsVersion43()));
    connect(ui.action_Preferences, SIGNAL(triggered()), this, SLOT(onWindowsPreferences()));
@@ -561,9 +564,7 @@ void BMainWindow::onViewStayOnTop(){
 };
 
 void BMainWindow::onViewColorPreferences(){
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    preferedColor()->setWindowState(Qt::WindowFullScreen);
-#endif
+    ensureDialogFitsScreen(preferedColor());
    preferedColor()->exec();
 };
 
@@ -677,6 +678,16 @@ void BMainWindow::onWindowsCloseActive(){
     mdiArea->closeActiveSubWindow();
 };
 
+void BMainWindow::onWindowsMaximizeCurrent(){
+    activeBibleMaximized = true;
+    tileOrCascade();
+};
+
+void BMainWindow::onWindowsNormalizeCurrent(){
+    activeBibleMaximized = false;
+    tileOrCascade();
+};
+
 void BMainWindow::onWindowsCrossBGBible(){
     showMessage(tr("Old function. Not used any more.")); return;
    QString p = preferences()->CrossBgBiblePath();
@@ -706,9 +717,7 @@ void BMainWindow::onWindowsVersion43(){
 };
 
 void BMainWindow::onWindowsPreferences(){
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    preferences()->setWindowState(Qt::WindowFullScreen);
-#endif
+    ensureDialogFitsScreen(preferences());
    preferences()->exec();
 };
 
@@ -1054,9 +1063,9 @@ void BMainWindow::setNumberComboBox(QComboBox *cb, int max, int curr){
     return bw;
  };
 
- void BMainWindow::tileOrCascade(){
-     if (activeBibleMaximized){
-         QMdiSubWindow *aw = mdiArea->activeSubWindow();
+void BMainWindow::tileOrCascade(){
+    if (activeBibleMaximized){
+        QMdiSubWindow *aw = mdiArea->activeSubWindow();
          if (aw){
              aw->setWindowState(Qt::WindowMaximized | Qt::WindowActive);
              aw->show();

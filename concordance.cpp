@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QClipboard>
 
 #include "concordance.h"
+#include "DialogUtils.h"
 #include "myListView.h"
 #include "myDecode.h"
 //#include "showMessage.h"
@@ -341,16 +342,15 @@ void Concordance::onGlobalIndexChanged(BibleWindow *bw){
 void Concordance::onPushButton(){
    if (!cModel) return;
    FilterDialog *fd = new FilterDialog(cModel,pushButton);
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-   fd->setWindowState(Qt::WindowFullScreen);
-#else
    QSettings settings;
-   fd->restoreGeometry(settings.value("FilterDialog/geometry").toByteArray());
-#endif
+   bool resized = ensureDialogFitsScreen(fd, false);
+   if (!resized){
+       fd->restoreGeometry(settings.value("FilterDialog/geometry").toByteArray());
+   }
    fd->exec();
-#if !defined(Q_OS_IOS) && !defined(Q_OS_ANDROID)
-   settings.setValue("FilterDialog/geometry",fd->saveGeometry());
-#endif
+   if (!resized){
+       settings.setValue("FilterDialog/geometry",fd->saveGeometry());
+   }
 };
 
 // Изпълнява се при затваряне на Библията

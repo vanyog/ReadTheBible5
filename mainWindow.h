@@ -102,6 +102,8 @@ private slots:
    void onWindowsCloseAll();
    void onWindowsCloseOthers();
    void onWindowsCloseActive();
+   void onWindowsMaximizeCurrent();
+   void onWindowsNormalizeCurrent();
    void onWindowsCrossBGBible();
    void onWindowsVersion43();
    void onWindowsPreferences();

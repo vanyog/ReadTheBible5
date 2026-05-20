@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "DialogUtils.h"
 #include "preferences.h"
 #include "preferedColors.h"
 #include "showMessage.h"
@@ -113,9 +114,7 @@ void Preferences::onFontChange(){
 };
 
 void Preferences::onColorButtonPressed(){
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    preferedColor()->setWindowState(Qt::WindowFullScreen);
-#endif
+    ensureDialogFitsScreen(preferedColor());
    preferedColor()->exec();
 };
 

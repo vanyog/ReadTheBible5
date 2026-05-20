@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "preferedColors.h"
-#include "showMessage.h"
+#include "DialogUtils.h"
 
 #include <QSettings>
+#include <QScreen>
 
 PreferedColor::PreferedColor(QWidget *parent, Qt::WindowFlags f)
  :QDialog(parent,f)
@@ -34,24 +35,31 @@ PreferedColor::PreferedColor(QWidget *parent, Qt::WindowFlags f)
 };
 
 QColor PreferedColor::baseColor() const{
-    return ui.lineEdit->palette().color(QPalette::Base);
- //  return ui.lineEdit->palette().color(QPalette::Active,QPalette::Base);
+    QColor rez = ui.lineEdit->palette().color(QPalette::Base);
+    return rez;
 };
 
 QColor PreferedColor::bibleTextColor() const{
-   return ui.lineEdit_2->palette().color(QPalette::Active,QPalette::Text);
+   QColor rez = ui.lineEdit_2->palette().color(QPalette::Active,QPalette::Text);
+    return rez;
 };
 
 QColor PreferedColor::activeVerseColor() const{
     auto p = ui.lineEdit_3->palette();
-    return p.color(p.currentColorGroup(), QPalette::Text);};
+    QColor rez = p.color(QPalette::Active, QPalette::Text);
+    qDebug() << rez;
+    return rez;
+};
+
 
 QColor PreferedColor::footnoteColor() const{
-   return ui.lineEdit_4->palette().color(QPalette::Active,QPalette::Text);
+   QColor rez = ui.lineEdit_4->palette().color(QPalette::Active,QPalette::Text);
+    return rez;
 };
 
 QColor PreferedColor::foundWordColor() const{
-   return ui.lineEdit_5->palette().color(QPalette::Active,QPalette::Text);
+   QColor rez = ui.lineEdit_5->palette().color(QPalette::Active,QPalette::Text);
+    return rez;
 };
 
 void PreferedColor::setBaseColor(const QColor &c){
@@ -84,28 +92,43 @@ void PreferedColor::setFoundWordColor(const QColor &c){
   emit toChangeOtherTextColor();
 };
 
+QColor myGetColor(QColor initial, QWidget *parent, QString title, QColorDialog::ColorDialogOptions options)
+{
+    QColor c = initial;
+    QColorDialog dlg(parent);
+    qDebug() << initial;
+    dlg.setWindowTitle(title);
+    dlg.setOptions(options);
+    ensureDialogFitsScreen(&dlg, true);
+    dlg.setCurrentColor(initial);
+    if (dlg.exec() == QDialog::Accepted) {
+        c = dlg.selectedColor();
+    }
+    return c;
+}
+
 void PreferedColor::onBaseColorPressed(){
-  QColor c=QColorDialog::getColor(baseColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c = myGetColor(baseColor(), this, ui.lineEdit->text(), cdOptions() );
   setBaseColor(c);
 };
 
 void PreferedColor::onBibleTextColorPressed(){
-  QColor c=QColorDialog::getColor(bibleTextColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c = myGetColor(bibleTextColor(),this,ui.lineEdit_2->text(),cdOptions());
   setBibleTextColor(c);
 };
 
 void PreferedColor::onActiveVerseColorPressed(){
-  QColor c=QColorDialog::getColor(activeVerseColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c = myGetColor(activeVerseColor(),this,ui.lineEdit_3->text(),cdOptions());
   setActiveVerseColor(c);
 };
 
 void PreferedColor::onFootnoteColorPressed(){
-  QColor c=QColorDialog::getColor(footnoteColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c = myGetColor(footnoteColor(),this,ui.lineEdit_4->text(),cdOptions());
   setFootnoteColor(c);
 };
 
 void PreferedColor::onFoundWordColorPressed(){
-  QColor c=QColorDialog::getColor(foundWordColor(),this,ui.lineEdit->text(),cdOptions());
+  QColor c = myGetColor(foundWordColor(),this,ui.lineEdit_5->text(),cdOptions());
   setFoundWordColor(c);
 };
 
@@ -144,14 +167,6 @@ void PreferedColor::setColorTo(QWidget *le, QPalette::ColorRole r, const QColor 
     p.setColor(QPalette::Inactive, r, finalColor);
     le->setPalette(p);
 }
-
-/*void PreferedColor::setColorTo(QWidget *le, QPalette::ColorRole r, const QColor &c){
-   if (!c.isValid()) return;
-   QPalette p = le->palette();
-   p.setColor(QPalette::Active, r, c);
-   p.setColor(QPalette::Inactive, r, c);
-   le->setPalette(p);
-};*/
 
 void PreferedColor::writeSettings(QSettings *s){
    s->setValue("preferedColorGeometry",saveGeometry());

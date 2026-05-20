@@ -25,7 +25,7 @@
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <widget class="MyMdiArea" name="mdiArea"/>
+     <widget class="MyMdiArea" name="mdiArea" native="true"/>
     </item>
    </layout>
   </widget>
@@ -60,6 +60,8 @@
     <addaction name="separator"/>
     <addaction name="actionCrossBGBible"/>
     <addaction name="actionVersion_4_3"/>
+    <addaction name="actionMaximize_current"/>
+    <addaction name="actionNormalize_current"/>
     <addaction name="separator"/>
     <addaction name="action_Preferences"/>
    </widget>
@@ -922,12 +924,27 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
   </action>
+  <action name="actionMaximize_current">
+   <property name="text">
+    <string>Maximize current</string>
+   </property>
+  </action>
+  <action name="actionNormalize_current">
+   <property name="text">
+    <string>Normalize current</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
    <class>MyListView</class>
    <extends>QListView</extends>
    <header>myListView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyMdiArea</class>
+   <extends>QWidget</extends>
+   <header>mymdiarea.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -954,6 +971,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>349</x>
      <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionMaximize_current</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showMaximized()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>194</y>
     </hint>
    </hints>
   </connection>
