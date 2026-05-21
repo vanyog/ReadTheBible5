@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>573</width>
-        <height>347</height>
+        <width>575</width>
+        <height>349</height>
        </rect>
       </property>
       <layout class="QVBoxLayout">
@@ -41,38 +41,24 @@
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_11">
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>Interface language </string>
+                <string>Crossreferences</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" colspan="2">
-              <widget class="QComboBox" name="comboBox_4">
-               <item>
-                <property name="text">
-                 <string>System Defaoult</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Български</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Македонски</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>English</string>
-                </property>
-               </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Max Visible Items</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
               </widget>
              </item>
              <item row="1" column="0">
@@ -88,6 +74,28 @@
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QSpinBox" name="spinBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>3</number>
+               </property>
+               <property name="value">
+                <number>11</number>
                </property>
               </widget>
              </item>
@@ -109,81 +117,6 @@
                  <string>in the chapter text</string>
                 </property>
                </item>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Crossreferences</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" colspan="2">
-              <widget class="QComboBox" name="comboBox_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <item>
-                <property name="text">
-                 <string>at the chapter end</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>in the chapter text</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Max Visible Items</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QSpinBox" name="spinBox">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>2</number>
-               </property>
-               <property name="value">
-                <number>11</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Colors</string>
-               </property>
-               <property name="autoDefault">
-                <bool>true</bool>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
               </widget>
              </item>
              <item row="4" column="0" colspan="3">
@@ -267,6 +200,79 @@
                 </widget>
                </item>
               </layout>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QComboBox" name="comboBox_4">
+               <item>
+                <property name="text">
+                 <string>System Defaoult</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Български</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Македонски</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>English</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="1" colspan="2">
+              <widget class="QComboBox" name="comboBox_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <item>
+                <property name="text">
+                 <string>at the chapter end</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>in the chapter text</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Interface language </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Colors</string>
+               </property>
+               <property name="autoDefault">
+                <bool>true</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>

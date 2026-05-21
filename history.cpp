@@ -41,7 +41,6 @@ int History::back(){
       r = list.value(c_i);
    }
    frag = "";
-//   qDebug() << c_i << list << r;
    return r;
 };
 
@@ -51,7 +50,6 @@ int History::forward(){
       c_i++;
       r = list.value(c_i);
    }
-//   qDebug() << c_i << list << r;
    return r;
 };
 

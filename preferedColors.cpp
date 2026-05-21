@@ -47,7 +47,6 @@ QColor PreferedColor::bibleTextColor() const{
 QColor PreferedColor::activeVerseColor() const{
     auto p = ui.lineEdit_3->palette();
     QColor rez = p.color(QPalette::Active, QPalette::Text);
-    qDebug() << rez;
     return rez;
 };
 
@@ -96,7 +95,6 @@ QColor myGetColor(QColor initial, QWidget *parent, QString title, QColorDialog::
 {
     QColor c = initial;
     QColorDialog dlg(parent);
-    qDebug() << initial;
     dlg.setWindowTitle(title);
     dlg.setOptions(options);
     ensureDialogFitsScreen(&dlg, true);

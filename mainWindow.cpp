@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "fileDownloader.h"
 #include "concordance.h"
 #include "verseCollection.h"
-#include "ctime"
 
 #include <QMdiArea>
 #include <QSettings>
@@ -518,17 +517,14 @@ void BMainWindow::onGoForward(){
 
 void BMainWindow::onGoBookList(){
   ui.comboBox_2->setFocus(Qt::MouseFocusReason);
-//  ui.comboBox_2->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoChapterList(){
   ui.comboBox_3->setFocus(Qt::MouseFocusReason);
-//  ui.comboBox_3->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoVerseList(){
   ui.comboBox_4->setFocus(Qt::MouseFocusReason);
- // ui.comboBox_4->lineEdit()->selectAll();
 };
 
 void BMainWindow::onGoRandomVerse(){
@@ -570,28 +566,17 @@ void BMainWindow::onViewColorPreferences(){
 
 void BMainWindow::onViewStyles(){
 //   MyProcess *p = new MyProcess(this);
-   showMessage(tr("Style changes will take effect next time you strat the Bible program. Click OK to start editing."));
+   showMessage(tr("Style changes will take effect next time you start the Bible program. Click OK to start editing."));
 //   p->edit(styleFile);
 };
-
-/*void changeFontSize(int i){
-   QFont font = qApp->font();
-   int ps = font.pointSize()+i;
-   font.setPointSize(ps);
-   qApp->setFont(font);
-};*/
 
 void changeFontSize(int i)
 {
     QFont font = qApp->font();
     int ps = font.pixelSize();
-    qDebug() << "font.pixelSize" << ps;
-//    showMessage(QString::number(ps));
-    if (ps <= 0)
-        ps = 16; // начална стойност
+    if (ps <= 0) ps = 16;
     ps += i;
-    if (ps < 8)
-        ps = 8;
+    if (ps < 8) ps = 8;
     font.setPixelSize(ps);
     qApp->setFont(font);
 }
@@ -636,7 +621,6 @@ void BMainWindow::onWindowsCloseAll(){
         QPointer<QMdiSubWindow> guard(w);
         w->close();
         QCoreApplication::processEvents();
-        if (!guard) qDebug() << "window deleted safely";
     }
 };
 
@@ -1252,7 +1236,6 @@ void BMainWindow::on_actionBuild_Bible_triggered()
         s.setValue(pname, file);
         QString fcontent = fileContent(file, "UTF-8");
         QStringList fnames = fcontent.split(QRegularExpression("\\r?\\n"), Qt::SkipEmptyParts);
-        qDebug() << fnames.count();
     }
 }
 #endif

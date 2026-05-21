@@ -45,9 +45,6 @@ FileDownloader::FileDownloader( QObject * parent, QProgressBar *pbar, QPushButto
   progressBar=pbar; pushButton=button;
   file=0; getID=0; notDone=false; doneMessage=""; zipFile="";
   if (!netAManager) netAManager = new QNetworkAccessManager;
-  qDebug() << QSslSocket::availableBackends();
-  qDebug() << QSslSocket::activeBackend();
-  qDebug() << QSslSocket::supportsSsl();
 };
 
 void FileDownloader::downloadFile(const QString &of, const QString &lf){

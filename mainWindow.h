@@ -77,10 +77,10 @@ private slots:
    void onVerseChanged(int i);
    void onGoNextVerse();
    void onGoPreviousVerse();
-   void onGoVerseForReadieng();
-   void on_actionSet_Place_for_Reading_triggered();
    void onGoNextChapter();
    void onGoPreviousChapter();
+   void onGoVerseForReadieng();
+   void on_actionSet_Place_for_Reading_triggered();
    void onGoBack();
    void onGoForward();
    void onGoBookList();

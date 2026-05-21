@@ -48,7 +48,7 @@ YesNoCancel yesNoCancel(const QString &ms, const QString &t){
  if (t.size()) title = t;
  else if (aw) title = aw->windowTitle();
  QMessageBox::StandardButton r;
- r = QMessageBox::warning(aw,title,ms,
+ r = QMessageBox::information(aw,title,ms,
        QMessageBox::Yes | QMessageBox::No  | QMessageBox::Cancel,
        QMessageBox::Yes);
  if (r==QMessageBox::Yes) return YES;

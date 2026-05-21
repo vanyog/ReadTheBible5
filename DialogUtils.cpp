@@ -18,16 +18,13 @@ bool ensureDialogFitsScreen(QDialog *dlg, bool szh )
     if (!screen) screen = QGuiApplication::primaryScreen();
     if (!screen) return rez;
     QRect screenRect = screen->availableGeometry();
-    qDebug() << dlgSize << screenRect;
     if (dlgSize.width() > screenRect.width() || dlgSize.height() > screenRect.height())
     {
-        qDebug() << "setMaximized";
         dlg->setWindowState(Qt::WindowFullScreen);
         return true;
     }
     int x = screenRect.x() + (screenRect.width() - dlgSize.width()) / 2;
     int y = screenRect.y() + (screenRect.height() - dlgSize.height()) / 2;
-    qDebug() << "move" << x << y;
     dlg->move(x, y);
     return rez;
 }
