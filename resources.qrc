@@ -5,6 +5,7 @@
         <file>Bible_bg.qm</file>
         <file>images/Logo_2a.png</file>
         <file>data/bibles/Bible_Structure.txt</file>
+        <file>data/bibles/php-bible.css</file>
         <file>images/Logo_ikon_256x256.png</file>
     </qresource>
 </RCC>

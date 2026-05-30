@@ -9,7 +9,7 @@
         <translation type="obsolete">&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:info@vanyog.com&gt;info@vanyog.com&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1028"/>
+        <location filename="mainWindow.cpp" line="1006"/>
         <source>File %1 is corrupt at line %2.</source>
         <translation>Фајл %1 е оштетен во ред %2. </translation>
     </message>
@@ -18,22 +18,22 @@
         <translation type="obsolete">Почакайте да се зареди списъка думи...</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="227"/>
+        <location filename="mainWindow.cpp" line="232"/>
         <source>Export as %1 file</source>
         <translation>Експортирање во %1 формат</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="248"/>
+        <location filename="mainWindow.cpp" line="253"/>
         <source>This function is activated by the author of the program only when necessary. It converts .txt Bible file to the format used by the &quot;Read the Bible&quot;.</source>
         <translation>Оваа функција ја активира авторот на програмата само кога е потребно. Ја конвертира библиската датотека во формат .txt во форматот што го користи „Read the Bible“.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="254"/>
+        <location filename="mainWindow.cpp" line="259"/>
         <source>Import Bible from .txt file</source>
         <translation>Импортирање на Библија од .txt фајл</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="261"/>
+        <location filename="mainWindow.cpp" line="266"/>
         <source>In the current Bible directory, if there is a file with references Links.txt, it will be converted to file Links.bin. Thus, the references will be shown when this Bible is opened again. For more information, see Help. Will you continue?</source>
         <translation>Во тековниот директориум на Библијата, ако има датотека со референци Links.txt, таа ќе се конвертира во датотека Links.bin. Така, референците ќе се прикажат кога повторно ќе се отвори оваа Библија. За повеќе информации, видете Помош. Дали сакате да продолжите?</translation>
     </message>
@@ -42,50 +42,50 @@
         <translation type="vanished">Оваа функција  не може да се изврши во вашиот оперативен систем.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="447"/>
-        <location filename="mainWindow.cpp" line="467"/>
+        <location filename="mainWindow.cpp" line="452"/>
+        <location filename="mainWindow.cpp" line="472"/>
         <source>Last verse is reached %1.</source>
         <translation>Последниот стих е достигнат %.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="498"/>
+        <location filename="mainWindow.cpp" line="503"/>
         <source>Do you really want to set the current verse for a place to continue reading of this Bible?</source>
         <translation>Дали навистина сакате да го поставите тековниот стих за место за продолжување на читањето на оваа Библија?</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="574"/>
-        <source>Style changes will take effect next time you strat the Bible program. Click OK to start editing.</source>
-        <oldsource>Changes will take effect next time you strat the Bible program.</oldsource>
+        <source>Style changes will take effect next time you start the Bible program. Click OK to start editing.</source>
+        <oldsource>Style changes will take effect next time you strat the Bible program. Click OK to start editing.</oldsource>
         <translation>Промените во стилот ќе се извршат по следното стартирање на програмата. Притиснете ОК за да почне редактирањето на стиловите.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="693"/>
+        <location filename="mainWindow.cpp" line="672"/>
         <source>Old function. Not used any more.</source>
         <oldsource>Old function. Not used yet.</oldsource>
         <translation>Стара функција. Не се користи повеќе.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="709"/>
+        <location filename="mainWindow.cpp" line="688"/>
         <source>While your are working with version 4.3, the word lists in %1 of the same Bibles wil not be visible.</source>
         <translation>Додека работите со верзијата 4.3, списоците со зборови на отворените од неа Библии нема да бидат достапни во верзијата %1.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="716"/>
+        <location filename="mainWindow.cpp" line="695"/>
         <source>This feature is available only for Windows.</source>
         <translation>Оваа функција е достапна само во Windows.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="764"/>
+        <location filename="mainWindow.cpp" line="741"/>
         <source>Read the Bible Free - v%1&lt;br&gt;Copyright (C) 2008–2026 Vanyo Georgiev&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL), version 2 or later.&lt;br&gt;&lt;br&gt;This program is provided WITHOUT ANY WARRANTY. See the GPL for details.&lt;br&gt;&lt;br&gt;Full license: &lt;A HREF=&quot;https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&amp;_x_tr_tl=%4&amp;_x_tr_hl=%4&quot;&gt;%5&lt;/A&gt;</source>
         <translation>Компјутерска Библија бесплатна - v%1&lt;br&gt;Авторски права (C) 2008–2026 Вањо Георгиев&lt;br&gt;&amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Оваа програма е бесплатен софтвер: можете да ја редистрибуирате и/или менувате според условите на Општата јавна лиценца на GNU (GPL), верзија 2 или понова.&lt;br&gt;&lt;br&gt;Оваа програма е обезбедена БЕЗ НИКАКВА ГАРАНЦИЈА. Видете ја GPL за детали.&lt;br&gt;&lt;br&gt;Целосна лиценца: &lt;A HREF=&quot;https://www-gnu-org.translate.goog/licenses/old-licenses/gpl-2.0.html?_x_tr_sl=auto&amp;_x_tr_tl=%4&amp;_x_tr_hl=%4&quot;&gt;%5&lt;/A&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="771"/>
+        <location filename="mainWindow.cpp" line="748"/>
         <source>GNU General Public License, version 2</source>
         <translation>Општа јавна лиценца на GNU, верзија 2</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1214"/>
+        <location filename="mainWindow.cpp" line="1192"/>
         <source>Settings have been reset. Swipe your finger across the screen from the bottom to the middle of the screen and to the right. You will see the windows of the open applications. Slide the Read th Bible Free window up to close it. Then open it again.</source>
         <translation>Поставките се ресетирани. Повлечете го прстот по екранот од дното до средината и десно. Ќе ги видите прозорците на отворените апликации. Поместете го прозорецот &quot;Компјутерска Библија&quot; нагоре за да го затворите. Потоа отвори го повторно.</translation>
     </message>
@@ -98,12 +98,12 @@
         <translation type="vanished">&quot;Компютърна Библия&quot; - %1&lt;br&gt;Авторско право &lt;sup&gt;(C)&lt;/sup&gt;: 2008  Ваньо Георгиев &amp;lt;&lt;A HREF=mailto:%3&gt;%3&lt;/A&gt;&amp;gt;&lt;br&gt;&lt;A HREF=%2&gt;%2&lt;/A&gt;&lt;br&gt;&lt;br&gt;Това е програма с отворен код; Вие можете да я разпространявате и/или променяте според условията на Общото право за публично ползване (GNU GPL) на Фондацията за свободен софтуер; във версия 2 или (по ваше желание) по-следваща версия.&lt;br&gt;&lt;br&gt;Тази програма се разпространява с очакване, че е полезна, но БЕЗ НИКАКВИ ГАРАНЦИИ; дори без обичайни гаранции за продаваем продукт или пригодност за каквато и да било цел. За подробности вижте лиценза GNU GPL.&lt;br&gt;&lt;br&gt;Вие трябва да сте получили с тази програма копие от Общото право за публично ползване; ако не сте, пишете на:&lt;br&gt;&lt;br&gt;Free Software Foundation, Inc.,&lt;br&gt;51 Franklin Street, Fifth Floor,&lt;BR&gt;Boston, MA  02110-1301, USA.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="783"/>
+        <location filename="mainWindow.cpp" line="760"/>
         <source>Open a Bible, and then look for information about it.</source>
         <translation>Отвори ја Библијата, а потоа побарај информации за неа.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1152"/>
+        <location filename="mainWindow.cpp" line="1130"/>
         <source>Version 4.3 is not Installed. Do you want to download it?</source>
         <translation>Верзијата 4.3 не е инсталирана. Сакате ли да биде симната од интернет?</translation>
     </message>
@@ -112,7 +112,7 @@
         <translation type="vanished">Кога го симнувате овој фајл на Windows Vista или Windows 7, треба да сте ја стартирале „Компјутерска Библија“ како администратор. (Затворете ја програмата и со десниот клик притиснете на глувчето врз фајлот C:\Program files (x86)\VanyoG\Bible5\Bible.exe и изберете &quot;Run as Administrator&quot;). Дали така направивте?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1164"/>
+        <location filename="mainWindow.cpp" line="1142"/>
         <source>Version 4.3</source>
         <translation>Верзија 4.3</translation>
     </message>
@@ -121,7 +121,7 @@
         <translation type="vanished">Ви честитаме! Ја стартиравте новата верзија %1 на &quot;Компјутерска Библија&quot;. Ве молиме пишете на &lt;a href=&quot;mailto:%2&quot;&gt;%2&lt;/a&gt; за сите прашања што ги имате за оваа програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1205"/>
+        <location filename="mainWindow.cpp" line="1183"/>
         <source>All saved settings can be deleted and the program can restart as it was just installed. This will not delete the downloaded texts, but if they are in an unusual place, they will stop opening. You will be able to download them again at the intended location. Will you continue?</source>
         <translation>Сите зачувани поставки можат да се избришат и програмата може да се рестартира како штотуку беше инсталирана. Ова нема да ги избрише преземените текстови, но ако се на необично место, ќе престанат да се отвораат. Ќе можете повторно да ги преземете на наменетата локација. Дали ќе продолжите?</translation>
     </message>
@@ -130,7 +130,7 @@
         <translation type="obsolete">Честито! Вие стартирахте новата версия %1 на &quot;Компютърна Библия&quot;. Моля, пишете на &lt;a href=&quot;mailto:info@vanyog.com&quot;&gt;info@vanyog.com&lt;/a&gt; по всички въпроси, които имате за тази програма.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="1183"/>
+        <location filename="mainWindow.cpp" line="1161"/>
         <source>Open the Bible Translation you like to download and try again.</source>
         <translation>Прво отворете го преводот на Библијата што сакате повторно да го симнете.</translation>
     </message>
@@ -142,7 +142,7 @@
 <context>
     <name>BibleWindow</name>
     <message>
-        <location filename="bibleWindow.cpp" line="1010"/>
+        <location filename="bibleWindow.cpp" line="1049"/>
         <source>No such book in this version.</source>
         <translation>Не постои таква книга во оваа Библија.</translation>
     </message>
@@ -155,88 +155,98 @@
         <translation type="obsolete">Изтеглянето завърши. Можете да отворите тази Библия.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="814"/>
+        <location filename="bibleWindow.cpp" line="834"/>
         <source>There is no information about this Bible Version.</source>
         <translation>Не е најдена информација за овој превод на Библијата.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="143"/>
+        <location filename="bibleWindow.cpp" line="145"/>
         <source>Would you like to download Bible %1?</source>
         <translation>Сакате ли да ја симнете од интернет Библијата &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="165"/>
+        <location filename="bibleWindow.cpp" line="172"/>
+        <source>There are newer files with %1. To download them, open &quot;Bible&quot; – &quot;Download again&quot;.</source>
+        <translation>Има понови датотеки со %1. За да ги преземете, отворете „Библија“ – „Повторно симнување“.</translation>
+    </message>
+    <message>
+        <location filename="bibleWindow.cpp" line="185"/>
         <source>File do not exist
 %1</source>
         <translation>Не постои фајл
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="173"/>
-        <location filename="bibleWindow.cpp" line="177"/>
+        <location filename="bibleWindow.cpp" line="193"/>
+        <location filename="bibleWindow.cpp" line="197"/>
         <source>Can&apos;t open file for write
 %1</source>
         <translation>Фајлот не може да се отвори за читање
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="193"/>
+        <location filename="bibleWindow.cpp" line="213"/>
         <source>There is no Tab symbol in this line:
 %1</source>
         <translation>Недостига симбол Tab во редот:
 %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="220"/>
-        <location filename="bibleWindow.cpp" line="880"/>
+        <location filename="bibleWindow.cpp" line="240"/>
+        <location filename="bibleWindow.cpp" line="919"/>
         <source>Can&apos;t recognize verse number in reference %1</source>
         <translation>Не може да се распознае бројот на стихот во референцата %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="231"/>
+        <location filename="bibleWindow.cpp" line="251"/>
         <source>Link file was created.</source>
         <translation>Фајлот со референци беше создаден.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="251"/>
+        <location filename="bibleWindow.cpp" line="271"/>
         <source>Incorrect Book title.&lt;br&gt;%1&lt;br&gt;Must be %2</source>
         <translation>Неправилно име на книга.&lt;br&gt;%1&lt;br&gt;Треба да е %2</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="285"/>
+        <location filename="bibleWindow.cpp" line="305"/>
         <source>%1&lt;br&gt;Incorrect verse number in line&lt;br&gt;%2.&lt;br&gt;Must be %3</source>
         <translation>%1&lt;br&gt;Неправилен број на стих во редот&lt;br&gt;%2.&lt;br&gt;Треба да е %3</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="483"/>
+        <location filename="bibleWindow.cpp" line="503"/>
         <source>All done</source>
         <translation>Направено е</translation>
+    </message>
+    <message>
+        <location filename="bibleWindow.cpp" line="845"/>
+        <source>close</source>
+        <translation>затвори</translation>
     </message>
     <message>
         <source>Downloaging is finished. Now you can open the Bible %1.</source>
         <translation type="vanished">Симнувањето заврши. Може да ја отворите Библијата &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="873"/>
-        <location filename="bibleWindow.cpp" line="902"/>
-        <location filename="bibleWindow.cpp" line="910"/>
-        <location filename="bibleWindow.cpp" line="918"/>
-        <location filename="bibleWindow.cpp" line="922"/>
+        <location filename="bibleWindow.cpp" line="912"/>
+        <location filename="bibleWindow.cpp" line="941"/>
+        <location filename="bibleWindow.cpp" line="949"/>
+        <location filename="bibleWindow.cpp" line="957"/>
+        <location filename="bibleWindow.cpp" line="961"/>
         <source>Can&apos;t recognize reference %1</source>
         <translation>Не може да биде распознаена референцата %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="893"/>
+        <location filename="bibleWindow.cpp" line="932"/>
         <source>Can&apos;t recognize book in reference %1</source>
         <translation>Не може да биде распознаено името на книгата во референцата %1</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="895"/>
+        <location filename="bibleWindow.cpp" line="934"/>
         <source>The case of reference like %1 is not programed.</source>
         <translation>Разпознавањето на референцата како %1 не е програмирано.</translation>
     </message>
     <message>
-        <location filename="bibleWindow.cpp" line="1021"/>
+        <location filename="bibleWindow.cpp" line="1060"/>
         <source>Error</source>
         <translation>Грешка</translation>
     </message>
@@ -336,13 +346,13 @@ Error: %1.</source>
 Грешка: %1.</translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="64"/>
+        <location filename="fileDownloader.cpp" line="61"/>
         <source>Error opening file %1 for writing</source>
         <oldsource>Error opening file %1 for writting</oldsource>
         <translation>Грешка при отворањето на датотеката %1 за запишување</translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="108"/>
+        <location filename="fileDownloader.cpp" line="105"/>
         <source>Error %1&lt;br&gt;%2</source>
         <translation>Грешка %1&lt;br&gt;%2</translation>
     </message>
@@ -1033,46 +1043,46 @@ that you want to download it from the Internet.</oldsource>
         <translation>Подесувања</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="31"/>
+        <location filename="preferedColors.ui" line="61"/>
         <source>Base Color</source>
         <translation>Основна боја</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="44"/>
-        <location filename="preferedColors.ui" line="111"/>
-        <location filename="preferedColors.ui" line="178"/>
-        <location filename="preferedColors.ui" line="245"/>
-        <location filename="preferedColors.ui" line="312"/>
+        <location filename="preferedColors.ui" line="74"/>
+        <location filename="preferedColors.ui" line="141"/>
+        <location filename="preferedColors.ui" line="208"/>
+        <location filename="preferedColors.ui" line="275"/>
+        <location filename="preferedColors.ui" line="342"/>
         <source>Change</source>
         <translation>Промени</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="98"/>
+        <location filename="preferedColors.ui" line="128"/>
         <source>Footnote Color</source>
         <translation>Фусноти</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="165"/>
+        <location filename="preferedColors.ui" line="195"/>
         <source>Text Color</source>
         <translation>Основен текст</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="232"/>
+        <location filename="preferedColors.ui" line="262"/>
         <source>Found Word Color</source>
         <translation>Барани зборови</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="299"/>
+        <location filename="preferedColors.ui" line="329"/>
         <source>Active Verse Color</source>
         <translation>Тековен стих</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="326"/>
+        <location filename="preferedColors.ui" line="356"/>
         <source>Qt dialog</source>
         <translation>Qt дијалог</translation>
     </message>
     <message>
-        <location filename="preferedColors.ui" line="346"/>
+        <location filename="preferedColors.ui" line="376"/>
         <source>Close</source>
         <translation>Затвори</translation>
     </message>
@@ -1080,22 +1090,22 @@ that you want to download it from the Internet.</oldsource>
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="preferences.cpp" line="100"/>
+        <location filename="preferences.cpp" line="101"/>
         <source>CrossBgBible&apos;s path</source>
         <translation>Фајлот на CrossBgBible</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="108"/>
+        <location filename="preferences.cpp" line="109"/>
         <source>Change Font</source>
         <translation>Промена на фонтот</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="137"/>
+        <location filename="preferences.cpp" line="136"/>
         <source>Application proxy has been set.</source>
         <translation>Прокси подесувањата беа направени.</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="140"/>
+        <location filename="preferences.cpp" line="139"/>
         <source>Language change will take effect next time you start the program.</source>
         <translation>Промената на јазикот ќе се направи со следното стартирање на програмата.</translation>
     </message>
@@ -1129,7 +1139,7 @@ that you want to download it from the Internet.</oldsource>
         <translation>False</translation>
     </message>
     <message>
-        <location filename="fileDownloader.cpp" line="120"/>
+        <location filename="fileDownloader.cpp" line="117"/>
         <source>Failed to remove existing file:</source>
         <translation>Неуспешно отстранување на постоечката датотека:</translation>
     </message>
@@ -1263,159 +1273,159 @@ Error: %1.</source>
         <translation>Изглед</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="47"/>
+        <location filename="preferences.ui" line="251"/>
         <source>Interface language </source>
         <translation>Јазик на интерфејсот </translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="58"/>
+        <location filename="preferences.ui" line="208"/>
         <source>System Defaoult</source>
         <translation>По подразбирање од системот</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="63"/>
+        <location filename="preferences.ui" line="213"/>
         <source>Български</source>
         <translation>Български</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="68"/>
+        <location filename="preferences.ui" line="218"/>
         <source>Македонски</source>
         <translation>Македонски</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="73"/>
+        <location filename="preferences.ui" line="223"/>
         <source>English</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="87"/>
+        <location filename="preferences.ui" line="73"/>
         <source>Footnotes</source>
         <translation>Фусноти</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="104"/>
-        <location filename="preferences.ui" line="134"/>
+        <location filename="preferences.ui" line="112"/>
+        <location filename="preferences.ui" line="238"/>
         <source>at the chapter end</source>
         <translation>На крајот на главата</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="109"/>
-        <location filename="preferences.ui" line="139"/>
+        <location filename="preferences.ui" line="117"/>
+        <location filename="preferences.ui" line="243"/>
         <source>in the chapter text</source>
         <translation>Во текстот на стиховите</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="117"/>
+        <location filename="preferences.ui" line="47"/>
         <source>Crossreferences</source>
         <translation>Референци</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="147"/>
+        <location filename="preferences.ui" line="57"/>
         <source>Max Visible Items</source>
         <translation>Должина на паѓачки списоци</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="179"/>
+        <location filename="preferences.ui" line="267"/>
         <source>Colors</source>
         <translation>Бои</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="230"/>
+        <location filename="preferences.ui" line="163"/>
         <source>Lucida Grande, 13</source>
         <translation>Lucida Grande, 13</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="277"/>
+        <location filename="preferences.ui" line="283"/>
         <source>Other</source>
         <translation>Други</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="295"/>
+        <location filename="preferences.ui" line="301"/>
         <source>Proxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="312"/>
+        <location filename="preferences.ui" line="318"/>
         <source>Proxy type</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="320"/>
+        <location filename="preferences.ui" line="326"/>
         <source>NoProxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="325"/>
+        <location filename="preferences.ui" line="331"/>
         <source>DefaultProxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="330"/>
+        <location filename="preferences.ui" line="336"/>
         <source>Socks5Proxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="335"/>
+        <location filename="preferences.ui" line="341"/>
         <source>HttpProxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="340"/>
+        <location filename="preferences.ui" line="346"/>
         <source>HttpCachingProxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="345"/>
+        <location filename="preferences.ui" line="351"/>
         <source>FtpCachingProxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="353"/>
+        <location filename="preferences.ui" line="359"/>
         <source>Host name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="363"/>
+        <location filename="preferences.ui" line="369"/>
         <source>Port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="370"/>
+        <location filename="preferences.ui" line="376"/>
         <source>1080</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="377"/>
+        <location filename="preferences.ui" line="383"/>
         <source>User name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="391"/>
+        <location filename="preferences.ui" line="397"/>
         <source>Password</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="419"/>
+        <location filename="preferences.ui" line="425"/>
         <source>CrossBgBible&apos;s path</source>
         <translation>Фајлот на CrossBgBible</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="465"/>
+        <location filename="preferences.ui" line="471"/>
         <source>Browse</source>
         <translation>Насочување</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="212"/>
+        <location filename="preferences.ui" line="145"/>
         <source>Font:</source>
         <translation>Фонт:</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="246"/>
+        <location filename="preferences.ui" line="179"/>
         <source>Change</source>
         <translation>Смени</translation>
     </message>
     <message>
-        <location filename="preferences.ui" line="262"/>
+        <location filename="preferences.ui" line="195"/>
         <source>Qt dialog</source>
         <translation>Qt дијалог</translation>
     </message>

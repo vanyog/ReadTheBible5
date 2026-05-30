@@ -133,8 +133,7 @@ private slots:
        activeBibleMaximized, // Дали активната библия е максимизирана на цял екран
        saveHistory = true, // Дали да се запазва историята при смяна на активния стих
        tileAfterClosing = false // Става истина при затваряне на Библия.
-                                // Служи за изпълняване на tileOrCascade еднократно при resizeEvent
-      ;
+       ;
    QHash<QString, QAction*> bAction;
    ExportDialog *exportDialog;
    WebUpdater *webUpdater;

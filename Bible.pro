@@ -4,6 +4,7 @@
 
 # Флаг, който включва компилиране на допълнителни фенкции за администриране на Библиите
 #DEFINES += ADMIN_BUILD
+contains(DEFINES, ADMIN_BUILD) { QT += xml }
 
 #QMAKE_IOS_DEPLOYMENT_TARGET = 15.0
 

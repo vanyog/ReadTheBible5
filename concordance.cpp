@@ -328,6 +328,7 @@ void Concordance::onEditTextChanged(const QString &t0){
 // в списъка с намерени стихове
 void Concordance::onGlobalIndexChanged(BibleWindow *bw){
     Q_UNUSED(bw);
+    if(!cModel) return;
    int ci = vListView->currentIndex().row(); // Номер на селектирания ред в списъка с намерени стихове
    int vi = cModel->bible->verseIndex();  // Локален индек на активния стих от Библията
    if (!vi) return; // Ако няма активен стих - изход

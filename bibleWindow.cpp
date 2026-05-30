@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "bibleWindow.h"
+#include "DialogUtils.h"
 #include "showMessage.h"
 #include "myDecode.h"
 #include "myFileRoutines.h"
@@ -41,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QTextStream>
 #include <QTimer>
 #include <QScrollBar>
+#include <QScroller>
 
 QProgressBar  *downloadProgressBar = 0;
 QPushButton *dounloadCancelButton = 0;
@@ -152,6 +154,25 @@ void BibleWindow::downloadBible(const QString &bv){
 
 void BibleWindow::writeSettings(){
    concordance()->writeSettings();
+};
+
+void BibleWindow::thereIsNewerToDownload(){
+    QFileInfo dirInfo(bDir);
+    QDateTime localTime = dirInfo.lastModified();
+    localTime = localTime.toUTC();
+    QString of = "https://"+downloadSite()+"/bible/v5/"+QFileInfo(bZipFile).fileName();
+    QNetworkRequest request((QUrl(of)));
+    request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::UserVerifiedRedirectPolicy);
+//    QNetworkReply *reply = networkManager.head(request);
+    QNetworkReply *reply = networkManager.get(request);
+    connect(reply, &QNetworkReply::finished, [reply, localTime, this]()
+            {
+                QDateTime remoteTime = reply->header(QNetworkRequest::LastModifiedHeader).toDateTime();
+                remoteTime = remoteTime.toUTC();
+                if(remoteTime > localTime)
+                    showMessage(tr("There are newer files with %1. To download them, open \"Bible\" – \"Download again\".").arg(windowTitle()));
+            });
+    return;
 };
 
 void BibleWindow::readSettings(){
@@ -499,12 +520,12 @@ void BibleWindow::onScroll(int value)
     QTextBlock block = cursor.block();
     int vrn = block.text().section('.', 0, 0).toInt();
     if( (vrn>0) && (vrn>vrl) && (vrn<=verseCount()) ){
-         //   disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+        // disconnect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
         force_Set_ReadPos = true;
-         if(isActiveMdiWindow()){
+        if(isActiveMdiWindow()){
             emit globalIndexChaged(verseIndex() + vrn - vrl);
-         }
         }
+    }
 }
 
 void BibleWindow::globalToLocal(){
@@ -815,8 +836,27 @@ void BibleWindow::about(){
       return;
    }
    QUrl url = QUrl::fromLocalFile(bDir+"about.html");
+   QString dst = QDir(bDir).filePath("../php-bible.css");
+   QFile::remove(dst);
+   QFile::copy(":/data/bibles/php-bible.css", dst);
+#ifdef Q_OS_IOS
+   QDialog dlg(this);
+   QVBoxLayout *layout = new QVBoxLayout(&dlg);
+   QTextBrowser *browser = new QTextBrowser;
+   QPushButton *closeButton = new QPushButton(tr("close"));
+   layout->addWidget(closeButton);
+   connect(closeButton, &QPushButton::clicked, &dlg, &QDialog::close);
+   layout->addWidget(browser);
+   browser->setSource(url);
+   browser->setTextInteractionFlags(Qt::TextSelectableByKeyboard);
+   QScroller::grabGesture(browser->viewport(), QScroller::LeftMouseButtonGesture);
+   dlg.resize(700, 500);
+   ensureDialogFitsScreen(&dlg);
+   dlg.exec();
+#else
    QDesktopServices::openUrl(url);
- };
+#endif
+};
 
 ConcordanceModel *BibleWindow::concordance(){
    setFileNOpened(false);
@@ -1034,6 +1074,7 @@ void BibleWindow::onGlobalIndexChanged(BibleWindow *bw){
    displayText();
 };
 
+// Приема сигнал и превърта прозореца, да се вижда активния стих
 void BibleWindow::scrollToActiveVerse(){
    int p = document()->findBlockByNumber( verse() ).position();
    if (!p) return;
@@ -1043,7 +1084,8 @@ void BibleWindow::scrollToActiveVerse(){
    tc.movePosition(QTextCursor::EndOfBlock,QTextCursor::MoveAnchor);
    setTextCursor(tc);
    QTimer::singleShot(0, [this]() {
-       connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
+       if(verticalScrollBar())
+           connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &BibleWindow::onScroll);
    });
 };
 
@@ -1331,4 +1373,3 @@ void setReadPositions(const QStringList &bl){
        read_pos[l.at(0)] = l.at(1).toInt();
    }
 };
-

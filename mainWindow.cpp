@@ -46,12 +46,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <QScrollBar>
 #include <QStyleHints>
 
+#ifdef ADMIN_BUILD
+#include <QDomDocument>
+#include <QDomNamedNodeMap>
+#include <QHash>
+#endif
+
 QString progVersion = APP_VERSION;
 QString progURL = "https://vanyog.com/index.php?pid=24&lang=";
 QString helpURL = "https://vanyog.com/index.php?pid=121&lang=";
 QString progEmail = "info@vanyog.com";
 
-// header или анонимен namespace
 void stripShortcuts(QObject *root)
 {
     if (!root) return;
@@ -615,11 +620,11 @@ void BMainWindow::onWindowsCascade(){
 
 void BMainWindow::onWindowsCloseAll(){
     const QList<QMdiSubWindow*> list = mdiArea->subWindowList();
-    for (QMdiSubWindow *w : list)
-    {
+    for (QMdiSubWindow *w : list) {
         if (!w) continue;
         QPointer<QMdiSubWindow> guard(w);
-        w->close();
+        if (guard) guard->close();
+        if (!guard) continue;
         QCoreApplication::processEvents();
     }
 };
@@ -628,35 +633,21 @@ void BMainWindow::onWindowsCloseOthers()
 {
     QMdiSubWindow *active = ui.mdiArea->activeSubWindow();
     const QList<QMdiSubWindow*> windows = ui.mdiArea->subWindowList();
-    for (QMdiSubWindow *subWindow : windows)
-    {
+    for (QMdiSubWindow *subWindow : windows) {
         if (!subWindow || subWindow == active) continue;
-
-        // Ако вече е унищожен по време на предишни сигнали
         QPointer<QMdiSubWindow> guard(subWindow);
-        // Затваряне
         subWindow->close();
-        // Ако close() е предизвикал deleteLater()
-        // обработваме всички pending събития/сигнали
-        while (guard)
-        {
+        while (guard) {
             QCoreApplication::processEvents(QEventLoop::AllEvents);
-            // ако прозорецът още съществува, но е скрит,
-            // приемаме че затварянето е приключило
-            if (guard && !guard->isVisible())
-                break;
+            if (guard && !guard->isVisible()) break;
         }
     }
+    BibleWindow *ab = activeBible();
+    if(!ab) return;
+    ab->notOnScroll = true;
+    tileOrCascade();
+    QTimer::singleShot(0, [ab]() { if(ab) ab->notOnScroll = false; } );
 }
-
-/*void BMainWindow::onWindowsCloseOthers(){
-   QMdiSubWindow *cw = mdiArea->activeSubWindow();
-   while(mdiArea->subWindowList().size()>1){
-      mdiArea->activateNextSubWindow();
-      if (mdiArea->activeSubWindow()!=cw) mdiArea->closeActiveSubWindow();
-   }
-//   QTimer::singleShot(0, [this]() { this->tileOrCascade(); } );
-};*/
 
 void BMainWindow::onWindowsCloseActive(){
     mdiArea->closeActiveSubWindow();
@@ -867,6 +858,7 @@ BibleWindow *BMainWindow::openBible(const QString &bv){
    bw->freshTextAndVerse();
    bw->show();
    bw->resize(600,400);
+   bw->thereIsNewerToDownload();
    return bw;
 };
 
@@ -1050,18 +1042,18 @@ void BMainWindow::setNumberComboBox(QComboBox *cb, int max, int curr){
 void BMainWindow::tileOrCascade(){
     if (activeBibleMaximized){
         QMdiSubWindow *aw = mdiArea->activeSubWindow();
-         if (aw){
-             aw->setWindowState(Qt::WindowMaximized | Qt::WindowActive);
-             aw->show();
-         }
-         return;
-     }
-     if (doTile){
-         mdiArea->tileSubWindows();
-     }
-     else
-         mdiArea->cascadeSubWindows();
-     emit scrollToActiveVerse();
+        if (aw){
+            aw->setWindowState(Qt::WindowMaximized | Qt::WindowActive);
+            aw->show();
+        }
+        return;
+    }
+    if (doTile){
+        mdiArea->tileSubWindows();
+    }
+    else
+        mdiArea->cascadeSubWindows();
+    emit scrollToActiveVerse();
  };
 
 // Прави активни бутоните за навигация "Напред" и "Назад"
@@ -1217,6 +1209,97 @@ QString prog_Version(){
 }
 
 #ifdef ADMIN_BUILD
+
+using Chapter = QHash <int,QString>;
+using Book = QHash <int,Chapter>;
+using Bible = QHash <int,Book>;
+Chapter bb_chapter;
+Book bb_book;
+Bible bb_bible;
+QHash <int,QString> bb_title;
+QHash <int,QString> bb_ftitle;
+QHash <int,QString> bb_mtitle;
+QHash <int,QString> bb_stitle;
+QHash <int,QString> bb_atitle;
+int bb_b_index = 0;
+int bb_c_index = 1;
+int bb_v_indes = 0;
+QString bb_b_ftitle;
+QString bb_b_description;
+
+
+void traverseNode(const QDomNode &node, int level = 0)
+{
+    QDomNode child = node.firstChild();
+    while (!child.isNull()) {
+        if (child.isElement()) {
+            QDomElement e = child.toElement();
+            QDomNamedNodeMap attrs = e.attributes();
+            for (int i = 0; i < attrs.count(); ++i) {
+                QDomAttr a = attrs.item(i).toAttr();
+                if(e.nodeName()=="book") {}
+                else if(e.nodeName()=="para") {
+                    if (a.name()=="style"){
+                             if(a.value()=="rem") {}
+                        else if(a.value()=="h")    { bb_title[bb_b_index] = e.text(); }
+                        else if(a.value()=="toc1") {}
+                        else if(a.value()=="toc2") { bb_mtitle[bb_b_index] = e.text(); }
+                        else if(a.value()=="toc3") { bb_stitle[bb_b_index] = e.text(); }
+                        else if(a.value()=="mt1")  { bb_b_ftitle += e.text(); }
+                        else if(a.value()=="mt2")  {
+                            bb_b_ftitle += " " + e.text();
+                            bb_ftitle[bb_b_index] = bb_b_ftitle;
+                            bb_b_ftitle = "";
+                        }
+                        else if(a.value()=="mt3") { bb_b_ftitle += " " + e.text(); }
+                        else if(a.value()=="ip") { bb_b_description += " " + e.text(); }
+                        else if(a.value()=="ie") {}
+                        else {
+                            qDebug() << "Unknoun attribute style value: " << e.nodeName() << a.value();
+                            return;
+                        }
+                    }
+                    else {
+                        qDebug() << "Unknoun attribute name: " << e.tagName() << a.name();
+                        return;
+                    }
+                }
+                else if(e.nodeName()=="char") {
+                    if(a.name()=="style"){
+                        if((a.value()=="bk") || (a.value()=="k")){
+                            QString t = e.text();
+                            bb_b_description.replace(t,"<i>"+t+"</i>");
+                        }
+                        else {
+                            qDebug() << "Unknoun attribute style value: " << e.nodeName() << a.value();
+                            return;
+                        }
+                    }
+                    else {
+                        qDebug() << "Unknoun attribute name: " << e.tagName() << a.name();
+                        return;
+                    }
+                }
+                else if(e.nodeName()=="chapter") {
+                         if(a.name()=="number"){ bb_c_index = a.value().toInt(); }
+                    else if(a.name()=="style") { }
+                    else {
+                        qDebug() << "Unknoun attribute name: " << e.tagName() << a.name();
+                        return;
+                    }
+                }
+                else {
+                    qDebug() << "Unknoun node: " << e.nodeName();
+                    return;
+                }
+            }
+        }
+        traverseNode(child, level + 1);
+        child = child.nextSibling();
+    }
+}
+
+
 void BMainWindow::on_actionBuild_Bible_triggered()
 {
     BibleWindow *bw = activeBible();
@@ -1228,16 +1311,34 @@ void BMainWindow::on_actionBuild_Bible_triggered()
     if(spath.isEmpty()) spath = QDir::homePath();
     QString file = QFileDialog::getOpenFileName(
         this,
-        "Избери файл",
+        "Избиране на файл",
         spath,
         "TXT файлове (*.txt)"
         );
     if (!file.isEmpty()) {
         s.setValue(pname, file);
         QString fcontent = fileContent(file, "UTF-8");
-        QStringList fnames = fcontent.split(QRegularExpression("\\r?\\n"), Qt::SkipEmptyParts);
+        const QStringList fnames = fcontent.split(QRegularExpression("\\r?\\n"), Qt::SkipEmptyParts);
+        for(const QString &fn : fnames){
+            QString afn = QFileInfo(spath).absolutePath() + "/" + fn;
+            QFile file(afn);
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+                qDebug() << "File " + fn + " not opened.";
+                return;
+            }
+            QDomDocument doc;
+            if (!doc.setContent(&file)) {
+                qDebug() << "Not setContent to " + fn;
+                file.close();
+                return;
+            }
+            file.close();
+            QDomElement root = doc.documentElement();
+            traverseNode(root);
+            qDebug() << bb_bible;
+            break;
+        };
     }
 }
+
 #endif
-
-
